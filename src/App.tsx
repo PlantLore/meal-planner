@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import FoodCard from './components/FoodCard';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -18,9 +19,10 @@ function App() {
         >
           Learn React
         </a>
+        <FoodCard food="Goodbye"></FoodCard>
       </header>
     </div>
   );
-}
+};
 
 export default App;
