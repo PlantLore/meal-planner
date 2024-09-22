@@ -1,0 +1,26 @@
+.food-card {
+    width: 20rem;
+    height: 5rem;
+}
+
+.food-card-image-container {
+    float: left;
+    width: 5rem;
+    margin-right: .5rem;
+    border-right: solid orangered 1rem;
+}
+
+.food-card-details-container {
+    width: 15rem;
+}
+
+.food-image {
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50% 0 0 50%;
+}
+
+.food-fact-container {
+    color: gray;
+    font-size: .75rem;
+}
