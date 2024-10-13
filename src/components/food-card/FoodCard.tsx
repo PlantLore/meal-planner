@@ -7,10 +7,11 @@ import {
 
 const FoodCard = () => {
   return (
-    <Card className="food-card" sx={{ borderRadius: "10rem 0 0 10rem" }}>
+    <Card className="food-card" raised={false} sx={{ borderRadius: ".75rem" }}>
       <span className="food-card-image-container">
         <img className="food-image" src="https://i.imgur.com/8ewJgNK.png" />
       </span>
+      <div className="food-card-meal-indicator"></div>
       <span className="food-card-details-container">
         <p>Spaghetti</p>
         <span className="food-fact-container">

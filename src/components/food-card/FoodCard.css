@@ -7,7 +7,20 @@
     float: left;
     width: 5rem;
     margin-right: .5rem;
-    border-right: solid orangered 1rem;
+    border-right: solid lightgreen .25rem;
+    outline: solid lightblue 0 .5rem 0 0;
+}
+
+.food-card-meal-indicator {
+    width: .5 rem;
+    height: 100%;
+    background: repeating-linear-gradient(
+      45deg,
+    #606dbc,
+    #606dbc 10px,
+    #465298 10px,
+    #465298 20px
+);
 }
 
 .food-card-details-container {
@@ -17,7 +30,7 @@
 .food-image {
     height: 5rem;
     width: 5rem;
-    border-radius: 50% 0 0 50%;
+    /* border-radius: 5% 0 0 5%; */
 }
 
 .food-fact-container {
