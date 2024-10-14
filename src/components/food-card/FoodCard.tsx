@@ -9,11 +9,11 @@ const FoodCard = () => {
   return (
     <Card className="food-card" raised={false} sx={{ borderRadius: ".75rem" }}>
       <span className="food-card-image-container">
-        <img className="food-image" src="https://i.imgur.com/8ewJgNK.png" />
+        <img className="food-image" src="https://i.imgur.com/8ewJgNK.png" alt="Food" />
       </span>
-      <div className="food-card-meal-indicator"></div>
+      <span className="food-card-meal-indicator"></span>
       <span className="food-card-details-container">
-        <p>Spaghetti</p>
+        <div className="food-title">Spaghetti</div>
         <span className="food-fact-container">
           <LocalFireDepartmentOutlined></LocalFireDepartmentOutlined>: 600
         </span>
