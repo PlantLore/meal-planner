@@ -9,4 +9,5 @@ export class Food {
   calories: number = 0;
   foodTypes: FoodType[] = [];
   ingredient: Ingredient[] = [];
+  image: string = "";
 }

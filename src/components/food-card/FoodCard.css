@@ -9,15 +9,6 @@
     width: 5rem;
 }
 
-.food-card-meal-indicator {
-    width: .5rem;
-    background: repeating-linear-gradient(45deg,
-            lightgreen,
-            lightgreen 10px,
-            pink 10px,
-            pink 20px);
-}
-
 .food-card-details-container {
     width: 13.5rem;
     margin: .5rem;
@@ -33,15 +24,52 @@
     margin-top: .25rem;
     margin-left: .25rem;
     overflow: hidden;
+    font-weight: 500;
     text-overflow: ellipsis;
     text-wrap: nowrap;
     width: 100%
 }
 
-.food-fact-container {
-    color: gray;
-    font-size: .75rem;
-    padding-right: 1rem;
-    align-items: center;
-    display: inline-flex;
+.food-card-indicator {
+    width: .5rem;
+}
+
+.food-card-dinner {
+    background: lightgreen
+}
+
+.food-card-dinner-side {
+    background: repeating-linear-gradient(45deg,
+            lightgreen,
+            lightgreen 10px,
+            pink 10px,
+            pink 20px);
+}
+
+.food-card-lunch {
+    background: lightblue
+}
+
+.food-card-lunch-side {
+    background: repeating-linear-gradient(45deg,
+            lightblue,
+            lightblue 10px,
+            pink 10px,
+            pink 20px);
+}
+
+.food-card-breakfast {
+    background: lightgoldenrodyellow
+}
+
+.food-card-breakfast-side {
+    background: repeating-linear-gradient(45deg,
+            lightgoldenrodyellow,
+            lightgoldenrodyellow 10px,
+            pink 10px,
+            pink 20px);
+}
+
+.food-card-snack {
+    background: lightcoral
 }
