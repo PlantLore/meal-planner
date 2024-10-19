@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import FoodCard from './components/FoodCard';
+import "./App.css";
+import FoodCard from "./components/food-card/FoodCard";
+import { Food } from "./models/Food";
+import { FoodType } from "./models/FoodType";
 
 const App = () => {
+  const foods: Food[] = [
+    {
+      id: 0,
+      title: "Spaghetti",
+      recipie: "",
+      servings: 4,
+      calories: 600,
+      foodTypes: [FoodType.DINNER],
+      ingredient: [],
+      image: "https://i.imgur.com/8ewJgNK.png",
+    },
+  ];
+
+  const generateFoodCard = (food: Food) => {
+    return (
+      <div style={{ margin: "1rem" }}>
+        <FoodCard food={food} />
+      </div>
+    );
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <FoodCard food="Goodbye"></FoodCard>
-      </header>
+    <div>
+      {foods.map((food: Food) => {
+        return generateFoodCard(food);
+      })}
     </div>
   );
 };
