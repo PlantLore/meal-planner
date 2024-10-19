@@ -4,12 +4,17 @@ import {
   FastfoodOutlined,
   LocalFireDepartmentOutlined,
 } from "@mui/icons-material";
+import { Food } from "../../models/Food";
 
-const FoodCard = () => {
+const FoodCard = ({ food }: { food: Food }) => {
   return (
     <Card className="food-card" raised={false} sx={{ borderRadius: ".75rem" }}>
       <span className="food-card-image-container">
-        <img className="food-image" src="https://i.imgur.com/8ewJgNK.png" alt="Food" />
+        <img
+          className="food-image"
+          src="https://i.imgur.com/8ewJgNK.png"
+          alt="Food"
+        />
       </span>
       <span className="food-card-meal-indicator"></span>
       <span className="food-card-details-container">
