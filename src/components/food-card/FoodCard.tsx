@@ -26,6 +26,9 @@ const FoodCard = ({ food }: { food: Food }) => {
         return "food-card-breakfast-side";
       return "food-card-breakfast";
     }
+    if (food.foodTypes.includes(FoodType.SWEET_TREAT)) {
+      return "food-card-sweet-treat";
+    }
     return "food-card-snack";
   };
 

@@ -70,6 +70,10 @@
             pink 20px);
 }
 
+.food-card-sweet-treat {
+    background: lightsalmon
+}
+
 .food-card-snack {
     background: lightcoral
 }
