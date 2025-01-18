@@ -10,7 +10,7 @@ import { Food } from "../../models/Food";
 import FoodFact from "./food-fact/FoodFact";
 import { FoodType } from "../../models/FoodType";
 
-const FoodCard = ({ food }: { food: Food }) => {
+const FoodCard = ({ food }: { food: Food; }) => {
   const getFoodTypeClass = (): string => {
     if (food.foodTypes.includes(FoodType.DINNER)) {
       if (food.foodTypes.includes(FoodType.SIDE))
@@ -31,11 +31,11 @@ const FoodCard = ({ food }: { food: Food }) => {
 
   return (
     <Card className="food-card" raised={false} sx={{ borderRadius: ".75rem" }}>
-      <span className="food-card-image-container">
+      <div className="food-card-image-container">
         <img className="food-image" src={food.image} alt="Food" />
-      </span>
-      <span className={`food-card-indicator ${getFoodTypeClass()}`}></span>
-      <span className="food-card-details-container">
+      </div>
+      <div className={`food-card-indicator ${getFoodTypeClass()}`}></div>
+      <div className="food-card-details-container">
         <div className="food-title">{food.title}</div>
         <FoodFact
           tooltip={"Calories"}
@@ -53,7 +53,7 @@ const FoodCard = ({ food }: { food: Food }) => {
         {food.foodTypes.includes(FoodType.VEGETABLE) ? (
           <FoodFact tooltip={"Vegetable"} icon={<FavoriteBorder />} />
         ) : null}
-      </span>
+      </div>
     </Card>
   );
 };
