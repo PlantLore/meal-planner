@@ -14,7 +14,7 @@ const App = () => {
       calories: 600,
       foodTypes: [FoodType.DINNER],
       ingredient: [],
-      image: "https://i.imgur.com/8ewJgNK.png",
+      image: "https://i.imgur.com/8ewJgNK.png"
     },
   ];
 
