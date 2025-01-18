@@ -8,7 +8,7 @@
 }
 
 .food-card-details-container {
-    height: 4rem;
+    height: 4.25rem;
     margin: .5rem;
 }
 
@@ -25,6 +25,7 @@
     margin-left: .25rem;
     overflow: hidden;
     font-weight: 500;
+    font-size: 1.25rem;
     text-overflow: ellipsis;
     text-wrap: nowrap;
     width: 100%
