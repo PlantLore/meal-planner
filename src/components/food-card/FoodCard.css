@@ -1,6 +1,5 @@
 .food-card {
     width: 15rem;
-    height: 14rem;
 }
 
 .food-card-image-container {
@@ -9,6 +8,7 @@
 }
 
 .food-card-details-container {
+    height: 4rem;
     margin: .5rem;
 }
 

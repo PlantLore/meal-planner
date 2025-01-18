@@ -31,9 +31,12 @@ const FoodCard = ({ food }: { food: Food; }) => {
 
   return (
     <Card className="food-card" raised={false} sx={{ borderRadius: ".75rem" }}>
-      <div className="food-card-image-container">
-        <img className="food-image" src={food.image} alt="Food" />
-      </div>
+      {
+        food.image &&
+        <div className="food-card-image-container">
+          <img className="food-image" src={food.image} alt="Food" />
+        </div>
+      }
       <div className={`food-card-indicator ${getFoodTypeClass()}`}></div>
       <div className="food-card-details-container">
         <div className="food-title">{food.title}</div>
