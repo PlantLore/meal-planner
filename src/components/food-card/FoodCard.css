@@ -1,22 +1,22 @@
 .food-card {
-    width: 20rem;
-    height: 5rem;
-    display: flex;
+    width: 15rem;
 }
 
 .food-card-image-container {
-    float: left;
-    width: 5rem;
+    height: 8.5rem;
+    width: 100%;
 }
 
 .food-card-details-container {
-    width: 13.5rem;
+    height: 4rem;
     margin: .5rem;
 }
 
 .food-image {
-    height: 5rem;
-    width: 5rem;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
 }
 
 .food-title {
@@ -31,7 +31,8 @@
 }
 
 .food-card-indicator {
-    width: .5rem;
+    width: 100%;
+    height: 0.5rem;
 }
 
 .food-card-dinner {
