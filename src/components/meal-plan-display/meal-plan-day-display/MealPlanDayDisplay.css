@@ -1,0 +1,9 @@
+.meal-plan-day-column {
+  margin-left: 2rem;
+}
+
+.meal-plan-day-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
