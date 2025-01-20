@@ -1,5 +1,5 @@
 import "./FoodCard.css";
-import { Card, Tooltip } from "@mui/material";
+import { Card } from "@mui/material";
 import {
   FastfoodOutlined,
   Favorite,
@@ -9,24 +9,25 @@ import {
 import { Food } from "../../models/Food";
 import FoodFact from "./food-fact/FoodFact";
 import { FoodType } from "../../models/FoodType";
+import { MealType } from "../../models/MealType";
 
-const FoodCard = ({ food }: { food: Food; }) => {
+const FoodCard = ({ food, mealType }: { food: Food, mealType: MealType; }) => {
   const getFoodTypeClass = (): string => {
-    if (food.foodTypes.includes(FoodType.DINNER)) {
+    if (mealType === MealType.DINNER) {
       if (food.foodTypes.includes(FoodType.SIDE))
         return "food-card-dinner-side";
       return "food-card-dinner";
     }
-    if (food.foodTypes.includes(FoodType.LUNCH)) {
+    if (mealType === MealType.LUNCH) {
       if (food.foodTypes.includes(FoodType.SIDE)) return "food-card-lunch-side";
       return "food-card-lunch";
     }
-    if (food.foodTypes.includes(FoodType.BREAKFAST)) {
+    if (mealType === MealType.BREAKFAST) {
       if (food.foodTypes.includes(FoodType.SIDE))
         return "food-card-breakfast-side";
       return "food-card-breakfast";
     }
-    if (food.foodTypes.includes(FoodType.SWEET_TREAT)) {
+    if (mealType === MealType.SWEET_TREAT) {
       return "food-card-sweet-treat";
     }
     return "food-card-snack";
@@ -42,7 +43,7 @@ const FoodCard = ({ food }: { food: Food; }) => {
       }
       <div className={`food-card-indicator ${getFoodTypeClass()}`}></div>
       <div className="food-card-details-container">
-        <div className="food-title">{food.title}</div>
+        <h3 className="food-title">{food.title}</h3>
         <FoodFact
           tooltip={"Calories"}
           icon={<LocalFireDepartmentOutlined />}

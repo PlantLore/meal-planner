@@ -15,7 +15,7 @@ const FoodFact = ({
     <Tooltip title={tooltip}>
       <span className="food-fact-container">
         {icon}
-        {value != undefined ? `: ${value}` : null}
+        {value !== undefined ? `: ${value}` : null}
       </span>
     </Tooltip>
   );
