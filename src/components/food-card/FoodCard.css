@@ -37,45 +37,45 @@
 }
 
 .food-card-dinner {
-    background: lightgreen
+    background: var(--dinner-color);
 }
 
 .food-card-dinner-side {
     background: repeating-linear-gradient(45deg,
-            lightgreen,
-            lightgreen 10px,
-            pink 10px,
-            pink 20px);
+            var(--dinner-color),
+            var(--dinner-color) 10px,
+            var(--side-color) 10px,
+            var(--side-color) 20px);
 }
 
 .food-card-lunch {
-    background: lightblue
+    background: var(--lunch-color);
 }
 
 .food-card-lunch-side {
     background: repeating-linear-gradient(45deg,
-            lightblue,
-            lightblue 10px,
-            pink 10px,
-            pink 20px);
+            var(--lunch-color),
+            var(--lunch-color) 10px,
+            var(--side-color) 10px,
+            var(--side-color) 20px);
 }
 
 .food-card-breakfast {
-    background: lightgoldenrodyellow
+    background: var(--breakfast-color);
 }
 
 .food-card-breakfast-side {
     background: repeating-linear-gradient(45deg,
-            lightgoldenrodyellow,
-            lightgoldenrodyellow 10px,
-            pink 10px,
-            pink 20px);
+            var(--breakfast-color),
+            var(--breakfast-color) 10px,
+            var(--side-color) 10px,
+            var(--side-color) 20px);
 }
 
 .food-card-sweet-treat {
-    background: lightsalmon
+    background: var(--sweet-treat-color);
 }
 
 .food-card-snack {
-    background: lightcoral
+    background: var(--snack-color);
 }

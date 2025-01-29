@@ -1,5 +1,6 @@
 import "./App.css";
 import MealPlanDisplay from "./components/meal-plan-display/MealPlanDisplay";
+import RecipieDisplay from "./components/recipie-display/RecipieDisplay";
 import { Food } from "./models/Food";
 import { FoodType } from "./models/FoodType";
 import { MealPlan } from "./models/MealPlan";
@@ -10,11 +11,30 @@ const App = () => {
     {
       id: 0,
       title: "Spaghetti",
-      recipie: "",
+      recipie: [],
       servings: 4,
       calories: 600,
-      foodTypes: [FoodType.DINNER],
-      ingredient: [],
+      foodTypes: [FoodType.DINNER, FoodType.BREAKFAST],
+      ingredient: [
+        {
+          id: 1,
+          name: 'Ground Italian Sausage',
+          quantity: 1,
+          unit: 'lb'
+        },
+        {
+          id: 2,
+          name: 'Spaghetti Noodles',
+          quantity: 1,
+          unit: 'package'
+        },
+        {
+          id: 3,
+          name: 'Marinara Sause',
+          quantity: 1,
+          unit: 'jar'
+        }
+      ],
       image: "https://i.imgur.com/8ewJgNK.png"
     },
   ];
@@ -270,6 +290,7 @@ const App = () => {
   return (
     <div>
       <div style={{ margin: "1rem" }}>
+        <RecipieDisplay food={foods[0]}></RecipieDisplay>
         <MealPlanDisplay mealPlan={mealPlan}></MealPlanDisplay>
       </div>
     </div>
