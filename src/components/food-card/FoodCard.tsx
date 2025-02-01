@@ -28,7 +28,7 @@ const FoodCard = ({ food, mealType }: { food: Food, mealType: MealType; }) => {
   };
 
   return (
-    <Card className="food-card" raised={false} sx={{ borderRadius: ".75rem" }}>
+    <Card className="food-card" raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
       {
         food.image &&
         <div className="food-card-image-container">

@@ -51,7 +51,7 @@ const App = () => {
       servings: 4,
       calories: 600,
       foodTypes: [FoodType.DINNER, FoodType.BREAKFAST, FoodType.FRUIT, FoodType.VEGETABLE],
-      ingredient: [
+      ingredients: [
         {
           id: 1,
           name: 'Ground Italian Sausage',

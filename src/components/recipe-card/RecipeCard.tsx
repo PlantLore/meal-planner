@@ -5,17 +5,17 @@ import FoodTypeChip from "./food-type-chip/FoodTypeChip";
 import FoodFactArray from "../food-card/food-fact-array/FoodFactArray";
 
 const RecipeCard = ({ food }: { food: Food; }) => {
-    return <Card className="recipe-card" raised={false} sx={{ borderRadius: ".75rem" }}>
+    return <Card className="recipe-card" raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         <div className="recipe-card-title-container">
-            <h3>{food.title}</h3>
+            <h2>{food.title}</h2>
             {food.foodTypes.map((foodType, index) => <FoodTypeChip key={index} foodType={foodType} />)}
         </div>
         {food.image && <img className="recipe-card-image" src={food.image} alt="completed recipe" />}
         <div className="recipe-card-info-container">
             <div className="recipe-card-ingredient-column">
                 <FoodFactArray food={food} />
-                <h3>Ingredients </h3>
-                {food.ingredient.map((ingredient, index) => <p key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</p>)}
+                <h3>Ingredients</h3>
+                {food.ingredients.map((ingredient, index) => <p className="ingredient-list-item" key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</p>)}
             </div>
             <Divider variant="middle" orientation="vertical" flexItem />
             <div className="recipe-card-directions-column">

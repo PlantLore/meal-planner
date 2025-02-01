@@ -2,6 +2,15 @@
     width: 50rem;
     max-width: 90vw;
     max-height: 90vh;
+    background-color: var(--paper-color);
+}
+
+.recipe-card-title-container {
+    margin: 0 0 1rem 1.5rem
+}
+
+.recipe-card-title-container>.MuiChip-root {
+    margin-right: .5rem;
 }
 
 .recipe-card-image {
@@ -15,9 +24,15 @@
 }
 
 .recipe-card-ingredient-column {
+    width: 30%;
+    padding: 1.25rem 1.5rem 0 1.5rem;
     text-align: center;
 }
 
 .no-bullets {
     list-style-type: none;
+}
+
+.ingredient-list-item {
+    margin: .5rem 0;
 }

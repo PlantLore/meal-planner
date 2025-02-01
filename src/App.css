@@ -1,10 +1,17 @@
 :root {
-    --dinner-color: lightgreen;
-    --lunch-color: lightblue;
-    --breakfast-color: lightgoldenrodyellow;
-    --side-color: pink;
-    --sweet-treat-color: lightsalmon;
-    --snack-color: lightcoral;
-    --fruit-color: red;
-    --vegetable-color: green;
+    --dinner-color: rgb(218, 231, 193);
+    --lunch-color: #C4DFE5;
+    --breakfast-color: rgb(252, 240, 182);
+    --side-color: rgb(255, 215, 160);
+    --sweet-treat-color: #FCDCE1;
+    --snack-color: #DDD5F3;
+    --fruit-color: #FFDAC7;
+    --vegetable-color: #CEE5D0;
+
+    --card-color: rgb(254, 250, 242);
+    --paper-color: rgb(244, 240, 232);
+}
+
+body {
+    font-family: sans-serif, serif;
 }

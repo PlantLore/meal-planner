@@ -9,6 +9,6 @@ export class Food {
   servings: number = 0;
   calories: number = 0;
   foodTypes: FoodType[] = [];
-  ingredient: Ingredient[] = [];
+  ingredients: Ingredient[] = [];
   image: string = "";
 }
