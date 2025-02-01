@@ -1,0 +1,23 @@
+.recipe-card {
+    width: 50rem;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.recipe-card-image {
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+}
+
+.recipe-card-info-container {
+    display: flex
+}
+
+.recipe-card-ingredient-column {
+    text-align: center;
+}
+
+.no-bullets {
+    list-style-type: none;
+}
