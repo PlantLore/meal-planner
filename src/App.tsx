@@ -1,6 +1,6 @@
 import "./App.css";
 import MealPlanDisplay from "./components/meal-plan-display/MealPlanDisplay";
-import RecipeCard from "./components/recipie-display/RecipeCard";
+import RecipeCard from "./components/recipe-card/RecipeCard";
 import { Food } from "./models/Food";
 import { FoodType } from "./models/FoodType";
 import { MealPlan } from "./models/MealPlan";
