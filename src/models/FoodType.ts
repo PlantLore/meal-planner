@@ -1,10 +1,10 @@
 export enum FoodType {
-  BREAKFAST,
-  LUNCH,
-  DINNER,
-  SIDE,
-  FRUIT,
-  VEGETABLE,
-  SNACK,
-  SWEET_TREAT,
+  BREAKFAST = 'Breakfast',
+  LUNCH = 'Lunch',
+  DINNER = 'Dinner',
+  SIDE = 'Side',
+  FRUIT = 'Fruit',
+  VEGETABLE = 'Vegetable',
+  SNACK = 'Snack',
+  SWEET_TREAT = 'Sweet Treat',
 }

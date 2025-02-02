@@ -18,7 +18,7 @@ const MealPlanDisplay = ({ mealPlan }: { mealPlan: MealPlan; }) => {
     return mealPlanDay.day < today;
   });
 
-  return <Card raised={false} sx={{ borderRadius: ".25rem" }}>
+  return <Card raised={false} sx={{ borderRadius: ".25rem", backgroundColor: "var(--paper-color)" }}>
     {currentMeals.map((mealPlanDay) =>
       <div className="meal-plan-day-display-container" key={mealPlanDay.id}>
         <h2 className="meal-plan-display-date-title">

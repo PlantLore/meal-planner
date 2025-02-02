@@ -1,5 +1,6 @@
 import "./App.css";
 import MealPlanDisplay from "./components/meal-plan-display/MealPlanDisplay";
+import RecipeCard from "./components/recipe-card/RecipeCard";
 import { Food } from "./models/Food";
 import { FoodType } from "./models/FoodType";
 import { MealPlan } from "./models/MealPlan";
@@ -10,11 +11,66 @@ const App = () => {
     {
       id: 0,
       title: "Spaghetti",
-      recipie: "",
+      recipe: [
+        {
+          id: 1,
+          ordinal: 1,
+          text: "Cook the pasta",
+          ingredients: [{
+            id: 2,
+            name: 'Spaghetti Noodles',
+            quantity: 1,
+            unit: 'package'
+          }]
+        },
+        {
+          id: 2,
+          ordinal: 2,
+          text: "Cook the meat in read sauce",
+          ingredients: [
+            {
+              id: 1,
+              name: 'Ground Italian Sausage',
+              quantity: 1,
+              unit: 'lb'
+            },
+            {
+              id: 3,
+              name: 'Marinara Sause',
+              quantity: 1,
+              unit: 'jar'
+            }
+          ]
+        },
+        {
+          id: 3,
+          ordinal: 3,
+          text: "Combine and serve!"
+        }
+      ],
       servings: 4,
       calories: 600,
-      foodTypes: [FoodType.DINNER],
-      ingredient: [],
+      foodTypes: [FoodType.DINNER, FoodType.BREAKFAST, FoodType.FRUIT, FoodType.VEGETABLE],
+      ingredients: [
+        {
+          id: 1,
+          name: 'Ground Italian Sausage',
+          quantity: 1,
+          unit: 'lb'
+        },
+        {
+          id: 2,
+          name: 'Spaghetti Noodles',
+          quantity: 1,
+          unit: 'package'
+        },
+        {
+          id: 3,
+          name: 'Marinara Sause',
+          quantity: 1,
+          unit: 'jar'
+        }
+      ],
       image: "https://i.imgur.com/8ewJgNK.png"
     },
   ];
@@ -36,13 +92,13 @@ const App = () => {
               {
                 ...foods[0],
                 id: 1,
-                foodTypes: [FoodType.BREAKFAST]
+                foodTypes: [FoodType.BREAKFAST, FoodType.FRUIT]
               },
               {
                 ...foods[0],
                 id: 2,
                 image: '',
-                foodTypes: [FoodType.BREAKFAST, FoodType.SIDE]
+                foodTypes: [FoodType.BREAKFAST, FoodType.SIDE, FoodType.VEGETABLE]
               }
             ]
           },
@@ -165,7 +221,8 @@ const App = () => {
                 ...foods[0],
                 id: 6,
                 image: '',
-                foodTypes: [FoodType.SNACK]
+                foodTypes: [FoodType.SNACK],
+                recipe: []
               }
             ]
           },
@@ -270,6 +327,7 @@ const App = () => {
   return (
     <div>
       <div style={{ margin: "1rem" }}>
+        <RecipeCard food={foods[0]}></RecipeCard>
         <MealPlanDisplay mealPlan={mealPlan}></MealPlanDisplay>
       </div>
     </div>

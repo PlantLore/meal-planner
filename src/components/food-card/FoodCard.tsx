@@ -1,17 +1,23 @@
+import * as React from 'react';
 import "./FoodCard.css";
-import { Card } from "@mui/material";
-import {
-  FastfoodOutlined,
-  Favorite,
-  FavoriteBorder,
-  LocalFireDepartmentOutlined,
-} from "@mui/icons-material";
+import { Card, Dialog } from "@mui/material";
 import { Food } from "../../models/Food";
-import FoodFact from "./food-fact/FoodFact";
 import { FoodType } from "../../models/FoodType";
 import { MealType } from "../../models/MealType";
+import FoodFactArray from "./food-fact-array/FoodFactArray";
+import RecipeCard from '../recipe-card/RecipeCard';
 
 const FoodCard = ({ food, mealType }: { food: Food, mealType: MealType; }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = (): void => {
+    setOpen(true);
+  };
+
+  const handleClose = (): void => {
+    setOpen(false);
+  };
+
   const getFoodTypeClass = (): string => {
     if (mealType === MealType.DINNER) {
       if (food.foodTypes.includes(FoodType.SIDE))
@@ -34,34 +40,24 @@ const FoodCard = ({ food, mealType }: { food: Food, mealType: MealType; }) => {
   };
 
   return (
-    <Card className="food-card" raised={false} sx={{ borderRadius: ".75rem" }}>
-      {
-        food.image &&
-        <div className="food-card-image-container">
-          <img className="food-image" src={food.image} alt="Food" />
+    <>
+      <Card onClick={handleClickOpen} className="food-card" raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
+        {
+          food.image &&
+          <div className="food-card-image-container">
+            <img className="food-image" src={food.image} alt="Food" />
+          </div>
+        }
+        <div className={`food-card-indicator ${getFoodTypeClass()}`}></div>
+        <div className="food-card-details-container">
+          <h3 className="food-title">{food.title}</h3>
+          <FoodFactArray food={food} />
         </div>
-      }
-      <div className={`food-card-indicator ${getFoodTypeClass()}`}></div>
-      <div className="food-card-details-container">
-        <h3 className="food-title">{food.title}</h3>
-        <FoodFact
-          tooltip={"Calories"}
-          icon={<LocalFireDepartmentOutlined />}
-          value={food.calories}
-        />
-        <FoodFact
-          tooltip={"Servings"}
-          icon={<FastfoodOutlined />}
-          value={food.servings}
-        />
-        {food.foodTypes.includes(FoodType.FRUIT) ? (
-          <FoodFact tooltip={"Fruit"} icon={<Favorite />} />
-        ) : null}
-        {food.foodTypes.includes(FoodType.VEGETABLE) ? (
-          <FoodFact tooltip={"Vegetable"} icon={<FavoriteBorder />} />
-        ) : null}
-      </div>
-    </Card>
+      </Card>
+      <Dialog onClose={handleClose} open={open} PaperProps={{ sx: { maxWidth: '100%', maxHeight: '100%', borderRadius: ".75rem" } }}>
+        <RecipeCard food={food} handleClose={handleClose} />
+      </Dialog>
+    </>
   );
 };
 
