@@ -5,6 +5,13 @@
     background-color: var(--paper-color);
 }
 
+.recipe-card-small {
+    width: 20rem;
+    max-width: 90vw;
+    max-height: 90vh;
+    background-color: var(--paper-color);
+}
+
 .recipe-card-title-container {
     margin: 0 0 1rem 1.5rem;
 }
@@ -32,9 +39,14 @@
 }
 
 .recipe-card-ingredient-column {
-    width: 30%;
+    flex: 3;
+    /* width: 30%; */
     padding: 1.25rem 1.5rem 0 1.5rem;
     text-align: center;
+}
+
+.recipe-card-directions-column {
+    flex: 7;
 }
 
 .no-bullets {

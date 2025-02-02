@@ -6,7 +6,7 @@ import FoodTypeChip from "./food-type-chip/FoodTypeChip";
 import FoodFactArray from "../food-card/food-fact-array/FoodFactArray";
 
 const RecipeCard = ({ food, handleClose }: { food: Food; handleClose?: () => void; }) => {
-    return <Card className="recipe-card" raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
+    return <Card className={((): string => food.recipe.length ? "recipe-card" : "recipe-card-small")()} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         <div className={((): string => food.image ? "recipe-card-title-container" : "recipe-card-title-container-no-image")()}>
             <h2>{food.title}</h2>
             {food.foodTypes.map((foodType, index) => <FoodTypeChip key={index} foodType={foodType} />)}
@@ -37,18 +37,25 @@ const RecipeCard = ({ food, handleClose }: { food: Food; handleClose?: () => voi
                 <h3>Ingredients</h3>
                 {food.ingredients.map((ingredient, index) => <p className="ingredient-list-item" key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</p>)}
             </div>
-            <Divider variant="middle" orientation="vertical" flexItem />
-            <div className="recipe-card-directions-column">
-                <ul className="no-bullets"><li><h3>Directions</h3></li></ul>
-                <ol>
-                    {food.recipe.map((step, index) => <li key={index}>
-                        {step.text}
-                        <ul>
-                            {step.ingredients?.map((ingredient, index) => <li key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</li>)}
-                        </ul>
-                    </li>)}
-                </ol>
-            </div>
+            {
+                food.recipe.length ?
+                    <>
+                        <Divider variant="middle" orientation="vertical" flexItem />
+                        <div className="recipe-card-directions-column">
+                            <ul className="no-bullets"><li><h3>Directions</h3></li></ul>
+                            <ol>
+                                {food.recipe.map((step, index) => <li key={index}>
+                                    {step.text}
+                                    <ul>
+                                        {step.ingredients?.map((ingredient, index) => <li key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</li>)}
+                                    </ul>
+                                </li>)}
+                            </ol>
+                        </div>
+                    </> :
+                    <></>
+            }
+
         </div>
     </Card>;
 };

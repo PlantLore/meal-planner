@@ -221,7 +221,8 @@ const App = () => {
                 ...foods[0],
                 id: 6,
                 image: '',
-                foodTypes: [FoodType.SNACK]
+                foodTypes: [FoodType.SNACK],
+                recipe: []
               }
             ]
           },
