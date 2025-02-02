@@ -1,5 +1,6 @@
 .food-card {
     width: 15rem;
+    cursor: pointer;
 }
 
 .food-card-image-container {

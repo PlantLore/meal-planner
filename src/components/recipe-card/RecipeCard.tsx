@@ -1,16 +1,36 @@
-import { Card, Divider } from "@mui/material";
+import { Card, Divider, IconButton } from "@mui/material";
 import { Food } from "../../models/Food";
 import "./RecipeCard.css";
+import CloseIcon from '@mui/icons-material/Close';
 import FoodTypeChip from "./food-type-chip/FoodTypeChip";
 import FoodFactArray from "../food-card/food-fact-array/FoodFactArray";
 
-const RecipeCard = ({ food }: { food: Food; }) => {
+const RecipeCard = ({ food, handleClose }: { food: Food; handleClose?: () => void; }) => {
     return <Card className="recipe-card" raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
-        <div className="recipe-card-title-container">
+        <div className={((): string => food.image ? "recipe-card-title-container" : "recipe-card-title-container-no-image")()}>
             <h2>{food.title}</h2>
             {food.foodTypes.map((foodType, index) => <FoodTypeChip key={index} foodType={foodType} />)}
         </div>
-        {food.image && <img className="recipe-card-image" src={food.image} alt="completed recipe" />}
+        {
+            handleClose ?
+                <IconButton
+                    aria-label="close"
+                    onClick={handleClose}
+                    sx={(theme) => ({
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: theme.palette.grey[500],
+                    })}
+                >
+                    <CloseIcon />
+                </IconButton> :
+                <></>
+        }
+        {food.image ?
+            <img className="recipe-card-image" src={food.image} alt="completed recipe" /> :
+            <Divider variant="middle" />
+        }
         <div className="recipe-card-info-container">
             <div className="recipe-card-ingredient-column">
                 <FoodFactArray food={food} />
