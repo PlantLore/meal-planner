@@ -1,5 +1,6 @@
 .food-card {
-    width: 15rem;
+    min-width: 15rem;
+    max-width: 25rem;
     cursor: pointer;
 }
 
