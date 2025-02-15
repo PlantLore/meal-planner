@@ -73,8 +73,8 @@ export const mockFoods: Food[] = [
 
 export const mockMealPlan: MealPlan = {
     id: 1,
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+    endDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
     mealPlanDays: [
         {
             id: 1,

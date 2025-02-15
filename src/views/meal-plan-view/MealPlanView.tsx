@@ -1,4 +1,4 @@
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Skeleton } from "@mui/material";
 import MealPlanDisplay from "../../components/meal-plan-display/MealPlanDisplay";
 import { MealPlan } from "../../models/MealPlan";
 import { getMealPlan } from "../../services/mealPlanService";
@@ -20,7 +20,8 @@ const MealPlanView = () => {
         <NavBar />
         <div className="max-page-content">
             <h1 className="meal-plan-view-title">Meal Plan</h1>
-            <h1 className="meal-plan-view-title">{mealPlan?.startDate.toLocaleDateString()} - {mealPlan?.endDate.toLocaleDateString()}</h1>
+            {mealPlan ? <h1 className="meal-plan-view-title">{mealPlan?.startDate.toLocaleDateString()} - {mealPlan?.endDate.toLocaleDateString()}</h1> :
+                <div style={{ display: 'flex', justifyContent: 'center' }}><Skeleton variant="text" sx={{ fontSize: '3em', width: '20rem', }} /></div>}
             <div className="meal-plan-view-display-container">
                 {mealPlan ? <MealPlanDisplay mealPlan={mealPlan} /> : <CircularProgress color="success" />}
             </div>
