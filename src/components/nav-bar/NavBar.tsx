@@ -1,7 +1,8 @@
-import { Card, Divider, MenuItem, MenuList } from '@mui/material';
+import { Card, Divider, IconButton, MenuItem, MenuList } from '@mui/material';
 import NavBarButton from './nav-bar-button/NavBarButton';
 import './NavBar.css';
 import React from 'react';
+import { AccountCircle, Search } from '@mui/icons-material';
 
 type NavButton = {
     title: string,
@@ -38,7 +39,13 @@ const NavBar = () => {
     return <div className='nav-bar-container'>
         <div className='max-page-content'>
             <div className='nav-bar-title-container'>
+                <span className='flex-filler'>
+                    <IconButton><Search /></IconButton>
+                </span>
                 <h1 className='nav-bar-app-title'>Plan & Plate</h1>
+                <span className='flex-filler flex-align-right'>
+                    <IconButton><AccountCircle /></IconButton>
+                </span>
             </div>
             <div className='nav-button-list-container'>
                 {navButtons.map((navButton: NavButton, index: number) =>

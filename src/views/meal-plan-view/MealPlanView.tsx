@@ -20,6 +20,7 @@ const MealPlanView = () => {
         <NavBar />
         <div className="max-page-content">
             <h1 className="meal-plan-view-title">Meal Plan</h1>
+            <h1 className="meal-plan-view-title">{mealPlan?.startDate.toLocaleDateString()} - {mealPlan?.endDate.toLocaleDateString()}</h1>
             <div className="meal-plan-view-display-container">
                 {mealPlan ? <MealPlanDisplay mealPlan={mealPlan} /> : <CircularProgress color="success" />}
             </div>
