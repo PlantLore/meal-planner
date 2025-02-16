@@ -14,4 +14,11 @@
 
 body {
     font-family: sans-serif, serif;
+    background-color: var(--paper-color);
+}
+
+.max-page-content {
+    max-width: 90rem;
+    padding: 0 2.5rem;
+    margin: 0 auto;
 }
