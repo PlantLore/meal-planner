@@ -42,7 +42,7 @@ const NavBar = () => {
                 <span className='flex-filler'>
                     <IconButton><Search /></IconButton>
                 </span>
-                <h1 className='nav-bar-app-title'>Plan & Plate</h1>
+                <h1 className='nav-bar-app-title'>Pick a Plate</h1>
                 <span className='flex-filler flex-align-right'>
                     <IconButton><AccountCircle /></IconButton>
                 </span>
