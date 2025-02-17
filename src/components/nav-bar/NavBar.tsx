@@ -3,34 +3,62 @@ import NavBarButton from './nav-bar-button/NavBarButton';
 import './NavBar.css';
 import React from 'react';
 import { AccountCircle, Search } from '@mui/icons-material';
+import { useNavigate } from 'react-router';
 
 type NavButton = {
     title: string,
-    subMenu?: string[];
+    route: string,
+    subMenu?: { title: string, route: string; }[];
 };
 
 const NavBar = () => {
+    const navigate = useNavigate();
+
     const navButtons: NavButton[] = [
         {
             title: "Meal Plans",
+            route: "",
             subMenu: [
-                "Current",
-                "View All",
-                "Create"
+                {
+                    title: "Current",
+                    route: ""
+                },
+                {
+                    title: "View All",
+                    route: ""
+                },
+                {
+                    title: "Create",
+                    route: ""
+                }
             ]
         },
         {
             title: "Recipes",
+            route: "/recipe",
             subMenu: [
-                "View All",
-                "Create"
+                {
+                    title: "View All",
+                    route: "/recipes"
+                },
+                {
+                    title: "Create",
+                    route: ""
+                }
             ]
         },
         {
             title: "Grocery Lists",
+            route: "",
             subMenu: [
-                "Current",
-                "View All"
+                {
+                    title: "Current",
+                    route: ""
+                },
+                {
+                    title: "View All",
+                    route: ""
+                }
             ]
         }
     ];
@@ -54,7 +82,10 @@ const NavBar = () => {
                         key={index}
                         onMouseEnter={() => { setMenuIndex(index); }}
                         onMouseLeave={() => { setMenuIndex(-1); }}>
-                        <NavBarButton text={navButton.title} />
+                        <span onClick={() => { navigate(navButton.route); }}>
+
+                            <NavBarButton text={navButton.title} />
+                        </span>
                         {navButton.subMenu?.length && <Card sx={{
                             backgroundColor: 'var(--card-color)',
                             position: 'fixed',
@@ -63,7 +94,11 @@ const NavBar = () => {
                             transition: 'opacity .5s'
                         }}>
                             <MenuList>
-                                {navButton.subMenu.map((text: string, index: number) => <MenuItem key={index}>{text}</MenuItem>)}
+                                {navButton.subMenu.map(
+                                    (button: { title: string, route: string; }, index: number) =>
+                                        <MenuItem key={index} onClick={() => { navigate(button.route); }}>
+                                            {button.title}
+                                        </MenuItem>)}
                             </MenuList>
                         </Card>}
                     </span>)}
