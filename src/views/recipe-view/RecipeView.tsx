@@ -1,13 +1,27 @@
+import { useParams } from 'react-router';
 import RecipeDisplay from '../../components/recipe-display/RecipeDisplay';
-import { mockFoods } from '../../services/mockData';
 import './RecipeView.css';
+import React from 'react';
+import { Food } from '../../models/Food';
+import { getFoodById } from '../../services/foodService';
 
 const RecipeView = () => {
-    const food = mockFoods[0];
+    const [food, setFood] = React.useState<Food>();
+    let { foodId } = useParams();
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            foodId ?
+                setFood(getFoodById(+foodId)) :
+                setFood(getFoodById(1));
+        }, 250);
+    }, [foodId]);
 
     return <div className='max-page-content recipe-display-container'>
-        {/* <h1 className="recipe-view-title">Recipe</h1> */}
-        <RecipeDisplay food={food}></RecipeDisplay>
+        {food ?
+            <RecipeDisplay food={food} /> :
+            <></>
+        }
     </div>;
 };
 

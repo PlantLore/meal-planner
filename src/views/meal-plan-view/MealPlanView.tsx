@@ -11,9 +11,8 @@ const MealPlanView = () => {
 
     React.useEffect(() => {
         setTimeout(() => {
-
             setMealPlan(getMealPlan());
-        }, 2000);
+        }, 250);
     }, []);
 
     return <div className="meal-plan-view-container">

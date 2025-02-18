@@ -2,6 +2,10 @@
     width: 100%;
 }
 
+.recipe-display-small {
+    width: 40%;
+}
+
 .recipe-display-title-container {
     margin: 0 0 1rem 1.5rem;
 }
@@ -21,6 +25,14 @@
 .recipe-display-image {
     width: calc(100% - 1.5rem);
     height: 20rem;
+    object-fit: cover;
+    border-radius: .75rem;
+    margin: .75rem;
+}
+
+.recipe-display-image-small {
+    width: calc(100% - 1.5rem);
+    height: 12rem;
     object-fit: cover;
     border-radius: .75rem;
     margin: .75rem;

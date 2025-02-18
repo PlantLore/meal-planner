@@ -4,31 +4,43 @@ import "./RecipeCard.css";
 import CloseIcon from '@mui/icons-material/Close';
 import FoodTypeChip from "./food-type-chip/FoodTypeChip";
 import FoodFactArray from "../food-card/food-fact-array/FoodFactArray";
+import { OpenInFull } from "@mui/icons-material";
+import { Link } from "react-router";
 
 const RecipeCard = ({ food, handleClose }: { food: Food; handleClose?: () => void; }) => {
     return <Card className={((): string => food.recipe.length ? "recipe-card" : "recipe-card-small")()} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
-        <div className={((): string => food.image ? "recipe-card-title-container" : "recipe-card-title-container-no-image")()}>
-            <h2>{food.title}</h2>
-            {food.foodTypes.map((foodType, index) => <FoodTypeChip key={index} foodType={foodType} />)}
+        <div className="recipe-card-header-container">
+            <div className={((): string => food.image ? "recipe-card-title-container" : "recipe-card-title-container-no-image")()}>
+                <h2>{food.title}</h2>
+                {food.foodTypes.map((foodType, index) => <FoodTypeChip key={index} foodType={foodType} />)}
+            </div>
+            <div className="recipe-card-action-button-container">
+                <Link to={`recipe/${food.id}`} className='no-link-style'>
+                    <IconButton
+                        sx={(theme) => ({
+                            color: theme.palette.grey[500],
+                        })}
+                    >
+                        <OpenInFull />
+                    </IconButton>
+                </Link>
+                {
+                    handleClose ?
+                        <IconButton
+                            aria-label="close"
+                            onClick={handleClose}
+                            sx={(theme) => ({
+                                color: theme.palette.grey[500],
+                            })}
+                        >
+                            <CloseIcon />
+                        </IconButton> :
+                        <></>
+                }
+            </div>
         </div>
-        {
-            handleClose ?
-                <IconButton
-                    aria-label="close"
-                    onClick={handleClose}
-                    sx={(theme) => ({
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: theme.palette.grey[500],
-                    })}
-                >
-                    <CloseIcon />
-                </IconButton> :
-                <></>
-        }
         {food.image ?
-            <img className="recipe-card-image" src={food.image} alt="completed recipe" /> :
+            <img className={((): string => food.recipe.length ? "recipe-card-image" : "recipe-card-image-small")()} src={food.image} alt="completed recipe" /> :
             <Divider variant="middle" />
         }
         <div className="recipe-card-info-container">

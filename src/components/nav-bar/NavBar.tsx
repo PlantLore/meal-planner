@@ -3,7 +3,7 @@ import NavBarButton from './nav-bar-button/NavBarButton';
 import './NavBar.css';
 import React from 'react';
 import { AccountCircle, Search } from '@mui/icons-material';
-import { useNavigate } from 'react-router';
+import { Link } from 'react-router';
 
 type NavButton = {
     title: string,
@@ -12,8 +12,6 @@ type NavButton = {
 };
 
 const NavBar = () => {
-    const navigate = useNavigate();
-
     const navButtons: NavButton[] = [
         {
             title: "Meal Plans",
@@ -35,7 +33,7 @@ const NavBar = () => {
         },
         {
             title: "Recipes",
-            route: "/recipe",
+            route: "/recipes",
             subMenu: [
                 {
                     title: "View All",
@@ -82,10 +80,9 @@ const NavBar = () => {
                         key={index}
                         onMouseEnter={() => { setMenuIndex(index); }}
                         onMouseLeave={() => { setMenuIndex(-1); }}>
-                        <span onClick={() => { navigate(navButton.route); }}>
-
+                        <Link to={navButton.route} className='no-link-style'>
                             <NavBarButton text={navButton.title} />
-                        </span>
+                        </Link>
                         {navButton.subMenu?.length && <Card sx={{
                             backgroundColor: 'var(--card-color)',
                             position: 'fixed',
@@ -96,9 +93,11 @@ const NavBar = () => {
                             <MenuList>
                                 {navButton.subMenu.map(
                                     (button: { title: string, route: string; }, index: number) =>
-                                        <MenuItem key={index} onClick={() => { navigate(button.route); }}>
-                                            {button.title}
-                                        </MenuItem>)}
+                                        <Link key={index} to={button.route} className='no-link-style'>
+                                            <MenuItem>
+                                                {button.title}
+                                            </MenuItem>
+                                        </Link>)}
                             </MenuList>
                         </Card>}
                     </span>)}

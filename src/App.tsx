@@ -11,7 +11,7 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<MealPlanView />} />
-        <Route path="/recipe" element={<RecipeView />} />
+        <Route path="/recipe/:foodId" element={<RecipeView />} />
         <Route path="/recipes" element={<RecipeListView />} />
       </Routes>
     </div>
