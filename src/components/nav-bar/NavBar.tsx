@@ -68,7 +68,9 @@ const NavBar = () => {
                 <span className='flex-filler'>
                     <IconButton><Search /></IconButton>
                 </span>
-                <h1 className='nav-bar-app-title'>Pick a Plate</h1>
+                <Link to='/' className='no-link-style nav-bar-app-title'>
+                    <h1 className='nav-bar-app-title'>Whisker & Whisk</h1>
+                </Link>
                 <span className='flex-filler flex-align-right'>
                     <IconButton><AccountCircle /></IconButton>
                 </span>

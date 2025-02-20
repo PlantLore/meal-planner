@@ -1,0 +1,12 @@
+.recipe-list-display-filter-container {
+    margin-bottom: 1.5rem;
+}
+
+.recipe-list-display-food-card-container {
+    width: 100%;
+    margin-bottom: .75rem;
+}
+
+masonry-container-tag {
+    gap: 2rem !important;
+}

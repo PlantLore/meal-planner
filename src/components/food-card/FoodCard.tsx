@@ -7,7 +7,7 @@ import { MealType } from "../../models/MealType";
 import FoodFactArray from "./food-fact-array/FoodFactArray";
 import RecipeCard from '../recipe-card/RecipeCard';
 
-const FoodCard = ({ food, mealType }: { food: Food, mealType: MealType; }) => {
+const FoodCard = ({ food, mealType }: { food: Food, mealType?: MealType; }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = (): void => {
@@ -48,7 +48,7 @@ const FoodCard = ({ food, mealType }: { food: Food, mealType: MealType; }) => {
             <img className="food-image" src={food.image} alt="Food" />
           </div>
         }
-        <div className={`food-card-indicator ${getFoodTypeClass()}`}></div>
+        {mealType ? <div className={`food-card-indicator ${getFoodTypeClass()}`}></div> : <></>}
         <div className="food-card-details-container">
           <h3 className="food-title">{food.title}</h3>
           <FoodFactArray food={food} />

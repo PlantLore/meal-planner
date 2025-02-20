@@ -3,6 +3,14 @@ import { Meal } from "../models/Meal";
 import { MealPlanDay } from "../models/MealPlanDay";
 import { mockFoods, mockMealPlan } from "./mockData";
 
+export const getAllFoods = (): Food[] => {
+    return mockMealPlan.mealPlanDays
+        .map((mealPlanDay: MealPlanDay) => mealPlanDay.meals)
+        .flat()
+        .map((meal: Meal) => meal.foods)
+        .flat();
+};
+
 export const getFoodById = (id: number): Food => {
     const food = mockMealPlan.mealPlanDays
         .map((mealPlanDay: MealPlanDay) => mealPlanDay.meals)

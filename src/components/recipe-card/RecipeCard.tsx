@@ -15,7 +15,7 @@ const RecipeCard = ({ food, handleClose }: { food: Food; handleClose?: () => voi
                 {food.foodTypes.map((foodType, index) => <FoodTypeChip key={index} foodType={foodType} />)}
             </div>
             <div className="recipe-card-action-button-container">
-                <Link to={`recipe/${food.id}`} className='no-link-style'>
+                <Link to={`/recipe/${food.id}`} className='no-link-style'>
                     <IconButton
                         sx={(theme) => ({
                             color: theme.palette.grey[500],
