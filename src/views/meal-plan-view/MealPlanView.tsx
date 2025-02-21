@@ -3,26 +3,23 @@ import MealPlanDisplay from "../../components/meal-plan-display/MealPlanDisplay"
 import { MealPlan } from "../../models/MealPlan";
 import { getMealPlan } from "../../services/mealPlanService";
 import "./MealPlanView.css";
-import * as React from 'react';
-import NavBar from "../../components/nav-bar/NavBar";
 import MealPlanDisplaySkeleton from "../../components/meal-plan-display/MealPlanDisplaySkeleton";
+import { useEffect, useState } from "react";
 
 const MealPlanView = () => {
-    const [mealPlan, setMealPlan] = React.useState<MealPlan>();
+    const [mealPlan, setMealPlan] = useState<MealPlan>();
 
-    React.useEffect(() => {
+    useEffect(() => {
         setTimeout(() => {
-
             setMealPlan(getMealPlan());
-        }, 2000);
+        }, 250);
     }, []);
 
     return <div className="meal-plan-view-container">
-        <NavBar />
         <div className="max-page-content">
             <h1 className="meal-plan-view-title">Meal Plan</h1>
             {mealPlan ? <h1 className="meal-plan-view-title">{mealPlan?.startDate.toLocaleDateString()} - {mealPlan?.endDate.toLocaleDateString()}</h1> :
-                <div style={{ display: 'flex', justifyContent: 'center' }}><Skeleton variant="text" sx={{ fontSize: '3em', width: '20rem', }} /></div>}
+                <div style={{ display: 'flex', justifyContent: 'center' }}><Skeleton variant="text" sx={{ fontSize: '3em', width: '20rem' }} /></div>}
             <div className="meal-plan-view-display-container">
                 {mealPlan ? <MealPlanDisplay mealPlan={mealPlan} /> : <><MealPlanDisplaySkeleton /> <MealPlanDisplaySkeleton /></>}
             </div>

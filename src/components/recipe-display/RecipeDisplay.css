@@ -1,0 +1,62 @@
+.recipe-display {
+    width: 100%;
+}
+
+.recipe-display-small {
+    width: 40%;
+}
+
+.recipe-display-title-container {
+    margin: 0 0 1rem 1.5rem;
+}
+
+.recipe-display-title-container-no-image {
+    margin: 0 0 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.recipe-display-title-container>.MuiChip-root {
+    margin-right: .5rem;
+}
+
+.recipe-display-image {
+    width: calc(100% - 1.5rem);
+    height: 20rem;
+    object-fit: cover;
+    border-radius: .75rem;
+    margin: .75rem;
+}
+
+.recipe-display-image-small {
+    width: calc(100% - 1.5rem);
+    height: 12rem;
+    object-fit: cover;
+    border-radius: .75rem;
+    margin: .75rem;
+}
+
+.recipe-display-info-container {
+    display: flex
+}
+
+.recipe-display-ingredient-column {
+    flex: 3;
+    /* width: 30%; */
+    padding: 1.25rem 1.5rem 0 1.5rem;
+    text-align: center;
+}
+
+.recipe-display-directions-column {
+    flex: 7;
+}
+
+.no-bullets {
+    list-style-type: none;
+}
+
+.ingredient-list-item {
+    margin: .5rem 0;
+}

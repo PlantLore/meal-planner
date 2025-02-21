@@ -1,0 +1,11 @@
+.recipe-list-view-title {
+    text-align: center;
+}
+
+.recipe-list-view-filter-container {
+    margin-bottom: 1.5rem;
+}
+
+.recipe-list-view-food-type-selector-container {
+    padding-left: 1rem;
+}

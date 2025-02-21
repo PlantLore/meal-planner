@@ -1,0 +1,12 @@
+.food-type-chip-selector-container {
+    margin-right: .5rem;
+    cursor: pointer;
+}
+
+.food-type-unselected {
+    opacity: .50;
+}
+
+.food-type-chip-selector-clear-all {
+    cursor: pointer;
+}
