@@ -1,5 +1,5 @@
 import { Chip } from "@mui/material";
-import { FoodType } from "../../../models/FoodType";
+import { FoodType } from "../../models/FoodType";
 import "./FoodTypeChip.css";
 
 const FoodTypeChip = ({ foodType }: { foodType: FoodType; }) => {

@@ -1,13 +1,12 @@
-import { Card } from '@mui/material';
 import { Food } from '../../models/Food';
 import './RecipeListDisplay.css';
 import FoodCard from '../food-card/FoodCard';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import React from 'react';
+import { useMemo } from 'react';
 
 const RecipeListDisplay = ({ foods }: { foods: Food[]; }) => {
     const ROOT_FONT_SIZE: number = +window.getComputedStyle(document.body).getPropertyValue('font-size').substring(0, window.getComputedStyle(document.body).getPropertyValue('font-size').length - 2);
-    const breakpoints: { [key: number]: number; } = React.useMemo(() => {
+    const breakpoints: { [key: number]: number; } = useMemo(() => {
         const tempBreakpoints: { [key: number]: number; } = {};
         const fourBP = ROOT_FONT_SIZE * 72;
         const threeBP = ROOT_FONT_SIZE * 55;
@@ -22,13 +21,10 @@ const RecipeListDisplay = ({ foods }: { foods: Food[]; }) => {
     }, [ROOT_FONT_SIZE]);
 
     return <div className='recipe-list-display-container'>
-        <div className='recipe-list-display-filter-container'>
-            <Card sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)", padding: '1rem' }}> Filter Goes Here </Card>
-        </div>
         <div className='recipe-list-display-food-card-column-container'>
             {foods.length ?
-                <ResponsiveMasonry columnsCountBreakPoints={breakpoints} className='test-responsive'>
-                    <Masonry containerTag='masonry-container-tag' className='test-masonry'>
+                <ResponsiveMasonry columnsCountBreakPoints={breakpoints}>
+                    <Masonry containerTag='masonry-container-tag'>
                         {foods.map((food: Food, index: number) => <div key={index} className='recipe-list-display-food-card-container'><FoodCard food={food} /></div>)}
                     </Masonry>
                 </ResponsiveMasonry> :

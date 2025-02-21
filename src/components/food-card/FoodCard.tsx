@@ -1,4 +1,3 @@
-import * as React from 'react';
 import "./FoodCard.css";
 import { Card, Dialog } from "@mui/material";
 import { Food } from "../../models/Food";
@@ -6,9 +5,11 @@ import { FoodType } from "../../models/FoodType";
 import { MealType } from "../../models/MealType";
 import FoodFactArray from "./food-fact-array/FoodFactArray";
 import RecipeCard from '../recipe-card/RecipeCard';
+import FoodTypeChip from '../food-type-chip/FoodTypeChip';
+import { useState } from "react";
 
 const FoodCard = ({ food, mealType }: { food: Food, mealType?: MealType; }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = (): void => {
     setOpen(true);
@@ -52,6 +53,9 @@ const FoodCard = ({ food, mealType }: { food: Food, mealType?: MealType; }) => {
         <div className="food-card-details-container">
           <h3 className="food-title">{food.title}</h3>
           <FoodFactArray food={food} />
+        </div>
+        <div className="food-card-type-chip-container">
+          {!mealType ? food.foodTypes.map((foodType, index) => <FoodTypeChip key={index} foodType={foodType} />) : <></>}
         </div>
       </Card>
       <Dialog onClose={handleClose} open={open} PaperProps={{ sx: { maxWidth: '100%', maxHeight: '100%', borderRadius: ".75rem" } }}>

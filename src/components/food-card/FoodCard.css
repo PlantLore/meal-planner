@@ -14,6 +14,14 @@
     margin: .5rem;
 }
 
+.food-card-type-chip-container {
+    margin: .5rem;
+}
+
+.food-card-type-chip-container>.MuiChip-root {
+    margin-right: .5rem;
+}
+
 .food-image {
     height: 100%;
     width: 100%;

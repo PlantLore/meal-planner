@@ -2,7 +2,7 @@ import { Card, Divider, IconButton } from "@mui/material";
 import { Food } from "../../models/Food";
 import "./RecipeCard.css";
 import CloseIcon from '@mui/icons-material/Close';
-import FoodTypeChip from "./food-type-chip/FoodTypeChip";
+import FoodTypeChip from "../food-type-chip/FoodTypeChip";
 import FoodFactArray from "../food-card/food-fact-array/FoodFactArray";
 import { OpenInFull } from "@mui/icons-material";
 import { Link } from "react-router";

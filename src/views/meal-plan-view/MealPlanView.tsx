@@ -3,13 +3,13 @@ import MealPlanDisplay from "../../components/meal-plan-display/MealPlanDisplay"
 import { MealPlan } from "../../models/MealPlan";
 import { getMealPlan } from "../../services/mealPlanService";
 import "./MealPlanView.css";
-import * as React from 'react';
 import MealPlanDisplaySkeleton from "../../components/meal-plan-display/MealPlanDisplaySkeleton";
+import { useEffect, useState } from "react";
 
 const MealPlanView = () => {
-    const [mealPlan, setMealPlan] = React.useState<MealPlan>();
+    const [mealPlan, setMealPlan] = useState<MealPlan>();
 
-    React.useEffect(() => {
+    useEffect(() => {
         setTimeout(() => {
             setMealPlan(getMealPlan());
         }, 250);

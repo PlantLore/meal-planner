@@ -1,9 +1,9 @@
 import { Card, Divider, IconButton, MenuItem, MenuList } from '@mui/material';
 import NavBarButton from './nav-bar-button/NavBarButton';
 import './NavBar.css';
-import React from 'react';
 import { AccountCircle, Search } from '@mui/icons-material';
 import { Link } from 'react-router';
+import { useState } from 'react';
 
 type NavButton = {
     title: string,
@@ -60,7 +60,7 @@ const NavBar = () => {
             ]
         }
     ];
-    const [menuIndex, setMenuIndex] = React.useState<number>(-1);
+    const [menuIndex, setMenuIndex] = useState<number>(-1);
 
     return <div className='nav-bar-container'>
         <div className='max-page-content'>

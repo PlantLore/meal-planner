@@ -87,11 +87,13 @@ export const mockMealPlan: MealPlan = {
                     foods: [
                         {
                             ...mockFoods[0],
+                            title: 'Spaghetti 1',
                             id: 1,
                             foodTypes: [FoodType.BREAKFAST, FoodType.FRUIT]
                         },
                         {
                             ...mockFoods[0],
+                            title: 'Spaghetti 2',
                             id: 2,
                             image: '',
                             foodTypes: [FoodType.BREAKFAST, FoodType.SIDE, FoodType.VEGETABLE]
@@ -105,6 +107,7 @@ export const mockMealPlan: MealPlan = {
                     foods: [
                         {
                             ...mockFoods[0],
+                            title: 'Spaghetti 3',
                             id: 3,
                             foodTypes: [FoodType.LUNCH]
                         }
@@ -117,6 +120,7 @@ export const mockMealPlan: MealPlan = {
                     foods: [
                         {
                             ...mockFoods[0],
+                            title: 'Spaghetti 1',
                             id: 4,
                             foodTypes: [FoodType.DINNER]
                         },

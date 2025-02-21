@@ -1,6 +1,6 @@
 import { Card, Divider } from '@mui/material';
 import { Food } from '../../models/Food';
-import FoodTypeChip from '../recipe-card/food-type-chip/FoodTypeChip';
+import FoodTypeChip from '../food-type-chip/FoodTypeChip';
 import './RecipeDisplay.css';
 import FoodFactArray from '../food-card/food-fact-array/FoodFactArray';
 
