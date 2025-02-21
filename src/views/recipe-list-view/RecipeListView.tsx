@@ -10,7 +10,7 @@ import { FoodType } from '../../models/FoodType';
 
 const RecipeListView = () => {
     const [foods, setFoods] = useState<Food[]>([]);
-    const [loading, setLoading] = useState<Boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [recipeFilter, setRecipeFilter] = useState<string>('');
     const [selectedFoodTypes, setSelectedFoodTypes] = useState<FoodType[]>([]);
     const debouncedRecipeFilter: string = useDebounce<string>(recipeFilter, 500);
@@ -18,6 +18,7 @@ const RecipeListView = () => {
     useEffect(() => {
         setTimeout(() => {
             setFoods(getAllFoods());
+            setLoading(false);
             window.addEventListener('scroll', debounce(handleScroll, 250));
         }, 250);
         return () => { window.removeEventListener('scroll', debounce(handleScroll, 250)); };
@@ -80,6 +81,7 @@ const RecipeListView = () => {
                     return true;
                 })
             }
+            loading={loading}
         />
     </div>;
 };

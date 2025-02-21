@@ -4,6 +4,7 @@ import './RecipeView.css';
 import { useEffect, useState } from 'react';
 import { Food } from '../../models/Food';
 import { getFoodById } from '../../services/foodService';
+import RecipeDisplaySkeleton from '../../components/recipe-display/RecipeDisplaySkeleton';
 
 const RecipeView = () => {
     const [food, setFood] = useState<Food>();
@@ -11,16 +12,14 @@ const RecipeView = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            foodId ?
-                setFood(getFoodById(+foodId)) :
-                setFood(getFoodById(1));
+            foodId && setFood(getFoodById(+foodId));
         }, 250);
     }, [foodId]);
 
     return <div className='max-page-content recipe-display-container'>
         {food ?
             <RecipeDisplay food={food} /> :
-            <></>
+            <RecipeDisplaySkeleton />
         }
     </div>;
 };

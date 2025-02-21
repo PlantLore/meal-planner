@@ -90,7 +90,8 @@ const NavBar = () => {
                             position: 'fixed',
                             visibility: menuIndex === index ? 'visible' : 'hidden',
                             opacity: menuIndex === index ? '1' : '0',
-                            transition: 'opacity .5s'
+                            transition: 'opacity .5s',
+                            zIndex: 1
                         }}>
                             <MenuList>
                                 {navButton.subMenu.map(
