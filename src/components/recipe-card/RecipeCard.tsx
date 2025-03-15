@@ -4,7 +4,7 @@ import "./RecipeCard.css";
 import CloseIcon from '@mui/icons-material/Close';
 import FoodTypeChip from "../food-type-chip/FoodTypeChip";
 import FoodFactArray from "../food-card/food-fact-array/FoodFactArray";
-import { OpenInFull } from "@mui/icons-material";
+import { Edit, OpenInFull } from "@mui/icons-material";
 import { Link } from "react-router";
 
 const RecipeCard = ({ food, handleClose }: { food: Food; handleClose?: () => void; }) => {
@@ -15,13 +15,22 @@ const RecipeCard = ({ food, handleClose }: { food: Food; handleClose?: () => voi
                 {food.foodTypes.map((foodType, index) => <FoodTypeChip key={index} foodType={foodType} />)}
             </div>
             <div className="recipe-card-action-button-container">
-                <Link to={`/recipe/${food.id}`} className='no-link-style'>
+                <Link to={`/recipes/${food.id}`} className='no-link-style'>
                     <IconButton
                         sx={(theme) => ({
                             color: theme.palette.grey[500],
                         })}
                     >
                         <OpenInFull />
+                    </IconButton>
+                </Link>
+                <Link to={`/recipes/edit/${food.id}`} className='no-link-style'>
+                    <IconButton
+                        sx={(theme) => ({
+                            color: theme.palette.grey[500],
+                        })}
+                    >
+                        <Edit />
                     </IconButton>
                 </Link>
                 {
@@ -56,11 +65,8 @@ const RecipeCard = ({ food, handleClose }: { food: Food; handleClose?: () => voi
                         <div className="recipe-card-directions-column">
                             <ul className="no-bullets"><li><h3>Directions</h3></li></ul>
                             <ol>
-                                {food.recipe.map((step, index) => <li key={index}>
+                                {food.recipe.sort((a, b) => a.ordinal - b.ordinal).map((step, index) => <li key={index}>
                                     {step.text}
-                                    <ul>
-                                        {step.ingredients?.map((ingredient, index) => <li key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</li>)}
-                                    </ul>
                                 </li>)}
                             </ol>
                         </div>

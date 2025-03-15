@@ -41,7 +41,7 @@ const NavBar = () => {
                 },
                 {
                     title: "Create",
-                    route: ""
+                    route: "/recipes/create"
                 }
             ]
         },

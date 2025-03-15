@@ -18,6 +18,16 @@
     flex-wrap: wrap;
 }
 
+.recipe-display-header-container {
+    display: flex
+}
+
+.recipe-display-action-button-container {
+    margin-left: auto;
+    margin: .75rem .75rem 0 auto;
+    height: fit-content;
+}
+
 .recipe-display-title-container>.MuiChip-root {
     margin-right: .5rem;
 }
@@ -44,7 +54,6 @@
 
 .recipe-display-ingredient-column {
     flex: 3;
-    /* width: 30%; */
     padding: 1.25rem 1.5rem 0 1.5rem;
     text-align: center;
 }

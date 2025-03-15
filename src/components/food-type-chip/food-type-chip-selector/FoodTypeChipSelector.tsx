@@ -4,8 +4,8 @@ import './FoodTypeChipSelector.css';
 import FoodTypeChip from '../FoodTypeChip';
 import { Chip } from '@mui/material';
 
-const FoodTypeChipSelector = ({ chipsChanged }: { chipsChanged: (chips: FoodType[]) => void; }) => {
-    const [selectedChips, setSelectedChips] = useState<FoodType[]>([]);
+const FoodTypeChipSelector = ({ chipsChanged, initialChips }: { chipsChanged: (chips: FoodType[]) => void, initialChips?: FoodType[]; }) => {
+    const [selectedChips, setSelectedChips] = useState<FoodType[]>(initialChips ?? []);
 
     const foodTypes: FoodType[] = [
         FoodType.BREAKFAST,
@@ -19,7 +19,6 @@ const FoodTypeChipSelector = ({ chipsChanged }: { chipsChanged: (chips: FoodType
     ];
 
     const handleChipClick = (foodType: FoodType) => {
-        console.log('running', foodType);
         if (selectedChips.includes(foodType)) {
             const selectedFoodTypes = selectedChips.filter((filterFoodType: FoodType) => filterFoodType !== foodType);
             setSelectedChips(selectedFoodTypes);

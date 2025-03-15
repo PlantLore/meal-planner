@@ -11,32 +11,12 @@ export const mockFoods: Food[] = [
             {
                 id: 1,
                 ordinal: 1,
-                text: "Cook the pasta",
-                ingredients: [{
-                    id: 2,
-                    name: 'Spaghetti Noodles',
-                    quantity: 1,
-                    unit: 'package'
-                }]
+                text: "Cook the pasta"
             },
             {
                 id: 2,
                 ordinal: 2,
                 text: "Cook the meat in read sauce",
-                ingredients: [
-                    {
-                        id: 1,
-                        name: 'Ground Italian Sausage',
-                        quantity: 1,
-                        unit: 'lb'
-                    },
-                    {
-                        id: 3,
-                        name: 'Marinara Sause',
-                        quantity: 1,
-                        unit: 'jar'
-                    }
-                ]
             },
             {
                 id: 3,
@@ -51,19 +31,19 @@ export const mockFoods: Food[] = [
             {
                 id: 1,
                 name: 'Ground Italian Sausage',
-                quantity: 1,
+                quantity: '1',
                 unit: 'lb'
             },
             {
                 id: 2,
                 name: 'Spaghetti Noodles',
-                quantity: 1,
+                quantity: '1',
                 unit: 'package'
             },
             {
                 id: 3,
                 name: 'Marinara Sause',
-                quantity: 1,
+                quantity: '1',
                 unit: 'jar'
             }
         ],

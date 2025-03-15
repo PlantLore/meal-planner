@@ -1,0 +1,10 @@
+.directions-list-upsert-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.directions-list-upsert-step-container {
+    width: 100%;
+    margin: 0 1.5rem .75rem;
+}
