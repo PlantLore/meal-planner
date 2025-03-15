@@ -20,4 +20,8 @@ export const getFoodById = (id: number): Food => {
         .find((food: Food) => food.id === id);
 
     return food || mockFoods[0];
-}; 
+};
+
+export const upsertFood = (food: Food): Food => {
+    return food;
+};

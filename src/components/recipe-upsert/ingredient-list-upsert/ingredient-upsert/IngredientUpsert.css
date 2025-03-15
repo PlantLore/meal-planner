@@ -1,0 +1,7 @@
+.ingredient-upsert-container {
+    min-width: 100%;
+    margin-bottom: .75rem;
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+}
