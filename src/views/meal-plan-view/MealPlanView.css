@@ -1,3 +1,22 @@
+.meal-plan-view-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .meal-plan-view-title {
     text-align: center;
+}
+
+.meal-plan-view-edit-button {
+    width: fit-content;
+    height: fit-content;
+}
+
+.meal-plan-view-flex-spacer {
+    flex: 1
+}
+
+.meal-plan-view-date {
+    margin-top: 0;
 }

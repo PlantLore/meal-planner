@@ -1,0 +1,23 @@
+.meal-plan-upsert-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.meal-plan-upsert-title {
+    text-align: center;
+}
+
+.meal-plan-upsert-date-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.meal-plan-day-upsert-date-title {
+    margin-bottom: 0;
+}
+
+.meal-plan-day-upsert-container {
+    margin-bottom: 3rem;
+}

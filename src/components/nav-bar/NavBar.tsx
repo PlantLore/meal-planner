@@ -27,7 +27,7 @@ const NavBar = () => {
                 },
                 {
                     title: "Create",
-                    route: ""
+                    route: "/mealplans/create"
                 }
             ]
         },
