@@ -1,0 +1,32 @@
+.meal-plan-edit-date-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.meal-plan-day-edit-date-title {
+    margin-bottom: 0;
+}
+
+.meal-plan-day-display-edit-container {
+    margin-bottom: 3rem;
+}
+
+.meal-plan-edit-submit-container {
+    display: flex;
+    justify-content: end;
+    padding: .75rem .5rem .75rem 0;
+    gap: 1rem;
+}
+
+.meal-plan-edit-footer-container {
+    background-color: var(--card-color);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+}
+
+.meal-plan-edit-content-container {
+    padding-bottom: 3rem;
+}

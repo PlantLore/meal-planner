@@ -1,0 +1,13 @@
+.meal-plan-food-card-container {
+  display: flex;
+}
+
+.meal-plan-food-card {
+  flex-grow: 1;
+}
+
+.meal-plan-food-card-actions {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,9 @@
+.meal-plan-edit-view-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meal-plan-edit-view-title {
+  text-align: center;
+}
