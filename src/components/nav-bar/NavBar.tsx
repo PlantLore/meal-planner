@@ -15,7 +15,7 @@ const NavBar = () => {
   const navButtons: NavButton[] = [
     {
       title: "Meal Plans",
-      route: "",
+      route: "/mealplans",
       subMenu: [
         {
           title: "Current",
@@ -23,7 +23,7 @@ const NavBar = () => {
         },
         {
           title: "View All",
-          route: "",
+          route: "/mealplans",
         },
         {
           title: "Create",
@@ -72,7 +72,15 @@ const NavBar = () => {
             </IconButton>
           </span>
           <Link to="/" className="no-link-style nav-bar-app-title">
-            <h1 className="nav-bar-app-title">Whisker & Whisk</h1>
+            <h1 className="nav-bar-app-title">
+              Whisker
+              <img
+                className="nav-bar-title-logo"
+                src="/WhiskerAndWhiskLogo.png"
+                alt="Logo"
+              />{" "}
+              Whisk
+            </h1>
           </Link>
           <span className="flex-filler flex-align-right">
             <IconButton>

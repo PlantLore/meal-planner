@@ -8,6 +8,7 @@ import RecipeUpsertView from "./views/recipe-upsert-view/RecipeUpsertView";
 import MealPlanEditView from "./views/meal-plan-edit-view/MealPlanEditView";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import MealPlanListView from "./views/meal-plan-list-view/MealPlanListView";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             path="/mealplans/edit/:mealPlanId"
             element={<MealPlanEditView />}
           />
+          <Route path="/mealplans" element={<MealPlanListView />} />
         </Routes>
       </div>
     </LocalizationProvider>
