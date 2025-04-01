@@ -9,3 +9,19 @@
 .recipe-list-view-food-type-selector-container {
     padding-left: 1rem;
 }
+
+.recipe-list-view-page-padding {
+    padding: 0 2.5rem;
+}
+
+.recipe-list-view-header-container {
+    display: flex;
+}
+
+.recipe-list-view-action-button-container {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: auto;
+    margin: .75rem .75rem 0 auto;
+    height: fit-content;
+}

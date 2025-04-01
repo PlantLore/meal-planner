@@ -1,6 +1,15 @@
 .recipe-list-display-food-card-container {
     width: 100%;
     margin-bottom: .75rem;
+    display:flex;
+}
+
+.recipe-list-display-food-card {
+    flex-grow: 1;
+}
+
+.recipe-list-display-select-recipe-button {
+    height: fit-content;
 }
 
 masonry-container-tag {

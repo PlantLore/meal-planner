@@ -1,0 +1,10 @@
+.meal-plan-day-edit-column {
+  flex-grow: 1;
+  max-width: 25rem;
+}
+
+.meal-plan-day-edit-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2rem;
+}

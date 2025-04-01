@@ -58,6 +58,6 @@
 .recipe-upsert-submit-container {
     display: flex;
     justify-content: end;
-    margin: .75rem .5rem 0 0;
+    margin: .75rem .5rem .75rem 0;
     gap: 1rem;
 }
