@@ -1,0 +1,10 @@
+.meal-plan-list-display-card-container {
+  margin-bottom: 1rem;
+}
+
+.meal-plan-list-display-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 1rem;
+}

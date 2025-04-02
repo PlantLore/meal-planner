@@ -5,17 +5,21 @@ import { getMealPlanById } from "../../services/mealPlanService";
 import "./MealPlanView.css";
 import MealPlanDisplaySkeleton from "../../components/meal-plan-display/MealPlanDisplaySkeleton";
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import { Edit } from "@mui/icons-material";
 
 const MealPlanView = () => {
   const [mealPlan, setMealPlan] = useState<MealPlan>();
 
+  let { mealPlanId } = useParams();
+
   useEffect(() => {
     setTimeout(() => {
-      setMealPlan(getMealPlanById(1));
+      mealPlanId
+        ? setMealPlan(getMealPlanById(+mealPlanId))
+        : setMealPlan(getMealPlanById(1));
     }, 250);
-  }, []);
+  }, [mealPlanId]);
 
   return (
     <div className="meal-plan-view-container">

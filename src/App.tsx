@@ -22,6 +22,7 @@ const App = () => {
           <Route path="/recipes/create" element={<RecipeUpsertView />} />
           <Route path="/recipes" element={<RecipeListView />} />
           <Route path="/mealplans/create" element={<MealPlanView />} />
+          <Route path="/mealplans/:mealPlanId" element={<MealPlanView />} />
           <Route
             path="/mealplans/edit/:mealPlanId"
             element={<MealPlanEditView />}
