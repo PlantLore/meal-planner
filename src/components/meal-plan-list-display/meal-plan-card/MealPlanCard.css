@@ -1,0 +1,29 @@
+.meal-plan-card {
+  cursor: pointer;
+  width: 50rem;
+}
+
+.meal-plan-card-content {
+  display: flex;
+}
+
+.meal-plan-card-date-container {
+  margin: .5rem 1rem;
+}
+
+.meal-plan-card-date {
+  margin: 0rem;
+}
+
+.meal-plan-card-image-container {
+  display: flex;
+  flex-grow: 1;
+}
+
+.meal-plan-card-image {
+  height: 5rem;
+  width: 100%;
+  flex-grow: 1;
+  object-fit: cover;
+  overflow: hidden;
+}
