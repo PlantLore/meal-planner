@@ -46,18 +46,8 @@ const NavBar = () => {
       ],
     },
     {
-      title: "Grocery Lists",
-      route: "",
-      subMenu: [
-        {
-          title: "Current",
-          route: "",
-        },
-        {
-          title: "View All",
-          route: "",
-        },
-      ],
+      title: "Grocery List",
+      route: "/grocerylist",
     },
   ];
   const [menuIndex, setMenuIndex] = useState<number>(-1);

@@ -9,6 +9,7 @@ import MealPlanEditView from "./views/meal-plan-edit-view/MealPlanEditView";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import MealPlanListView from "./views/meal-plan-list-view/MealPlanListView";
+import GroceryListView from "./views/grocery-list-view/GroceryListView";
 
 const App = () => {
   return (
@@ -28,6 +29,11 @@ const App = () => {
             element={<MealPlanEditView />}
           />
           <Route path="/mealplans" element={<MealPlanListView />} />
+          <Route path="/grocerylist" element={<GroceryListView />} />
+          <Route
+            path="/grocerylist/mealplan/:mealPlanId"
+            element={<GroceryListView />}
+          />
         </Routes>
       </div>
     </LocalizationProvider>
