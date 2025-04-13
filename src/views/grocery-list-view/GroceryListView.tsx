@@ -1,7 +1,8 @@
+import GroceryListDisplay from "../../components/grocery-list-display/GroceryListDisplay";
 import "./GroceryListView.css";
 
 const GroceryListView = () => {
-  return <>Grocery List Works!</>;
+  return <div className="max-page-content"><GroceryListDisplay /></div>;
 };
 
 export default GroceryListView;

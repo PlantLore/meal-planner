@@ -3,7 +3,7 @@ import { MealPlanDay } from "../../../models/MealPlanDay";
 import "./MealPlanDayEdit.css";
 import MealPlanColumnEdit from "../meal-plan-column-edit/MealPlanColumnEdit";
 import { MealType } from "../../../models/MealType";
-import { Food } from "../../../models/Food";
+import { Recipe } from "../../../models/Recipe";
 import { Meal } from "../../../models/Meal";
 
 const MealPlanDayEdit = ({
@@ -16,24 +16,24 @@ const MealPlanDayEdit = ({
   const [mealPlanDay, setMealPlanDay] =
     useState<MealPlanDay>(initialMealPlanDay);
 
-  const getMealFoods = (mealType: MealType): Food[] => {
+  const getMealRecipes = (mealType: MealType): Recipe[] => {
     return (
       mealPlanDay.meals.find((meal: Meal) => meal.mealType === mealType)
-        ?.foods || []
+        ?.recipes || []
     );
   };
 
-  const mealPlanColumnChange = (mealType: MealType, foods: Food[]) => {
+  const mealPlanColumnChange = (mealType: MealType, recipes: Recipe[]) => {
     const newMealPlanDay = { ...mealPlanDay };
     const mealPlanMeals = newMealPlanDay.meals.find(
       (meal: Meal) => meal.mealType === mealType
     );
     if (mealPlanMeals) {
-      mealPlanMeals.foods = foods;
+      mealPlanMeals.recipes = recipes;
     } else {
       newMealPlanDay.meals.push({
         ...new Meal(),
-        foods: foods,
+        recipes: recipes,
         mealType: mealType,
       });
     }
@@ -46,44 +46,44 @@ const MealPlanDayEdit = ({
     <div className="meal-plan-day-edit-container">
       <span className="meal-plan-day-edit-column">
         <MealPlanColumnEdit
-          initialFoods={getMealFoods(MealType.BREAKFAST)}
+          initialRecipes={getMealRecipes(MealType.BREAKFAST)}
           mealType={MealType.BREAKFAST}
-          mealPlanColumnChange={(foods: Food[]) => {
-            mealPlanColumnChange(MealType.BREAKFAST, foods);
+          mealPlanColumnChange={(recipes: Recipe[]) => {
+            mealPlanColumnChange(MealType.BREAKFAST, recipes);
           }}
         ></MealPlanColumnEdit>
       </span>
       <span className="meal-plan-day-edit-column">
         <MealPlanColumnEdit
-          initialFoods={getMealFoods(MealType.LUNCH)}
+          initialRecipes={getMealRecipes(MealType.LUNCH)}
           mealType={MealType.LUNCH}
-          mealPlanColumnChange={(foods: Food[]) => {
-            mealPlanColumnChange(MealType.LUNCH, foods);
+          mealPlanColumnChange={(recipes: Recipe[]) => {
+            mealPlanColumnChange(MealType.LUNCH, recipes);
           }}
         ></MealPlanColumnEdit>
       </span>
       <span className="meal-plan-day-edit-column">
         <MealPlanColumnEdit
-          initialFoods={getMealFoods(MealType.DINNER)}
+          initialRecipes={getMealRecipes(MealType.DINNER)}
           mealType={MealType.DINNER}
-          mealPlanColumnChange={(foods: Food[]) => {
-            mealPlanColumnChange(MealType.DINNER, foods);
+          mealPlanColumnChange={(recipes: Recipe[]) => {
+            mealPlanColumnChange(MealType.DINNER, recipes);
           }}
         ></MealPlanColumnEdit>
       </span>
       <span className="meal-plan-day-edit-column">
         <MealPlanColumnEdit
-          initialFoods={getMealFoods(MealType.SNACK)}
+          initialRecipes={getMealRecipes(MealType.SNACK)}
           mealType={MealType.SNACK}
-          mealPlanColumnChange={(foods: Food[]) => {
-            mealPlanColumnChange(MealType.SNACK, foods);
+          mealPlanColumnChange={(recipes: Recipe[]) => {
+            mealPlanColumnChange(MealType.SNACK, recipes);
           }}
         ></MealPlanColumnEdit>
         <MealPlanColumnEdit
-          initialFoods={getMealFoods(MealType.SWEET_TREAT)}
+          initialRecipes={getMealRecipes(MealType.SWEET_TREAT)}
           mealType={MealType.SWEET_TREAT}
-          mealPlanColumnChange={(foods: Food[]) => {
-            mealPlanColumnChange(MealType.SWEET_TREAT, foods);
+          mealPlanColumnChange={(recipes: Recipe[]) => {
+            mealPlanColumnChange(MealType.SWEET_TREAT, recipes);
           }}
         ></MealPlanColumnEdit>
       </span>

@@ -1,14 +1,14 @@
-import { FoodType } from "./FoodType";
+import { RecipeType } from "./RecipeType";
 import { Ingredient } from "./Ingredient";
 import { Step } from "./Step";
 
-export class Food {
+export class Recipe {
   id: number = 0;
   title: string = "";
-  recipe: Step[] = [];
+  steps: Step[] = [];
   servings: number = 0;
   calories: number = 0;
-  foodTypes: FoodType[] = [];
+  recipeTypes: RecipeType[] = [];
   ingredients: Ingredient[] = [];
   image: string = "";
 }

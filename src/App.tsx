@@ -18,8 +18,8 @@ const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<MealPlanView />} />
-          <Route path="/recipes/:foodId" element={<RecipeView />} />
-          <Route path="/recipes/edit/:foodId" element={<RecipeUpsertView />} />
+          <Route path="/recipes/:recipeId" element={<RecipeView />} />
+          <Route path="/recipes/edit/:recipeId" element={<RecipeUpsertView />} />
           <Route path="/recipes/create" element={<RecipeUpsertView />} />
           <Route path="/recipes" element={<RecipeListView />} />
           <Route path="/mealplans/create" element={<MealPlanView />} />

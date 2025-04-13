@@ -7,7 +7,7 @@ import { validateFraction } from '../../../../utilities/FractionUtils';
 
 const IngredientUpsert = ({ ingredient, onChange, onDelete, submitted }: { ingredient: Ingredient, onChange: (ingredient: Ingredient) => void, onDelete: () => void, submitted: boolean; }) => {
     const [quantityBlur, setQuantityBlur] = useState<boolean>(false);
-    const [foodBlur, setFoodBlur] = useState<boolean>(false);
+    const [recipeBlur, setRecipeBlur] = useState<boolean>(false);
 
     return <div className='ingredient-upsert-container'>
         <TextField
@@ -54,8 +54,8 @@ const IngredientUpsert = ({ ingredient, onChange, onDelete, submitted }: { ingre
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 onChange({ ...ingredient, name: event.target.value });
             }}
-            onBlur={() => { setFoodBlur(true); }}
-            error={(submitted || foodBlur) && !ingredient.name}
+            onBlur={() => { setRecipeBlur(true); }}
+            error={(submitted || recipeBlur) && !ingredient.name}
         />
         <IconButton onClick={onDelete}>
             <Delete />

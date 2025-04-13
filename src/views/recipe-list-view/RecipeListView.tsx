@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import "./RecipeListView.css";
-import { Food } from "../../models/Food";
-import { getAllFoods } from "../../services/foodService";
+import { Recipe } from "../../models/Recipe";
+import { getAllRecipes } from "../../services/recipeService";
 import RecipeListDisplay from "../../components/recipe-list-display/RecipeListDisplay";
 import { Card, IconButton, TextField } from "@mui/material";
 import useDebounce from "../../hooks/useDebounce";
-import FoodTypeChipSelector from "../../components/food-type-chip/food-type-chip-selector/FoodTypeChipSelector";
-import { FoodType } from "../../models/FoodType";
+import RecipeTypeChipSelector from "../../components/recipe-type-chip/recipe-type-chip-selector/RecipeTypeChipSelector";
+import { RecipeType } from "../../models/RecipeType";
 import CloseIcon from "@mui/icons-material/Close";
 
 const RecipeListView = ({
@@ -15,15 +15,15 @@ const RecipeListView = ({
   onClose,
   scrollRef,
 }: {
-  recipeSelected?: (food: Food) => void;
+  recipeSelected?: (recipe: Recipe) => void;
   dialogView?: boolean;
   onClose?: () => void;
   scrollRef?: React.MutableRefObject<any>;
 }) => {
-  const [foods, setFoods] = useState<Food[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [recipeFilter, setRecipeFilter] = useState<string>("");
-  const [selectedFoodTypes, setSelectedFoodTypes] = useState<FoodType[]>([]);
+  const [selectedRecipeTypes, setSelectedRecipeTypes] = useState<RecipeType[]>([]);
   const debouncedRecipeFilter: string = useDebounce<string>(recipeFilter, 500);
 
   const handleScroll = useCallback(() => {
@@ -35,7 +35,7 @@ const RecipeListView = ({
     } else if (
       scrollRef &&
       scrollRef?.current?.querySelector(".MuiPaper-root").scrollTop + 200 >
-        scrollRef?.current?.querySelector(".MuiPaper-root").offsetHeight
+      scrollRef?.current?.querySelector(".MuiPaper-root").offsetHeight
     ) {
       setLoading(true);
     }
@@ -44,7 +44,7 @@ const RecipeListView = ({
   useEffect(() => {
     let currentScrollRef: any;
     setTimeout(() => {
-      setFoods(getAllFoods());
+      setRecipes(getAllRecipes());
       setLoading(false);
       if (scrollRef) {
         scrollRef?.current
@@ -70,7 +70,7 @@ const RecipeListView = ({
   useEffect(() => {
     if (loading) {
       setTimeout(() => {
-        setFoods((foods) => [...foods, ...getAllFoods()]);
+        setRecipes((recipes) => [...recipes, ...getAllRecipes()]);
         setLoading(false);
       }, 250);
     }
@@ -127,22 +127,22 @@ const RecipeListView = ({
               setRecipeFilter(event.target.value);
             }}
           />
-          <span className="recipe-list-view-food-type-selector-container">
-            <FoodTypeChipSelector chipsChanged={setSelectedFoodTypes} />
+          <span className="recipe-list-view-recipe-type-selector-container">
+            <RecipeTypeChipSelector chipsChanged={setSelectedRecipeTypes} />
           </span>
         </Card>
       </div>
       <RecipeListDisplay
-        foods={foods
-          .filter((food: Food) =>
-            food.title
+        recipes={recipes
+          .filter((recipe: Recipe) =>
+            recipe.title
               .toLowerCase()
               .includes(debouncedRecipeFilter.toLowerCase())
           )
-          .filter((food: Food) => {
-            if (!selectedFoodTypes.length) return true;
-            for (let i = 0; i < selectedFoodTypes.length; i++) {
-              if (!food.foodTypes.includes(selectedFoodTypes[i])) return false;
+          .filter((recipe: Recipe) => {
+            if (!selectedRecipeTypes.length) return true;
+            for (let i = 0; i < selectedRecipeTypes.length; i++) {
+              if (!recipe.recipeTypes.includes(selectedRecipeTypes[i])) return false;
             }
             return true;
           })}

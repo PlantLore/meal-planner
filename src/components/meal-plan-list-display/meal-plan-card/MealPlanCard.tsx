@@ -4,7 +4,7 @@ import "./MealPlanCard.css";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
-const MealPlanCard = ({ mealPlan }: { mealPlan: MealPlan }) => {
+const MealPlanCard = ({ mealPlan }: { mealPlan: MealPlan; }) => {
   const [mealPlanImages, setMealPlanImages] = useState<string[]>([]);
 
   const navigate = useNavigate();
@@ -15,12 +15,12 @@ const MealPlanCard = ({ mealPlan }: { mealPlan: MealPlan }) => {
       for (let j = 0; j < mealPlan.mealPlanDays[i].meals.length; j++) {
         for (
           let k = 0;
-          k < mealPlan.mealPlanDays[i].meals[j].foods.length;
+          k < mealPlan.mealPlanDays[i].meals[j].recipes.length;
           k++
         ) {
-          if (mealPlan.mealPlanDays[i].meals[j].foods[k].image)
+          if (mealPlan.mealPlanDays[i].meals[j].recipes[k].image)
             mealPlanImagesTemp.push(
-              mealPlan.mealPlanDays[i].meals[j].foods[k].image
+              mealPlan.mealPlanDays[i].meals[j].recipes[k].image
             );
           if (mealPlanImagesTemp.length >= 3) break outerloop;
         }
@@ -52,7 +52,7 @@ const MealPlanCard = ({ mealPlan }: { mealPlan: MealPlan }) => {
           <i>
             {Math.round(
               (mealPlan.endDate.getTime() - mealPlan.startDate.getTime()) /
-                (24 * 60 * 60 * 1000)
+              (24 * 60 * 60 * 1000)
             ) + 1}{" "}
             days
           </i>
