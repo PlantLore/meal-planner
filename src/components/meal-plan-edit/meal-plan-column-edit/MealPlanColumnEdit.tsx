@@ -1,22 +1,22 @@
 import { useRef, useState } from "react";
-import { Food } from "../../../models/Food";
+import { Recipe } from "../../../models/Recipe";
 import { MealType } from "../../../models/MealType";
 import "./MealPlanColumnEdit.css";
-import FoodCard from "../../food-card/FoodCard";
+import RecipeCard from "../../recipe-card/RecipeCard";
 import { Dialog, IconButton, Tooltip } from "@mui/material";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import RecipeListView from "../../../views/recipe-list-view/RecipeListView";
 
 const MealPlanColumnEdit = ({
   mealType,
-  initialFoods,
+  initialRecipes,
   mealPlanColumnChange,
 }: {
   mealType: MealType;
-  initialFoods: Food[];
-  mealPlanColumnChange: (foods: Food[]) => void;
+  initialRecipes: Recipe[];
+  mealPlanColumnChange: (recipes: Recipe[]) => void;
 }) => {
-  const [foods, setFoods] = useState<Food[]>(initialFoods);
+  const [recipes, setRecipes] = useState<Recipe[]>(initialRecipes);
   const [open, setOpen] = useState(false);
 
   const scrollableElementRef = useRef(null);
@@ -30,27 +30,27 @@ const MealPlanColumnEdit = ({
   };
 
   const onDelete = (index: number) => {
-    const newFoods = [...foods];
-    newFoods.splice(index, 1);
-    setFoods(newFoods);
-    mealPlanColumnChange(newFoods);
+    const newRecipes = [...recipes];
+    newRecipes.splice(index, 1);
+    setRecipes(newRecipes);
+    mealPlanColumnChange(newRecipes);
   };
 
-  const recipeSelected = (food: Food): void => {
-    const newFoods = [...foods, food];
-    setFoods(newFoods);
-    mealPlanColumnChange(newFoods);
+  const recipeSelected = (recipe: Recipe): void => {
+    const newRecipes = [...recipes, recipe];
+    setRecipes(newRecipes);
+    mealPlanColumnChange(newRecipes);
   };
 
   return (
     <span className="meal-plan-column-edit">
       <h3 className="meal-plan-column-edit-title">{mealType}</h3>
-      {foods.map((food: Food, index: number) => (
-        <div className="meal-plan-food-card-container" key={food.id}>
-          <div className="meal-plan-food-card">
-            <FoodCard food={food} mealType={mealType} />
+      {recipes.map((recipe: Recipe, index: number) => (
+        <div className="meal-plan-recipe-card-container" key={recipe.id}>
+          <div className="meal-plan-recipe-card">
+            <RecipeCard recipe={recipe} mealType={mealType} />
           </div>
-          <div className="meal-plan-food-card-actions">
+          <div className="meal-plan-recipe-card-actions">
             <IconButton
               onClick={() => {
                 onDelete(index);
@@ -61,9 +61,9 @@ const MealPlanColumnEdit = ({
           </div>
         </div>
       ))}
-      {foods.length === 0 ? (
+      {recipes.length === 0 ? (
         <div>
-          <i>No Foods Yet</i>
+          <i>No Recipes Yet</i>
         </div>
       ) : (
         <></>
@@ -87,8 +87,8 @@ const MealPlanColumnEdit = ({
           dialogView
           onClose={handleClose}
           scrollRef={scrollableElementRef}
-          recipeSelected={(food: Food) => {
-            recipeSelected(food);
+          recipeSelected={(recipe: Recipe) => {
+            recipeSelected(recipe);
             handleClose();
           }}
         />

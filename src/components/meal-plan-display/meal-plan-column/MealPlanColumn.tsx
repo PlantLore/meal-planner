@@ -1,26 +1,26 @@
-import { Food } from "../../../models/Food";
+import { Recipe } from "../../../models/Recipe";
 import { MealType } from "../../../models/MealType";
-import FoodCard from "../../food-card/FoodCard";
+import RecipeCard from "../../recipe-card/RecipeCard";
 import "./MealPlanColumn.css";
 
 const MealPlanColumn = ({
   mealType,
-  foods,
+  recipes,
 }: {
   mealType: MealType;
-  foods: Food[];
+  recipes: Recipe[];
 }) => {
   return (
     <span className="meal-plan-column">
       <h3 className="meal-plan-column-title">{mealType}</h3>
-      {foods.map((food: Food) => (
-        <div className="meal-plan-food-card" key={food.id}>
-          <FoodCard food={food} mealType={mealType} />
+      {recipes.map((recipe: Recipe) => (
+        <div className="meal-plan-recipe-card" key={recipe.id}>
+          <RecipeCard recipe={recipe} mealType={mealType} />
         </div>
       ))}
-      {foods.length === 0 ? (
+      {recipes.length === 0 ? (
         <div>
-          <i>No Food in This Category</i>
+          <i>No Recipes in This Category</i>
         </div>
       ) : (
         <></>

@@ -1,19 +1,19 @@
-import { Food } from "../../models/Food";
+import { Recipe } from "../../models/Recipe";
 import "./RecipeListDisplay.css";
-import FoodCard from "../food-card/FoodCard";
+import RecipeCard from "../recipe-card/RecipeCard";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { useMemo } from "react";
 import { IconButton, Skeleton, Tooltip } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 
 const RecipeListDisplay = ({
-  foods,
+  recipes,
   loading,
   recipeSelected,
 }: {
-  foods: Food[];
+  recipes: Recipe[];
   loading?: boolean;
-  recipeSelected?: (food: Food) => void;
+  recipeSelected?: (recipe: Recipe) => void;
 }) => {
   const ROOT_FONT_SIZE: number = +window
     .getComputedStyle(document.body)
@@ -23,8 +23,8 @@ const RecipeListDisplay = ({
       window.getComputedStyle(document.body).getPropertyValue("font-size")
         .length - 2
     );
-  const breakpoints: { [key: number]: number } = useMemo(() => {
-    const tempBreakpoints: { [key: number]: number } = {};
+  const breakpoints: { [key: number]: number; } = useMemo(() => {
+    const tempBreakpoints: { [key: number]: number; } = {};
     const fourBP = ROOT_FONT_SIZE * 72;
     const threeBP = ROOT_FONT_SIZE * 55;
     const twoBP = ROOT_FONT_SIZE * 38;
@@ -39,24 +39,24 @@ const RecipeListDisplay = ({
 
   return (
     <div className="recipe-list-display-container">
-      <div className="recipe-list-display-food-card-column-container">
-        {foods.length || loading ? (
+      <div className="recipe-list-display-recipe-card-column-container">
+        {recipes.length || loading ? (
           <ResponsiveMasonry columnsCountBreakPoints={breakpoints}>
             <Masonry containerTag="masonry-container-tag">
-              {foods.map((food: Food, index: number) => (
+              {recipes.map((recipe: Recipe, index: number) => (
                 <div
                   key={index}
-                  className="recipe-list-display-food-card-container"
+                  className="recipe-list-display-recipe-card-container"
                 >
-                  <div className="recipe-list-display-food-card">
-                    <FoodCard food={food} />
+                  <div className="recipe-list-display-recipe-card">
+                    <RecipeCard recipe={recipe} />
                   </div>
                   {recipeSelected ? (
                     <div className="recipe-list-display-select-recipe-button">
                       <Tooltip title="Select Recipe">
                         <IconButton
                           onClick={() => {
-                            recipeSelected(food);
+                            recipeSelected(recipe);
                           }}
                         >
                           <CheckCircleOutline color="primary" />
@@ -72,7 +72,7 @@ const RecipeListDisplay = ({
                 new Array(20).fill("").map((value: string, index: number) => (
                   <div
                     key={index}
-                    className="recipe-list-display-food-card-container"
+                    className="recipe-list-display-recipe-card-container"
                   >
                     <Skeleton
                       variant="rounded"

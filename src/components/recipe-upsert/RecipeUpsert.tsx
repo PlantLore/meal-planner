@@ -6,15 +6,15 @@ import {
   TextField,
 } from "@mui/material";
 import "./RecipeUpsert.css";
-import FoodTypeChipSelector from "../food-type-chip/food-type-chip-selector/FoodTypeChipSelector";
-import { FoodType } from "../../models/FoodType";
+import RecipeTypeChipSelector from "../recipe-type-chip/recipe-type-chip-selector/RecipeTypeChipSelector";
+import { RecipeType } from "../../models/RecipeType";
 import {
   FastfoodOutlined,
   LocalFireDepartmentOutlined,
 } from "@mui/icons-material";
 import IngredientListUpsert from "./ingredient-list-upsert/IngredientListUpsert";
 import DirectionsListUpsert from "./directions-list-upsert/DirectionsListUpsert";
-import { Food } from "../../models/Food";
+import { Recipe } from "../../models/Recipe";
 import { Step } from "../../models/Step";
 import { useState } from "react";
 import { Ingredient } from "../../models/Ingredient";
@@ -22,13 +22,13 @@ import { validateFraction } from "../../utilities/FractionUtils";
 import { useNavigate } from "react-router";
 
 const RecipeUpsert = ({
-  initialFood,
+  initialRecipe,
   onSubmit,
 }: {
-  initialFood: Food;
-  onSubmit: (updatedFood: Food) => void;
+  initialRecipe: Recipe;
+  onSubmit: (updatedRecipe: Recipe) => void;
 }) => {
-  const [food, setFood] = useState<Food>(initialFood);
+  const [recipe, setRecipe] = useState<Recipe>(initialRecipe);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [blurFields, setBlurFields] = useState<string[]>([]);
 
@@ -40,36 +40,36 @@ const RecipeUpsert = ({
 
     if (!validtate()) return;
 
-    const newFood = { ...food, recipe: updateRecipeOrdinal(food.recipe) };
-    onSubmit(newFood);
+    const newRecipe = { ...recipe, recipe: updateRecipeOrdinal(recipe.steps) };
+    onSubmit(newRecipe);
   };
 
   const validtate = (): boolean => {
     //validate title
-    if (!food.title) return false;
+    if (!recipe.title) return false;
 
     //validate type
-    if (!food.foodTypes.length) return false;
+    if (!recipe.recipeTypes.length) return false;
 
     //validate calories
-    if (food.calories < 0 || isNaN(food.calories)) return false;
+    if (recipe.calories < 0 || isNaN(recipe.calories)) return false;
 
     //validate servings
-    if (food.servings < 1 || isNaN(food.servings)) return false;
+    if (recipe.servings < 1 || isNaN(recipe.servings)) return false;
 
     //validate ingredients
-    if (!food.ingredients.length) return false;
-    for (let i = 0; i < food.ingredients.length; i++) {
+    if (!recipe.ingredients.length) return false;
+    for (let i = 0; i < recipe.ingredients.length; i++) {
       if (
-        !food.ingredients[i].name ||
-        !validateFraction(food.ingredients[i].quantity)
+        !recipe.ingredients[i].grocery.name ||
+        !validateFraction(recipe.ingredients[i].quantity)
       )
         return false;
     }
 
     //validate directions
-    for (let i = 0; i < food.recipe.length; i++) {
-      if (!food.recipe[i].text) return false;
+    for (let i = 0; i < recipe.steps.length; i++) {
+      if (!recipe.steps[i].text) return false;
     }
 
     return true;
@@ -82,13 +82,13 @@ const RecipeUpsert = ({
     });
   };
 
-  const handleFoodFieldChange = <K extends keyof Food>(
-    value: Food[K],
+  const handleRecipeFieldChange = <K extends keyof Recipe>(
+    value: Recipe[K],
     field: K
   ) => {
-    const newFood = { ...food };
-    newFood[field] = value;
-    setFood(newFood);
+    const newRecipe = { ...recipe };
+    newRecipe[field] = value;
+    setRecipe(newRecipe);
   };
 
   const handleFieldBlur = (field: string) => {
@@ -108,30 +108,30 @@ const RecipeUpsert = ({
             size="small"
             fullWidth
             label="Recipe Name *"
-            defaultValue={initialFood.title}
+            defaultValue={initialRecipe.title}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              handleFoodFieldChange(event.target.value, "title");
+              handleRecipeFieldChange(event.target.value, "title");
             }}
             onBlur={() => {
               handleFieldBlur("title");
             }}
-            error={(submitted || blurFields.includes("title")) && !food.title}
+            error={(submitted || blurFields.includes("title")) && !recipe.title}
           />
           <div
             className={
-              submitted && !food.foodTypes.length
-                ? "recipe-upsert-card-food-type-selector-container-error"
-                : "recipe-upsert-card-food-type-selector-container"
+              submitted && !recipe.recipeTypes.length
+                ? "recipe-upsert-card-recipe-type-selector-container-error"
+                : "recipe-upsert-card-recipe-type-selector-container"
             }
           >
-            <FoodTypeChipSelector
-              initialChips={food.foodTypes}
-              chipsChanged={(foodTypes: FoodType[]) => {
-                handleFoodFieldChange(foodTypes, "foodTypes");
+            <RecipeTypeChipSelector
+              initialChips={recipe.recipeTypes}
+              chipsChanged={(recipeTypes: RecipeType[]) => {
+                handleRecipeFieldChange(recipeTypes, "recipeTypes");
               }}
             />
           </div>
-          {submitted && !food.foodTypes.length ? (
+          {submitted && !recipe.recipeTypes.length ? (
             <p className="error-helper-text">
               Minimum One Recipe Type Required
             </p>
@@ -144,7 +144,7 @@ const RecipeUpsert = ({
 
         <div className="recipe-upsert-info-container">
           <div className="recipe-upsert-ingredient-column">
-            <div className="recipe-upsert-food-fact-container">
+            <div className="recipe-upsert-recipe-fact-container">
               <TextField
                 label="Calories *"
                 slotProps={{
@@ -154,7 +154,7 @@ const RecipeUpsert = ({
                         position="start"
                         sx={
                           (submitted || blurFields.includes("calories")) &&
-                          (food.calories < 0 || isNaN(food.calories))
+                            (recipe.calories < 0 || isNaN(recipe.calories))
                             ? { color: "rgb(211, 47, 47)" }
                             : {}
                         }
@@ -166,9 +166,9 @@ const RecipeUpsert = ({
                 }}
                 size="small"
                 sx={{ width: "8rem" }}
-                defaultValue={initialFood.calories}
+                defaultValue={initialRecipe.calories}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleFoodFieldChange(
+                  handleRecipeFieldChange(
                     event.target.value ? +event.target.value : -1,
                     "calories"
                   );
@@ -178,7 +178,7 @@ const RecipeUpsert = ({
                 }}
                 error={
                   (submitted || blurFields.includes("calories")) &&
-                  (food.calories < 0 || isNaN(food.calories))
+                  (recipe.calories < 0 || isNaN(recipe.calories))
                 }
               />
               <TextField
@@ -190,7 +190,7 @@ const RecipeUpsert = ({
                         position="start"
                         sx={
                           (submitted || blurFields.includes("servings")) &&
-                          (food.servings < 1 || isNaN(food.servings))
+                            (recipe.servings < 1 || isNaN(recipe.servings))
                             ? { color: "rgb(211, 47, 47)" }
                             : {}
                         }
@@ -202,9 +202,9 @@ const RecipeUpsert = ({
                 }}
                 size="small"
                 sx={{ width: "8rem" }}
-                defaultValue={initialFood.servings}
+                defaultValue={initialRecipe.servings}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleFoodFieldChange(
+                  handleRecipeFieldChange(
                     event.target.value ? +event.target.value : -1,
                     "servings"
                   );
@@ -214,12 +214,12 @@ const RecipeUpsert = ({
                 }}
                 error={
                   (submitted || blurFields.includes("servings")) &&
-                  (food.servings < 1 || isNaN(food.servings))
+                  (recipe.servings < 1 || isNaN(recipe.servings))
                 }
               />
             </div>
             <h3>Ingredients</h3>
-            {submitted && !food.ingredients.length ? (
+            {submitted && !recipe.ingredients.length ? (
               <p className="error-helper-text">
                 Minimum One Ingredient Required
               </p>
@@ -228,9 +228,9 @@ const RecipeUpsert = ({
             )}
             <IngredientListUpsert
               submitted={submitted}
-              initialIngredients={food.ingredients}
+              initialIngredients={recipe.ingredients}
               onChange={(ingredients: Ingredient[]) => {
-                handleFoodFieldChange(ingredients, "ingredients");
+                handleRecipeFieldChange(ingredients, "ingredients");
               }}
             />
           </div>
@@ -241,9 +241,9 @@ const RecipeUpsert = ({
                 label="Image URL"
                 size="small"
                 fullWidth
-                defaultValue={food.image}
+                defaultValue={recipe.image}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleFoodFieldChange(event.target.value, "image");
+                  handleRecipeFieldChange(event.target.value, "image");
                 }}
               />
             </div>
@@ -255,9 +255,9 @@ const RecipeUpsert = ({
               </ul>
               <DirectionsListUpsert
                 submitted={submitted}
-                initialSteps={food.recipe}
+                initialSteps={recipe.steps}
                 onChange={(directions: Step[]) => {
-                  handleFoodFieldChange(directions, "recipe");
+                  handleRecipeFieldChange(directions, "steps");
                 }}
               />
             </div>

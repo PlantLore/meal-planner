@@ -1,4 +1,4 @@
-export enum FoodType {
+export enum RecipeType {
   BREAKFAST = 'Breakfast',
   LUNCH = 'Lunch',
   DINNER = 'Dinner',

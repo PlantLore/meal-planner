@@ -1,81 +1,68 @@
-import { Card, Divider, IconButton } from "@mui/material";
-import { Food } from "../../models/Food";
 import "./RecipeCard.css";
-import CloseIcon from '@mui/icons-material/Close';
-import FoodTypeChip from "../food-type-chip/FoodTypeChip";
-import FoodFactArray from "../food-card/food-fact-array/FoodFactArray";
-import { Edit, OpenInFull } from "@mui/icons-material";
-import { Link } from "react-router";
+import { Card, Dialog } from "@mui/material";
+import { Recipe } from "../../models/Recipe";
+import { RecipeType } from "../../models/RecipeType";
+import { MealType } from "../../models/MealType";
+import RecipeFactArray from "./recipe-fact-array/RecipeFactArray";
+import ExpandedRecipeCard from '../expanded-recipe-card/ExpandedRecipeCard';
+import RecipeTypeChip from '../recipe-type-chip/RecipeTypeChip';
+import { useState } from "react";
 
-const RecipeCard = ({ food, handleClose }: { food: Food; handleClose?: () => void; }) => {
-    return <Card className={((): string => food.recipe.length ? "recipe-card" : "recipe-card-small")()} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
-        <div className="recipe-card-header-container">
-            <div className={((): string => food.image ? "recipe-card-title-container" : "recipe-card-title-container-no-image")()}>
-                <h2>{food.title}</h2>
-                {food.foodTypes.map((foodType, index) => <FoodTypeChip key={index} foodType={foodType} />)}
-            </div>
-            <div className="recipe-card-action-button-container">
-                <Link to={`/recipes/${food.id}`} className='no-link-style'>
-                    <IconButton
-                        sx={(theme) => ({
-                            color: theme.palette.grey[500],
-                        })}
-                    >
-                        <OpenInFull />
-                    </IconButton>
-                </Link>
-                <Link to={`/recipes/edit/${food.id}`} className='no-link-style'>
-                    <IconButton
-                        sx={(theme) => ({
-                            color: theme.palette.grey[500],
-                        })}
-                    >
-                        <Edit />
-                    </IconButton>
-                </Link>
-                {
-                    handleClose ?
-                        <IconButton
-                            aria-label="close"
-                            onClick={handleClose}
-                            sx={(theme) => ({
-                                color: theme.palette.grey[500],
-                            })}
-                        >
-                            <CloseIcon />
-                        </IconButton> :
-                        <></>
-                }
-            </div>
-        </div>
-        {food.image ?
-            <img className={((): string => food.recipe.length ? "recipe-card-image" : "recipe-card-image-small")()} src={food.image} alt="completed recipe" /> :
-            <Divider variant="middle" />
+const RecipeCard = ({ recipe, mealType }: { recipe: Recipe, mealType?: MealType; }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = (): void => {
+    setOpen(true);
+  };
+
+  const handleClose = (): void => {
+    setOpen(false);
+  };
+
+  const getRecipeTypeClass = (): string => {
+    if (mealType === MealType.DINNER) {
+      if (recipe.recipeTypes.includes(RecipeType.SIDE))
+        return "recipe-card-dinner-side";
+      return "recipe-card-dinner";
+    }
+    if (mealType === MealType.LUNCH) {
+      if (recipe.recipeTypes.includes(RecipeType.SIDE)) return "recipe-card-lunch-side";
+      return "recipe-card-lunch";
+    }
+    if (mealType === MealType.BREAKFAST) {
+      if (recipe.recipeTypes.includes(RecipeType.SIDE))
+        return "recipe-card-breakfast-side";
+      return "recipe-card-breakfast";
+    }
+    if (mealType === MealType.SWEET_TREAT) {
+      return "recipe-card-sweet-treat";
+    }
+    return "recipe-card-snack";
+  };
+
+  return (
+    <>
+      <Card onClick={handleClickOpen} className="recipe-card" raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
+        {
+          recipe.image &&
+          <div className="recipe-card-image-container">
+            <img className="recipe-image" src={recipe.image} alt="Completed Recipe" />
+          </div>
         }
-        <div className="recipe-card-info-container">
-            <div className="recipe-card-ingredient-column">
-                <FoodFactArray food={food} />
-                <h3>Ingredients</h3>
-                {food.ingredients.map((ingredient, index) => <p className="ingredient-list-item" key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</p>)}
-            </div>
-            {
-                food.recipe.length ?
-                    <>
-                        <Divider variant="middle" orientation="vertical" flexItem />
-                        <div className="recipe-card-directions-column">
-                            <ul className="no-bullets"><li><h3>Directions</h3></li></ul>
-                            <ol>
-                                {food.recipe.sort((a, b) => a.ordinal - b.ordinal).map((step, index) => <li key={index}>
-                                    {step.text}
-                                </li>)}
-                            </ol>
-                        </div>
-                    </> :
-                    <></>
-            }
-
+        {mealType ? <div className={`recipe-card-indicator ${getRecipeTypeClass()}`}></div> : <></>}
+        <div className="recipe-card-details-container">
+          <h3 className="recipe-title">{recipe.title}</h3>
+          <RecipeFactArray recipe={recipe} />
         </div>
-    </Card>;
+        <div className="recipe-card-type-chip-container">
+          {!mealType ? recipe.recipeTypes.map((recipeType, index) => <RecipeTypeChip key={index} recipeType={recipeType} />) : <></>}
+        </div>
+      </Card>
+      <Dialog onClose={handleClose} open={open} PaperProps={{ sx: { maxWidth: '100%', maxHeight: '100%', borderRadius: ".75rem" } }}>
+        <ExpandedRecipeCard recipe={recipe} handleClose={handleClose} />
+      </Dialog>
+    </>
+  );
 };
 
 export default RecipeCard;

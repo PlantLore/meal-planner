@@ -1,17 +1,17 @@
-.food-type-chip-selector-container {
+.recipe-type-chip-selector-container {
     margin-right: .5rem;
     cursor: pointer;
 }
 
-.food-type-unselected {
+.recipe-type-unselected {
     opacity: .50;
 }
 
-.food-type-chip-selector-clear-all {
+.recipe-type-chip-selector-clear-all {
     cursor: pointer;
 }
 
-.food-type-chip-selector-error {
+.recipe-type-chip-selector-error {
     height: 100%;
     border-radius: 4px;
     border-color: rgb(211, 47, 47);

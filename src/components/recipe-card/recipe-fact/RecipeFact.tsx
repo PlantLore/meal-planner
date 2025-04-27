@@ -1,8 +1,8 @@
-import "./FoodFact.css";
+import "./RecipeFact.css";
 import { Tooltip } from "@mui/material";
 import { ReactNode } from "react";
 
-const FoodFact = ({
+const RecipeFact = ({
   tooltip,
   icon,
   value,
@@ -13,7 +13,7 @@ const FoodFact = ({
 }) => {
   return (
     <Tooltip title={tooltip}>
-      <span className="food-fact-container">
+      <span className="recipe-fact-container">
         {icon}
         {value !== undefined ? `: ${value}` : null}
       </span>
@@ -21,4 +21,4 @@ const FoodFact = ({
   );
 };
 
-export default FoodFact;
+export default RecipeFact;

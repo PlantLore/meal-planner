@@ -6,7 +6,7 @@ import "./MealPlanView.css";
 import MealPlanDisplaySkeleton from "../../components/meal-plan-display/MealPlanDisplaySkeleton";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import { Edit } from "@mui/icons-material";
+import { Edit, LocalGroceryStore } from "@mui/icons-material";
 
 const MealPlanView = () => {
   const [mealPlan, setMealPlan] = useState<MealPlan>();
@@ -43,6 +43,18 @@ const MealPlanView = () => {
                   })}
                 >
                   <Edit />
+                </IconButton>
+              </Link>
+              <Link
+                to={`/grocerylist/mealplan/${mealPlan.id}`}
+                className="no-link-style"
+              >
+                <IconButton
+                  sx={(theme) => ({
+                    color: theme.palette.grey[500],
+                  })}
+                >
+                  <LocalGroceryStore />
                 </IconButton>
               </Link>
             </span>

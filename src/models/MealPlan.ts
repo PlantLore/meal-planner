@@ -1,3 +1,4 @@
+import { GroceryList } from "./GroceryList";
 import { MealPlanDay } from "./MealPlanDay";
 
 export class MealPlan {
@@ -5,4 +6,5 @@ export class MealPlan {
     startDate!: Date;
     endDate!: Date;
     mealPlanDays: MealPlanDay[] = [];
+    groceryList?: GroceryList;
 }

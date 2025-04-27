@@ -2,11 +2,11 @@ import "./MealPlanDayDisplay.css";
 import { MealPlanDay } from "../../../models/MealPlanDay";
 import MealPlanColumn from "../meal-plan-column/MealPlanColumn";
 import { MealType } from "../../../models/MealType";
-import { Food } from "../../../models/Food";
+import { Recipe } from "../../../models/Recipe";
 
 const MealPlanDayDisplay = ({ mealPlanDay }: { mealPlanDay: MealPlanDay; }) => {
-  const getMealFoods = (mealType: MealType): Food[] => {
-    return mealPlanDay.meals.find((meal) => meal.mealType === mealType)?.foods || [];
+  const getMealRecipes = (mealType: MealType): Recipe[] => {
+    return mealPlanDay.meals.find((meal) => meal.mealType === mealType)?.recipes || [];
   };
 
   return (
@@ -14,17 +14,17 @@ const MealPlanDayDisplay = ({ mealPlanDay }: { mealPlanDay: MealPlanDay; }) => {
       className="meal-plan-day-container"
     >
       <span className="meal-plan-day-column">
-        <MealPlanColumn foods={getMealFoods(MealType.BREAKFAST)} mealType={MealType.BREAKFAST}></MealPlanColumn>
+        <MealPlanColumn recipes={getMealRecipes(MealType.BREAKFAST)} mealType={MealType.BREAKFAST}></MealPlanColumn>
       </span>
       <span className="meal-plan-day-column">
-        <MealPlanColumn foods={getMealFoods(MealType.LUNCH)} mealType={MealType.LUNCH}></MealPlanColumn>
+        <MealPlanColumn recipes={getMealRecipes(MealType.LUNCH)} mealType={MealType.LUNCH}></MealPlanColumn>
       </span>
       <span className="meal-plan-day-column">
-        <MealPlanColumn foods={getMealFoods(MealType.DINNER)} mealType={MealType.DINNER}></MealPlanColumn>
+        <MealPlanColumn recipes={getMealRecipes(MealType.DINNER)} mealType={MealType.DINNER}></MealPlanColumn>
       </span>
       <span className="meal-plan-day-column">
-        <MealPlanColumn foods={getMealFoods(MealType.SNACK)} mealType={MealType.SNACK}></MealPlanColumn>
-        <MealPlanColumn foods={getMealFoods(MealType.SWEET_TREAT)} mealType={MealType.SWEET_TREAT}></MealPlanColumn>
+        <MealPlanColumn recipes={getMealRecipes(MealType.SNACK)} mealType={MealType.SNACK}></MealPlanColumn>
+        <MealPlanColumn recipes={getMealRecipes(MealType.SWEET_TREAT)} mealType={MealType.SWEET_TREAT}></MealPlanColumn>
       </span>
     </div>
   );
