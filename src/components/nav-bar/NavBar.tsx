@@ -8,7 +8,7 @@ import { useState } from "react";
 type NavButton = {
   title: string;
   route: string;
-  subMenu?: { title: string; route: string }[];
+  subMenu?: { title: string; route: string; }[];
 };
 
 const NavBar = () => {
@@ -47,7 +47,7 @@ const NavBar = () => {
     },
     {
       title: "Grocery List",
-      route: "/grocerylist",
+      route: "/grocerylist/current",
     },
   ];
   const [menuIndex, setMenuIndex] = useState<number>(-1);
@@ -107,7 +107,7 @@ const NavBar = () => {
                   <MenuList>
                     {navButton.subMenu.map(
                       (
-                        button: { title: string; route: string },
+                        button: { title: string; route: string; },
                         index: number
                       ) => (
                         <Link

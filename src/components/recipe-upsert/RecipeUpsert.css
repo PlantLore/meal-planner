@@ -36,7 +36,7 @@
 }
 
 .recipe-upsert-ingredient-column {
-    flex: 3;
+    flex: 4;
     padding: 1.25rem 1.5rem 0 1.5rem;
     text-align: center;
 }

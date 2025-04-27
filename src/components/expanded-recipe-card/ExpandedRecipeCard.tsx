@@ -56,7 +56,7 @@ const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClo
             <div className="expanded-recipe-card-ingredient-column">
                 <RecipeFactArray recipe={recipe} />
                 <h3>Ingredients</h3>
-                {recipe.ingredients.map((ingredient, index) => <p className="ingredient-list-item" key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</p>)}
+                {recipe.ingredients.map((ingredient, index) => <p className="ingredient-list-item" key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.grocery.name}</p>)}
             </div>
             {
                 recipe.steps.length ?

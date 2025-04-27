@@ -1,0 +1,5 @@
+.grocery-upsert-dialog-actions-container {
+    display: flex;
+    gap: .75rem;
+    justify-content: end;
+}

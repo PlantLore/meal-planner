@@ -61,7 +61,7 @@ const RecipeUpsert = ({
     if (!recipe.ingredients.length) return false;
     for (let i = 0; i < recipe.ingredients.length; i++) {
       if (
-        !recipe.ingredients[i].name ||
+        !recipe.ingredients[i].grocery.name ||
         !validateFraction(recipe.ingredients[i].quantity)
       )
         return false;

@@ -2,6 +2,78 @@ import { Recipe } from "../models/Recipe";
 import { MealPlan } from "../models/MealPlan";
 import { MealType } from "../models/MealType";
 import { RecipeType } from "../models/RecipeType";
+import { GrocerySection } from "../models/GrocerySection";
+import { Grocery } from "../models/Grocery";
+import { GroceryList } from "../models/GroceryList";
+
+export const mockGroceries: Grocery[] = [
+    {
+        id: 1,
+        name: 'Ground Italian Sausage',
+        section: GrocerySection.MEAT
+    },
+    {
+        id: 2,
+        name: 'Spaghetti Noodles',
+        section: GrocerySection.INNER_AISLES
+    },
+    {
+        id: 3,
+        name: 'Marinara Sauce',
+        section: GrocerySection.INNER_AISLES
+    }
+];
+
+export const mockGroceryList: GroceryList = {
+    id: 1,
+    grocerySections: [
+        {
+            id: 1,
+            grocerySection: GrocerySection.MEAT,
+            groceries: [
+                ...mockGroceries.map((mockGrocery: Grocery) => {
+                    return {
+                        id: mockGrocery.id,
+                        grocery: mockGrocery,
+                        quantity: '1',
+                        unit: 'lb',
+                        checked: false
+                    };
+                })
+            ]
+        },
+        {
+            id: 2,
+            grocerySection: GrocerySection.INNER_AISLES,
+            groceries: [
+                ...mockGroceries.map((mockGrocery: Grocery) => {
+                    return {
+                        id: mockGrocery.id,
+                        grocery: mockGrocery,
+                        quantity: '1',
+                        unit: 'lb',
+                        checked: false
+                    };
+                })
+            ]
+        },
+        {
+            id: 3,
+            grocerySection: GrocerySection.PRODUCE,
+            groceries: [
+                ...mockGroceries.map((mockGrocery: Grocery) => {
+                    return {
+                        id: mockGrocery.id,
+                        grocery: mockGrocery,
+                        quantity: '1',
+                        unit: 'lb',
+                        checked: false
+                    };
+                })
+            ]
+        }
+    ]
+};
 
 export const mockRecipes: Recipe[] = [
     {
@@ -30,19 +102,19 @@ export const mockRecipes: Recipe[] = [
         ingredients: [
             {
                 id: 1,
-                name: 'Ground Italian Sausage',
+                grocery: mockGroceries[0],
                 quantity: '1',
                 unit: 'lb'
             },
             {
                 id: 2,
-                name: 'Spaghetti Noodles',
+                grocery: mockGroceries[1],
                 quantity: '1',
                 unit: 'package'
             },
             {
                 id: 3,
-                name: 'Marinara Sause',
+                grocery: mockGroceries[2],
                 quantity: '1',
                 unit: 'jar'
             }

@@ -29,7 +29,7 @@ const App = () => {
             element={<MealPlanEditView />}
           />
           <Route path="/mealplans" element={<MealPlanListView />} />
-          <Route path="/grocerylist" element={<GroceryListView />} />
+          <Route path="/grocerylist/current" element={<GroceryListView />} />
           <Route
             path="/grocerylist/mealplan/:mealPlanId"
             element={<GroceryListView />}
