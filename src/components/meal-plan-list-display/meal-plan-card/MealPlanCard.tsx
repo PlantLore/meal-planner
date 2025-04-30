@@ -15,12 +15,12 @@ const MealPlanCard = ({ mealPlan }: { mealPlan: MealPlan; }) => {
       for (let j = 0; j < mealPlan.mealPlanDays[i].meals.length; j++) {
         for (
           let k = 0;
-          k < mealPlan.mealPlanDays[i].meals[j].recipes.length;
+          k < mealPlan.mealPlanDays[i].meals[j].mealRecipes.length;
           k++
         ) {
-          if (mealPlan.mealPlanDays[i].meals[j].recipes[k].image)
+          if (mealPlan.mealPlanDays[i].meals[j].mealRecipes[k].recipe.image)
             mealPlanImagesTemp.push(
-              mealPlan.mealPlanDays[i].meals[j].recipes[k].image
+              mealPlan.mealPlanDays[i].meals[j].mealRecipes[k].recipe.image
             );
           if (mealPlanImagesTemp.length >= 3) break outerloop;
         }

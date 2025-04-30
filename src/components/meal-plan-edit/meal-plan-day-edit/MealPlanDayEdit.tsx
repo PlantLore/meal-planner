@@ -3,8 +3,8 @@ import { MealPlanDay } from "../../../models/MealPlanDay";
 import "./MealPlanDayEdit.css";
 import MealPlanColumnEdit from "../meal-plan-column-edit/MealPlanColumnEdit";
 import { MealType } from "../../../models/MealType";
-import { Recipe } from "../../../models/Recipe";
 import { Meal } from "../../../models/Meal";
+import { MealRecipe } from "../../../models/MealRecipe";
 
 const MealPlanDayEdit = ({
   initialMealPlanDay,
@@ -16,24 +16,24 @@ const MealPlanDayEdit = ({
   const [mealPlanDay, setMealPlanDay] =
     useState<MealPlanDay>(initialMealPlanDay);
 
-  const getMealRecipes = (mealType: MealType): Recipe[] => {
+  const getMealRecipes = (mealType: MealType): MealRecipe[] => {
     return (
       mealPlanDay.meals.find((meal: Meal) => meal.mealType === mealType)
-        ?.recipes || []
+        ?.mealRecipes || []
     );
   };
 
-  const mealPlanColumnChange = (mealType: MealType, recipes: Recipe[]) => {
+  const mealPlanColumnChange = (mealType: MealType, mealRecipes: MealRecipe[]) => {
     const newMealPlanDay = { ...mealPlanDay };
     const mealPlanMeals = newMealPlanDay.meals.find(
       (meal: Meal) => meal.mealType === mealType
     );
     if (mealPlanMeals) {
-      mealPlanMeals.recipes = recipes;
+      mealPlanMeals.mealRecipes = mealRecipes;
     } else {
       newMealPlanDay.meals.push({
         ...new Meal(),
-        recipes: recipes,
+        mealRecipes: mealRecipes,
         mealType: mealType,
       });
     }
@@ -48,8 +48,8 @@ const MealPlanDayEdit = ({
         <MealPlanColumnEdit
           initialRecipes={getMealRecipes(MealType.BREAKFAST)}
           mealType={MealType.BREAKFAST}
-          mealPlanColumnChange={(recipes: Recipe[]) => {
-            mealPlanColumnChange(MealType.BREAKFAST, recipes);
+          mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
+            mealPlanColumnChange(MealType.BREAKFAST, mealRecipes);
           }}
         ></MealPlanColumnEdit>
       </span>
@@ -57,8 +57,8 @@ const MealPlanDayEdit = ({
         <MealPlanColumnEdit
           initialRecipes={getMealRecipes(MealType.LUNCH)}
           mealType={MealType.LUNCH}
-          mealPlanColumnChange={(recipes: Recipe[]) => {
-            mealPlanColumnChange(MealType.LUNCH, recipes);
+          mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
+            mealPlanColumnChange(MealType.LUNCH, mealRecipes);
           }}
         ></MealPlanColumnEdit>
       </span>
@@ -66,8 +66,8 @@ const MealPlanDayEdit = ({
         <MealPlanColumnEdit
           initialRecipes={getMealRecipes(MealType.DINNER)}
           mealType={MealType.DINNER}
-          mealPlanColumnChange={(recipes: Recipe[]) => {
-            mealPlanColumnChange(MealType.DINNER, recipes);
+          mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
+            mealPlanColumnChange(MealType.DINNER, mealRecipes);
           }}
         ></MealPlanColumnEdit>
       </span>
@@ -75,15 +75,15 @@ const MealPlanDayEdit = ({
         <MealPlanColumnEdit
           initialRecipes={getMealRecipes(MealType.SNACK)}
           mealType={MealType.SNACK}
-          mealPlanColumnChange={(recipes: Recipe[]) => {
-            mealPlanColumnChange(MealType.SNACK, recipes);
+          mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
+            mealPlanColumnChange(MealType.SNACK, mealRecipes);
           }}
         ></MealPlanColumnEdit>
         <MealPlanColumnEdit
           initialRecipes={getMealRecipes(MealType.SWEET_TREAT)}
           mealType={MealType.SWEET_TREAT}
-          mealPlanColumnChange={(recipes: Recipe[]) => {
-            mealPlanColumnChange(MealType.SWEET_TREAT, recipes);
+          mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
+            mealPlanColumnChange(MealType.SWEET_TREAT, mealRecipes);
           }}
         ></MealPlanColumnEdit>
       </span>

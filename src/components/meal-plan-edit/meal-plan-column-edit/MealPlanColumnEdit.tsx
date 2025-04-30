@@ -6,6 +6,7 @@ import RecipeCard from "../../recipe-card/RecipeCard";
 import { Dialog, IconButton, Tooltip } from "@mui/material";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import RecipeListView from "../../../views/recipe-list-view/RecipeListView";
+import { MealRecipe } from "../../../models/MealRecipe";
 
 const MealPlanColumnEdit = ({
   mealType,
@@ -13,10 +14,10 @@ const MealPlanColumnEdit = ({
   mealPlanColumnChange,
 }: {
   mealType: MealType;
-  initialRecipes: Recipe[];
-  mealPlanColumnChange: (recipes: Recipe[]) => void;
+  initialRecipes: MealRecipe[];
+  mealPlanColumnChange: (mealRecipes: MealRecipe[]) => void;
 }) => {
-  const [recipes, setRecipes] = useState<Recipe[]>(initialRecipes);
+  const [recipes, setRecipes] = useState<MealRecipe[]>(initialRecipes);
   const [open, setOpen] = useState(false);
 
   const scrollableElementRef = useRef(null);
@@ -36,8 +37,8 @@ const MealPlanColumnEdit = ({
     mealPlanColumnChange(newRecipes);
   };
 
-  const recipeSelected = (recipe: Recipe): void => {
-    const newRecipes = [...recipes, recipe];
+  const recipeSelected = (mealRecipe: MealRecipe): void => {
+    const newRecipes = [...recipes, mealRecipe];
     setRecipes(newRecipes);
     mealPlanColumnChange(newRecipes);
   };
@@ -45,10 +46,10 @@ const MealPlanColumnEdit = ({
   return (
     <span className="meal-plan-column-edit">
       <h3 className="meal-plan-column-edit-title">{mealType}</h3>
-      {recipes.map((recipe: Recipe, index: number) => (
-        <div className="meal-plan-recipe-card-container" key={recipe.id}>
+      {recipes.map((mealRecipe: MealRecipe, index: number) => (
+        <div className="meal-plan-recipe-card-container" key={mealRecipe.recipe.id}>
           <div className="meal-plan-recipe-card">
-            <RecipeCard recipe={recipe} mealType={mealType} />
+            <RecipeCard recipe={mealRecipe.recipe} mealType={mealType} leftovers={mealRecipe.leftovers} />
           </div>
           <div className="meal-plan-recipe-card-actions">
             <IconButton
@@ -88,7 +89,7 @@ const MealPlanColumnEdit = ({
           onClose={handleClose}
           scrollRef={scrollableElementRef}
           recipeSelected={(recipe: Recipe) => {
-            recipeSelected(recipe);
+            recipeSelected({ id: 0, leftovers: false, recipe: recipe });
             handleClose();
           }}
         />

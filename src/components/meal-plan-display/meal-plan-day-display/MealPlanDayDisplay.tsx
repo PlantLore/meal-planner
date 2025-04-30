@@ -2,11 +2,11 @@ import "./MealPlanDayDisplay.css";
 import { MealPlanDay } from "../../../models/MealPlanDay";
 import MealPlanColumn from "../meal-plan-column/MealPlanColumn";
 import { MealType } from "../../../models/MealType";
-import { Recipe } from "../../../models/Recipe";
+import { MealRecipe } from "../../../models/MealRecipe";
 
 const MealPlanDayDisplay = ({ mealPlanDay }: { mealPlanDay: MealPlanDay; }) => {
-  const getMealRecipes = (mealType: MealType): Recipe[] => {
-    return mealPlanDay.meals.find((meal) => meal.mealType === mealType)?.recipes || [];
+  const getMealRecipes = (mealType: MealType): MealRecipe[] => {
+    return mealPlanDay.meals.find((meal) => meal.mealType === mealType)?.mealRecipes || [];
   };
 
   return (

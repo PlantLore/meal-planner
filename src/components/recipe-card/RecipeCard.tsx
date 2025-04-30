@@ -8,7 +8,7 @@ import ExpandedRecipeCard from '../expanded-recipe-card/ExpandedRecipeCard';
 import RecipeTypeChip from '../recipe-type-chip/RecipeTypeChip';
 import { useState } from "react";
 
-const RecipeCard = ({ recipe, mealType }: { recipe: Recipe, mealType?: MealType; }) => {
+const RecipeCard = ({ recipe, mealType, leftovers }: { recipe: Recipe, mealType?: MealType, leftovers?: boolean; }) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = (): void => {
@@ -51,7 +51,7 @@ const RecipeCard = ({ recipe, mealType }: { recipe: Recipe, mealType?: MealType;
         }
         {mealType ? <div className={`recipe-card-indicator ${getRecipeTypeClass()}`}></div> : <></>}
         <div className="recipe-card-details-container">
-          <h3 className="recipe-title">{recipe.title}</h3>
+          <h3 className="recipe-title"><span className="recipe-title-leftovers">{leftovers ? "Leftover " : ""}</span>{recipe.title}</h3>
           <RecipeFactArray recipe={recipe} />
         </div>
         <div className="recipe-card-type-chip-container">
