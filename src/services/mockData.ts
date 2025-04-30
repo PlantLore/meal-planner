@@ -135,73 +135,101 @@ export const mockMealPlan: MealPlan = {
                 {
                     id: 1,
                     mealType: MealType.BREAKFAST,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
-                            title: 'Spaghetti 1',
                             id: 1,
-                            recipeTypes: [RecipeType.BREAKFAST, RecipeType.FRUIT]
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                title: 'Spaghetti 1',
+                                id: 1,
+                                recipeTypes: [RecipeType.BREAKFAST, RecipeType.FRUIT]
+                            }
                         },
                         {
-                            ...mockRecipes[0],
-                            title: 'Spaghetti 2',
                             id: 2,
-                            image: '',
-                            recipeTypes: [RecipeType.BREAKFAST, RecipeType.SIDE, RecipeType.VEGETABLE]
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                title: 'Spaghetti 2',
+                                id: 2,
+                                image: '',
+                                recipeTypes: [RecipeType.BREAKFAST, RecipeType.SIDE, RecipeType.VEGETABLE]
+                            }
                         }
                     ]
                 },
                 {
                     id: 2,
                     mealType: MealType.LUNCH,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
-                            title: 'Spaghetti 3',
                             id: 3,
-                            recipeTypes: [RecipeType.LUNCH]
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                title: 'Spaghetti 3',
+                                id: 3,
+                                recipeTypes: [RecipeType.LUNCH]
+                            }
                         }
                     ]
                 },
                 {
                     id: 3,
                     mealType: MealType.DINNER,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
-                            title: 'Spaghetti 1',
                             id: 4,
-                            recipeTypes: [RecipeType.DINNER]
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                title: 'Spaghetti 1',
+                                id: 4,
+                                recipeTypes: [RecipeType.DINNER]
+                            }
                         },
                         {
-                            ...mockRecipes[0],
                             id: 5,
-                            image: '',
-                            recipeTypes: [RecipeType.DINNER, RecipeType.SIDE]
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 5,
+                                image: '',
+                                recipeTypes: [RecipeType.DINNER, RecipeType.SIDE]
+                            }
                         }
                     ]
                 },
                 {
                     id: 4,
                     mealType: MealType.SNACK,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
                             id: 6,
-                            image: '',
-                            recipeTypes: [RecipeType.SNACK]
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 6,
+                                image: '',
+                                recipeTypes: [RecipeType.SNACK]
+                            }
                         }
                     ]
                 },
                 {
                     id: 5,
                     mealType: MealType.SWEET_TREAT,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
                             id: 7,
-                            image: '',
-                            recipeTypes: [RecipeType.SWEET_TREAT]
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 7,
+                                image: '',
+                                recipeTypes: [RecipeType.SWEET_TREAT]
+                            }
                         }
                     ]
                 }
@@ -214,71 +242,98 @@ export const mockMealPlan: MealPlan = {
                 {
                     id: 1,
                     mealType: MealType.BREAKFAST,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
                             id: 8,
-                            recipeTypes: [RecipeType.BREAKFAST]
+                            leftovers: true,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 8,
+                                recipeTypes: [RecipeType.BREAKFAST]
+                            },
                         },
                         {
-                            ...mockRecipes[0],
                             id: 9,
-                            image: '',
-                            recipeTypes: [RecipeType.BREAKFAST, RecipeType.SIDE]
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 9,
+                                image: '',
+                                recipeTypes: [RecipeType.BREAKFAST, RecipeType.SIDE]
+                            }
                         }
                     ]
                 },
                 {
                     id: 2,
                     mealType: MealType.LUNCH,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
                             id: 10,
-                            recipeTypes: [RecipeType.LUNCH]
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 10,
+                                recipeTypes: [RecipeType.LUNCH]
+                            }
                         }
                     ]
                 },
                 {
                     id: 3,
                     mealType: MealType.DINNER,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
                             id: 11,
-                            recipeTypes: [RecipeType.DINNER],
-                            steps: []
+                            leftovers: true,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 11,
+                                recipeTypes: [RecipeType.DINNER],
+                                steps: []
+                            },
                         },
                         {
-                            ...mockRecipes[0],
                             id: 12,
-                            image: '',
-                            recipeTypes: [RecipeType.DINNER, RecipeType.SIDE]
+                            leftovers: true,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 12,
+                                image: '',
+                                recipeTypes: [RecipeType.DINNER, RecipeType.SIDE]
+                            }
                         }
                     ]
                 },
                 {
                     id: 4,
                     mealType: MealType.SNACK,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
                             id: 13,
-                            image: '',
-                            recipeTypes: [RecipeType.SNACK],
-                            steps: []
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 13,
+                                image: '',
+                                recipeTypes: [RecipeType.SNACK]
+                            }
                         }
                     ]
                 },
                 {
                     id: 5,
                     mealType: MealType.SWEET_TREAT,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
-                            id: 14,
-                            image: '',
-                            recipeTypes: [RecipeType.SWEET_TREAT]
+                            id: 13,
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 13,
+                                image: '',
+                                recipeTypes: [RecipeType.SWEET_TREAT]
+                            }
                         }
                     ]
                 }
@@ -291,69 +346,101 @@ export const mockMealPlan: MealPlan = {
                 {
                     id: 1,
                     mealType: MealType.BREAKFAST,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
-                            id: 15,
-                            recipeTypes: [RecipeType.BREAKFAST]
+                            id: 14,
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                title: 'Spaghetti 1',
+                                id: 14,
+                                recipeTypes: [RecipeType.BREAKFAST, RecipeType.FRUIT]
+                            }
                         },
                         {
-                            ...mockRecipes[0],
-                            id: 16,
-                            image: '',
-                            recipeTypes: [RecipeType.BREAKFAST, RecipeType.SIDE]
+                            id: 15,
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                title: 'Spaghetti 2',
+                                id: 15,
+                                image: '',
+                                recipeTypes: [RecipeType.BREAKFAST, RecipeType.SIDE, RecipeType.VEGETABLE]
+                            }
                         }
                     ]
                 },
                 {
                     id: 2,
                     mealType: MealType.LUNCH,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
-                            id: 17,
-                            recipeTypes: [RecipeType.LUNCH]
+                            id: 16,
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                title: 'Spaghetti 3',
+                                id: 16,
+                                recipeTypes: [RecipeType.LUNCH]
+                            }
                         }
                     ]
                 },
                 {
                     id: 3,
                     mealType: MealType.DINNER,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
-                            id: 18,
-                            recipeTypes: [RecipeType.DINNER]
+                            id: 17,
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                title: 'Spaghetti 1',
+                                id: 17,
+                                recipeTypes: [RecipeType.DINNER]
+                            }
                         },
                         {
-                            ...mockRecipes[0],
-                            id: 19,
-                            image: '',
-                            recipeTypes: [RecipeType.DINNER, RecipeType.SIDE]
+                            id: 18,
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 18,
+                                image: '',
+                                recipeTypes: [RecipeType.DINNER, RecipeType.SIDE]
+                            }
                         }
                     ]
                 },
                 {
                     id: 4,
                     mealType: MealType.SNACK,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
-                            id: 20,
-                            image: '',
-                            recipeTypes: [RecipeType.SNACK]
+                            id: 19,
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 19,
+                                image: '',
+                                recipeTypes: [RecipeType.SNACK]
+                            }
                         }
                     ]
                 },
                 {
                     id: 5,
                     mealType: MealType.SWEET_TREAT,
-                    recipes: [
+                    mealRecipes: [
                         {
-                            ...mockRecipes[0],
-                            id: 21,
-                            image: '',
-                            recipeTypes: [RecipeType.SWEET_TREAT]
+                            id: 20,
+                            leftovers: false,
+                            recipe: {
+                                ...mockRecipes[0],
+                                id: 20,
+                                image: '',
+                                recipeTypes: [RecipeType.SWEET_TREAT]
+                            }
                         }
                     ]
                 }
