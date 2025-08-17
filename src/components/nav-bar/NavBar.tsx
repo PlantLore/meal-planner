@@ -1,14 +1,14 @@
-import { Card, Divider, IconButton, MenuItem, MenuList } from "@mui/material";
+import { Card, Divider, IconButton, ListItemIcon, ListItemText, MenuItem, MenuList } from "@mui/material";
 import NavBarButton from "./nav-bar-button/NavBarButton";
 import "./NavBar.css";
-import { AccountCircle, Search } from "@mui/icons-material";
+import { AccountCircle, AddCircleOutline, FormatListBulleted, FormatListBulletedOutlined, MenuBookOutlined, Search } from "@mui/icons-material";
 import { Link } from "react-router";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
 type NavButton = {
   title: string;
   route: string;
-  subMenu?: { title: string; route: string; }[];
+  subMenu?: { title: string; route: string; icon: ReactElement}[];
 };
 
 const NavBar = () => {
@@ -20,14 +20,17 @@ const NavBar = () => {
         {
           title: "Current",
           route: "",
+          icon: <MenuBookOutlined />
         },
         {
           title: "View All",
           route: "/mealplans",
+          icon: <FormatListBulletedOutlined />
         },
         {
           title: "Create",
           route: "/mealplans/create",
+          icon: <AddCircleOutline />
         },
       ],
     },
@@ -38,10 +41,12 @@ const NavBar = () => {
         {
           title: "View All",
           route: "/recipes",
+          icon: <FormatListBulleted />
         },
         {
           title: "Create",
           route: "/recipes/create",
+          icon: <AddCircleOutline />
         },
       ],
     },
@@ -107,7 +112,7 @@ const NavBar = () => {
                   <MenuList>
                     {navButton.subMenu.map(
                       (
-                        button: { title: string; route: string; },
+                        button: { title: string; route: string; icon: ReactElement },
                         index: number
                       ) => (
                         <Link
@@ -115,7 +120,12 @@ const NavBar = () => {
                           to={button.route}
                           className="no-link-style"
                         >
-                          <MenuItem>{button.title}</MenuItem>
+                          <MenuItem>
+                            <ListItemIcon>
+                              {button.icon}
+                            </ListItemIcon>
+                            <ListItemText>{button.title}</ListItemText>
+                          </MenuItem>
                         </Link>
                       )
                     )}
