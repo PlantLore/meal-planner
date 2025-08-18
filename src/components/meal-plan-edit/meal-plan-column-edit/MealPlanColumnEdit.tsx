@@ -3,7 +3,7 @@ import { Recipe } from "../../../models/Recipe";
 import { MealType } from "../../../models/MealType";
 import "./MealPlanColumnEdit.css";
 import RecipeCard from "../../recipe-card/RecipeCard";
-import { Dialog, IconButton, Tooltip } from "@mui/material";
+import { Button, Dialog } from "@mui/material";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import RecipeListView from "../../../views/recipe-list-view/RecipeListView";
 import { MealRecipe } from "../../../models/MealRecipe";
@@ -19,6 +19,7 @@ const MealPlanColumnEdit = ({
 }) => {
   const [recipes, setRecipes] = useState<MealRecipe[]>(initialRecipes);
   const [open, setOpen] = useState(false);
+  const [mealRecipeIdCounter, setMealRecipeIdCounter] = useState(0)
 
   const scrollableElementRef = useRef(null);
 
@@ -38,7 +39,8 @@ const MealPlanColumnEdit = ({
   };
 
   const recipeSelected = (mealRecipe: MealRecipe): void => {
-    const newRecipes = [...recipes, mealRecipe];
+    const newRecipes = [...recipes, {...mealRecipe, id: mealRecipeIdCounter}];
+    setMealRecipeIdCounter(mealRecipeIdCounter - 1);
     setRecipes(newRecipes);
     mealPlanColumnChange(newRecipes);
   };
@@ -47,33 +49,32 @@ const MealPlanColumnEdit = ({
     <span className="meal-plan-column-edit">
       <h3 className="meal-plan-column-edit-title">{mealType}</h3>
       {recipes.map((mealRecipe: MealRecipe, index: number) => (
-        <div className="meal-plan-recipe-card-container" key={mealRecipe.recipe.id}>
+        <div className="meal-plan-recipe-card-container" key={mealRecipe.id}>
           <div className="meal-plan-recipe-card">
-            <RecipeCard recipe={mealRecipe.recipe} mealType={mealType} leftovers={mealRecipe.leftovers} />
-          </div>
-          <div className="meal-plan-recipe-card-actions">
-            <IconButton
-              onClick={() => {
-                onDelete(index);
-              }}
-            >
-              <Delete />
-            </IconButton>
+            <RecipeCard 
+              recipe={mealRecipe.recipe} 
+              mealType={mealType} 
+              leftovers={mealRecipe.leftovers} 
+              iconButton={{icon: <Delete/>, onClick: () => {onDelete(index)}, tooltip: "Remove Recipe"}}/>
           </div>
         </div>
       ))}
       {recipes.length === 0 ? (
-        <div>
+        <div className="meal-plan-column-edit-empty">
           <i>No Recipes Yet</i>
         </div>
       ) : (
         <></>
       )}
-      <Tooltip title="Add Recipe">
-        <IconButton onClick={handleClickOpen}>
-          <AddCircleOutline color="primary" />
-        </IconButton>
-      </Tooltip>
+      <Button 
+        variant="text" 
+        onClick={handleClickOpen} 
+        startIcon={<AddCircleOutline 
+        color="primary" />} 
+        sx={{justifyContent: 'flex-start'}}
+        fullWidth>
+        Add Recipe
+      </Button>
       <Dialog
         onClose={handleClose}
         open={open}

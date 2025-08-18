@@ -6,8 +6,6 @@
   flex-grow: 1;
 }
 
-.meal-plan-recipe-card-actions {
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
+.meal-plan-column-edit-empty {
+  margin-bottom: 1rem;
 }

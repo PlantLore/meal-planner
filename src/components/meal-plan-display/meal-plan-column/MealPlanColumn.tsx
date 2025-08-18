@@ -14,7 +14,7 @@ const MealPlanColumn = ({
     <span className="meal-plan-column">
       <h3 className="meal-plan-column-title">{mealType}</h3>
       {recipes.map((mealRecipe: MealRecipe) => (
-        <div className="meal-plan-recipe-card" key={mealRecipe.recipe.id}>
+        <div className="meal-plan-recipe-card" key={mealRecipe.id}>
           <RecipeCard recipe={mealRecipe.recipe} mealType={mealType} leftovers={mealRecipe.leftovers} />
         </div>
       ))}

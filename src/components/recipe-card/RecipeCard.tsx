@@ -6,21 +6,20 @@ import { MealType } from "../../models/MealType";
 import RecipeFactArray from "./recipe-fact-array/RecipeFactArray";
 import ExpandedRecipeCard from '../expanded-recipe-card/ExpandedRecipeCard';
 import RecipeTypeChip from '../recipe-type-chip/RecipeTypeChip';
-import { useState } from "react";
-import { CheckCircleOutline } from "@mui/icons-material";
+import { ReactElement, useState } from "react";
 
 const RecipeCard = (
   {
     recipe,
     mealType,
     leftovers,
-    onSelect
+    iconButton
   }:
     {
       recipe: Recipe,
       mealType?: MealType,
       leftovers?: boolean,
-      onSelect?: (recipe: Recipe) => void
+      iconButton?: {icon: ReactElement, onClick: (recipe: Recipe) => void, tooltip?: string}
     }) => {
   const [open, setOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -77,17 +76,17 @@ const RecipeCard = (
         <div className="recipe-card-type-chip-container">
           {!mealType ? recipe.recipeTypes.map((recipeType, index) => <RecipeTypeChip key={index} recipeType={recipeType} />) : <></>}
         </div>
-        {onSelect && isHovered &&
+        {iconButton && isHovered &&
           <div className="recipe-card-select-recipe-button">
-            <Tooltip title="Select Recipe">
+            <Tooltip title={iconButton.tooltip}>
               <IconButton
                 sx={{ backgroundColor: "var(--card-color)", '&:hover': { backgroundColor: "var(--card-color-hover)" } }}
                 onClick={(event) => {
                   event.stopPropagation();
-                  onSelect(recipe);
+                  iconButton.onClick(recipe);
                 }}
               >
-                <CheckCircleOutline color="primary" />
+                {iconButton.icon}
               </IconButton>
             </Tooltip>
           </div>

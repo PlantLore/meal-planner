@@ -4,6 +4,7 @@ import RecipeCard from "../recipe-card/RecipeCard";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { useMemo } from "react";
 import { Skeleton } from "@mui/material";
+import { CheckCircleOutline } from "@mui/icons-material";
 
 const RecipeListDisplay = ({
   recipes,
@@ -47,7 +48,10 @@ const RecipeListDisplay = ({
                   key={index}
                   className="recipe-list-display-recipe-card-container"
                 >
-                  <RecipeCard recipe={recipe} onSelect={recipeSelected} />
+                  <RecipeCard 
+                    recipe={recipe} 
+                    iconButton={recipeSelected && 
+                      {icon: <CheckCircleOutline color="primary" />, onClick: recipeSelected, tooltip: "Select Recipe"}} />
                 </div>
               ))}
               {loading ? (
