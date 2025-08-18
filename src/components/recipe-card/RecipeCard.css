@@ -2,6 +2,8 @@
     min-width: 15rem;
     max-width: 25rem;
     cursor: pointer;
+    flex-grow: 1;
+    position: relative;
 }
 
 .recipe-card-image-container {
@@ -92,4 +94,10 @@
 
 .recipe-card-snack {
     background: var(--snack-color);
+}
+
+.recipe-card-select-recipe-button {
+    position: absolute;
+    top: .25rem;
+    right: .25rem;
 }

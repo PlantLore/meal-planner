@@ -8,10 +8,6 @@
     flex-grow: 1;
 }
 
-.recipe-list-display-select-recipe-button {
-    height: fit-content;
-}
-
 masonry-container-tag {
     gap: 2rem !important;
 }

@@ -1,4 +1,5 @@
 import { Grocery } from "./Grocery";
+import { Recipe } from "./Recipe";
 
 export class GroceryListItem {
     id: number = 0;
@@ -6,4 +7,5 @@ export class GroceryListItem {
     quantity: string = "";
     unit: string = "";
     checked: boolean = false;
+    recipes?: Recipe[] = [];
 }

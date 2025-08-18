@@ -1,5 +1,5 @@
 import "./RecipeCard.css";
-import { Card, Dialog } from "@mui/material";
+import { Card, Dialog, IconButton, Tooltip } from "@mui/material";
 import { Recipe } from "../../models/Recipe";
 import { RecipeType } from "../../models/RecipeType";
 import { MealType } from "../../models/MealType";
@@ -7,9 +7,23 @@ import RecipeFactArray from "./recipe-fact-array/RecipeFactArray";
 import ExpandedRecipeCard from '../expanded-recipe-card/ExpandedRecipeCard';
 import RecipeTypeChip from '../recipe-type-chip/RecipeTypeChip';
 import { useState } from "react";
+import { CheckCircleOutline } from "@mui/icons-material";
 
-const RecipeCard = ({ recipe, mealType, leftovers }: { recipe: Recipe, mealType?: MealType, leftovers?: boolean; }) => {
+const RecipeCard = (
+  {
+    recipe,
+    mealType,
+    leftovers,
+    onSelect
+  }:
+    {
+      recipe: Recipe,
+      mealType?: MealType,
+      leftovers?: boolean,
+      onSelect?: (recipe: Recipe) => void
+    }) => {
   const [open, setOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleClickOpen = (): void => {
     setOpen(true);
@@ -42,7 +56,13 @@ const RecipeCard = ({ recipe, mealType, leftovers }: { recipe: Recipe, mealType?
 
   return (
     <>
-      <Card onClick={handleClickOpen} className="recipe-card" raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
+      <Card
+        onClick={handleClickOpen}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="recipe-card"
+        raised={false}
+        sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         {
           recipe.image &&
           <div className="recipe-card-image-container">
@@ -57,6 +77,21 @@ const RecipeCard = ({ recipe, mealType, leftovers }: { recipe: Recipe, mealType?
         <div className="recipe-card-type-chip-container">
           {!mealType ? recipe.recipeTypes.map((recipeType, index) => <RecipeTypeChip key={index} recipeType={recipeType} />) : <></>}
         </div>
+        {onSelect && isHovered &&
+          <div className="recipe-card-select-recipe-button">
+            <Tooltip title="Select Recipe">
+              <IconButton
+                sx={{ backgroundColor: "var(--card-color)", '&:hover': { backgroundColor: "var(--card-color-hover)" } }}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onSelect(recipe);
+                }}
+              >
+                <CheckCircleOutline color="primary" />
+              </IconButton>
+            </Tooltip>
+          </div>
+        }
       </Card>
       <Dialog onClose={handleClose} open={open} PaperProps={{ sx: { maxWidth: '100%', maxHeight: '100%', borderRadius: ".75rem" } }}>
         <ExpandedRecipeCard recipe={recipe} handleClose={handleClose} />

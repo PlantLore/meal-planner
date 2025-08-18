@@ -180,7 +180,7 @@ const MealPlanEdit = ({
             Cancel
           </Button>
           <Button type="submit" variant="contained">
-            Submit
+            Save
           </Button>
         </div>
       </div>
