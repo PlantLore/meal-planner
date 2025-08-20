@@ -7,6 +7,9 @@ import { MealPlanDay } from "../../models/MealPlanDay";
 import MealPlanDayEdit from "./meal-plan-day-edit/MealPlanDayEdit";
 import { Button, Divider } from "@mui/material";
 import { useNavigate } from "react-router";
+import { DndContext, DragEndEvent, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { MealRecipe } from "../../models/MealRecipe";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 
 const MealPlanEdit = ({
   initialMealPlan,
@@ -18,6 +21,14 @@ const MealPlanEdit = ({
   const [mealPlan, setMealPlan] = useState<MealPlan>(initialMealPlan);
   const [blurFields, setBlurFields] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    })
+  )
 
   const navigate = useNavigate();
 
@@ -89,6 +100,44 @@ const MealPlanEdit = ({
     setBlurFields([...blurFields, field]);
   };
 
+  const handleDragEnd = (event: DragEndEvent): void => {
+    const { over, active } = event;
+    if (!over) return;
+
+    // If the item is dropped over a container, update the structure of the data.
+    const newMealPlanDays: MealPlanDay[] = mealPlan.mealPlanDays;
+    const mealToUpdate = findMeal(active.id as number);
+
+    if(!mealToUpdate) return;
+
+    newMealPlanDays.forEach((mealPlanDay) => {
+      mealPlanDay.meals.forEach((meal) => {
+        if (meal.mealRecipes.includes(mealToUpdate)) {
+          meal.mealRecipes.splice(meal.mealRecipes.indexOf(mealToUpdate), 1);
+        }
+        if (meal.id === over.id) {
+          meal.mealRecipes.push(mealToUpdate);
+        }
+      });
+    });
+
+    setMealPlan({ ...mealPlan, mealPlanDays: newMealPlanDays });
+  }
+
+  function findMeal(id: number): MealRecipe | null {
+    for (const mealPlanDay of mealPlan.mealPlanDays) {
+      for (const meal of mealPlanDay.meals) {
+        const foundRecipe = meal.mealRecipes.find(
+          (recipe) => recipe.id === id
+        );
+        if (foundRecipe) {
+          return foundRecipe;
+        }
+      }
+    }
+    return null;
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="meal-plan-edit-content-container">
@@ -148,23 +197,25 @@ const MealPlanEdit = ({
             }}
           />
         </div>
-        {mealPlan.mealPlanDays
-          .sort((current, next) => (current.day > next.day ? 1 : -1))
-          .map((mealPlanDay: MealPlanDay, index: number) => (
-            <div key={mealPlanDay.id}>
-              <h1 className="meal-plan-day-edit-date-title">
-                {mealPlanDay.day.toLocaleDateString()}
-              </h1>
-              <div className="meal-plan-day-display-edit-container">
-                <MealPlanDayEdit
-                  initialMealPlanDay={mealPlanDay}
-                  mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
-                    mealPlanDayChange(mealPlanDay, index);
-                  }}
-                />
+        <DndContext onDragEnd={handleDragEnd} sensors={sensors} modifiers={[restrictToWindowEdges]}>
+          {mealPlan.mealPlanDays
+            .sort((current, next) => (current.day > next.day ? 1 : -1))
+            .map((mealPlanDay: MealPlanDay, index: number) => (
+              <div key={mealPlanDay.id}>
+                <h1 className="meal-plan-day-edit-date-title">
+                  {mealPlanDay.day.toLocaleDateString()}
+                </h1>
+                <div className="meal-plan-day-display-edit-container">
+                  <MealPlanDayEdit
+                    initialMealPlanDay={mealPlanDay}
+                    mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
+                      mealPlanDayChange(mealPlanDay, index);
+                    }}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </DndContext>
       </div>
       <div className="meal-plan-edit-footer-container">
         <Divider />

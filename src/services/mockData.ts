@@ -240,7 +240,7 @@ export const mockMealPlan: MealPlan = {
             day: new Date(),
             meals: [
                 {
-                    id: 1,
+                    id: 6,
                     mealType: MealType.BREAKFAST,
                     mealRecipes: [
                         {
@@ -265,7 +265,7 @@ export const mockMealPlan: MealPlan = {
                     ]
                 },
                 {
-                    id: 2,
+                    id: 7,
                     mealType: MealType.LUNCH,
                     mealRecipes: [
                         {
@@ -280,7 +280,7 @@ export const mockMealPlan: MealPlan = {
                     ]
                 },
                 {
-                    id: 3,
+                    id: 8,
                     mealType: MealType.DINNER,
                     mealRecipes: [
                         {
@@ -306,7 +306,7 @@ export const mockMealPlan: MealPlan = {
                     ]
                 },
                 {
-                    id: 4,
+                    id: 9,
                     mealType: MealType.SNACK,
                     mealRecipes: [
                         {
@@ -322,7 +322,7 @@ export const mockMealPlan: MealPlan = {
                     ]
                 },
                 {
-                    id: 5,
+                    id: 10,
                     mealType: MealType.SWEET_TREAT,
                     mealRecipes: [
                         {
@@ -344,7 +344,7 @@ export const mockMealPlan: MealPlan = {
             day: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
             meals: [
                 {
-                    id: 1,
+                    id: 11,
                     mealType: MealType.BREAKFAST,
                     mealRecipes: [
                         {
@@ -371,7 +371,7 @@ export const mockMealPlan: MealPlan = {
                     ]
                 },
                 {
-                    id: 2,
+                    id: 12,
                     mealType: MealType.LUNCH,
                     mealRecipes: [
                         {
@@ -387,7 +387,7 @@ export const mockMealPlan: MealPlan = {
                     ]
                 },
                 {
-                    id: 3,
+                    id: 13,
                     mealType: MealType.DINNER,
                     mealRecipes: [
                         {
@@ -413,7 +413,7 @@ export const mockMealPlan: MealPlan = {
                     ]
                 },
                 {
-                    id: 4,
+                    id: 14,
                     mealType: MealType.SNACK,
                     mealRecipes: [
                         {
@@ -429,7 +429,7 @@ export const mockMealPlan: MealPlan = {
                     ]
                 },
                 {
-                    id: 5,
+                    id: 15,
                     mealType: MealType.SWEET_TREAT,
                     mealRecipes: [
                         {

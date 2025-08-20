@@ -7,6 +7,8 @@ import { Button, Dialog } from "@mui/material";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
 import RecipeListView from "../../../views/recipe-list-view/RecipeListView";
 import { MealRecipe } from "../../../models/MealRecipe";
+import { Draggable } from "../../draggable/Draggable";
+import { RecipeType } from "../../../models/RecipeType";
 
 const MealPlanColumnEdit = ({
   mealType,
@@ -39,7 +41,7 @@ const MealPlanColumnEdit = ({
   };
 
   const recipeSelected = (mealRecipe: MealRecipe): void => {
-    const newRecipes = [...recipes, {...mealRecipe, id: mealRecipeIdCounter}];
+    const newRecipes = [...recipes, { ...mealRecipe, id: mealRecipeIdCounter }];
     setMealRecipeIdCounter(mealRecipeIdCounter - 1);
     setRecipes(newRecipes);
     mealPlanColumnChange(newRecipes);
@@ -48,14 +50,22 @@ const MealPlanColumnEdit = ({
   return (
     <span className="meal-plan-column-edit">
       <h3 className="meal-plan-column-edit-title">{mealType}</h3>
-      {recipes.map((mealRecipe: MealRecipe, index: number) => (
+      {recipes.sort(
+        (a, b) => {
+          if (a.recipe.recipeTypes.includes(RecipeType.SIDE)) { return 1 }
+          else if (b.recipe.recipeTypes.includes(RecipeType.SIDE)) { return -1 }
+          else return 0
+        }
+      ).map((mealRecipe: MealRecipe, index: number) => (
         <div className="meal-plan-recipe-card-container" key={mealRecipe.id}>
           <div className="meal-plan-recipe-card">
-            <RecipeCard 
-              recipe={mealRecipe.recipe} 
-              mealType={mealType} 
-              leftovers={mealRecipe.leftovers} 
-              iconButton={{icon: <Delete/>, onClick: () => {onDelete(index)}, tooltip: "Remove Recipe"}}/>
+            <Draggable id={mealRecipe.id}>
+              <RecipeCard
+                recipe={mealRecipe.recipe}
+                mealType={mealType}
+                leftovers={mealRecipe.leftovers}
+                iconButton={{ icon: <Delete />, onClick: () => { onDelete(index) }, tooltip: "Remove Recipe" }} />
+            </Draggable>
           </div>
         </div>
       ))}
@@ -66,12 +76,12 @@ const MealPlanColumnEdit = ({
       ) : (
         <></>
       )}
-      <Button 
-        variant="text" 
-        onClick={handleClickOpen} 
-        startIcon={<AddCircleOutline 
-        color="primary" />} 
-        sx={{justifyContent: 'flex-start'}}
+      <Button
+        variant="text"
+        onClick={handleClickOpen}
+        startIcon={<AddCircleOutline
+          color="primary" />}
+        sx={{ justifyContent: 'flex-start' }}
         fullWidth>
         Add Recipe
       </Button>
