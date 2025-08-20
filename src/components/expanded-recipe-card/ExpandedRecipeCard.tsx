@@ -8,7 +8,7 @@ import { Edit, OpenInFull } from "@mui/icons-material";
 import { Link } from "react-router";
 
 const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClose?: () => void; }) => {
-    return <Card className={((): string => recipe.steps.length ? "expanded-recipe-card" : "expanded-recipe-card-small")()} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
+    return <Card onMouseDown={(event) => { event.stopPropagation(); }} className={((): string => recipe.steps.length ? "expanded-recipe-card" : "expanded-recipe-card-small")()} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         <div className="expanded-recipe-card-header-container">
             <div className={((): string => recipe.image ? "expanded-recipe-card-title-container" : "expanded-recipe-card-title-container-no-image")()}>
                 <h2>{recipe.title}</h2>

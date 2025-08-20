@@ -8,11 +8,6 @@
     text-align: center;
 }
 
-.meal-plan-view-edit-button {
-    width: fit-content;
-    height: fit-content;
-}
-
 .meal-plan-view-flex-spacer {
     flex: 1
 }

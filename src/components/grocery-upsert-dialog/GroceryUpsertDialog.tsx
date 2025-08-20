@@ -69,7 +69,7 @@ const GroceryUpsertDialog = ({ open, onClose }: { open: boolean, onClose: (groce
                     Cancel
                 </Button>
                 <Button onClick={handleSubmit} type="button" variant="contained">
-                    Submit
+                    Save
                 </Button>
             </div>
         </Card>
