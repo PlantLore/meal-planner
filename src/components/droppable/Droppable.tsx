@@ -6,10 +6,10 @@ export function Droppable(props: any) {
     id: props.id,
   });
   const style = {
-    border: isOver ? '.25rem dashed #808080': '.0625rem solid black', 
+    border: isOver ? '.25rem dashed white': '0rem solid black', 
     borderRadius: '1rem',
-    padding: isOver? '.40625rem': '.5rem', 
-    margin: isOver? '.40625rem': '.5rem'
+    padding: isOver? '.25rem': '.375rem', 
+    margin: isOver? '0': '.125rem'
   };
   
   
