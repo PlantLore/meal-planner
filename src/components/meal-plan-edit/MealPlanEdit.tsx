@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import { MealPlan } from "../../models/MealPlan";
 import "./MealPlanEdit.css";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -11,6 +11,8 @@ import { DndContext, DragEndEvent, MouseSensor, useSensor, useSensors } from "@d
 import { MealRecipe } from "../../models/MealRecipe";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 
+export const MealRecipeIdCounterContext = createContext(0);
+
 const MealPlanEdit = ({
   initialMealPlan,
   onSubmit,
@@ -21,6 +23,8 @@ const MealPlanEdit = ({
   const [mealPlan, setMealPlan] = useState<MealPlan>(initialMealPlan);
   const [blurFields, setBlurFields] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [mealRecipeIdCounter, setMealRecipeIdCounter] = useState(0)
+
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -108,7 +112,7 @@ const MealPlanEdit = ({
     const newMealPlanDays: MealPlanDay[] = mealPlan.mealPlanDays;
     const mealToUpdate = findMeal(active.id as number);
 
-    if(!mealToUpdate) return;
+    if (!mealToUpdate) return;
 
     newMealPlanDays.forEach((mealPlanDay) => {
       mealPlanDay.meals.forEach((meal) => {
@@ -197,25 +201,28 @@ const MealPlanEdit = ({
             }}
           />
         </div>
-        <DndContext onDragEnd={handleDragEnd} sensors={sensors} modifiers={[restrictToWindowEdges]}>
-          {mealPlan.mealPlanDays
-            .sort((current, next) => (current.day > next.day ? 1 : -1))
-            .map((mealPlanDay: MealPlanDay, index: number) => (
-              <div key={mealPlanDay.id}>
-                <h1 className="meal-plan-day-edit-date-title">
-                  {mealPlanDay.day.toLocaleDateString()}
-                </h1>
-                <div className="meal-plan-day-display-edit-container">
-                  <MealPlanDayEdit
-                    initialMealPlanDay={mealPlanDay}
-                    mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
-                      mealPlanDayChange(mealPlanDay, index);
-                    }}
-                  />
+        <MealRecipeIdCounterContext.Provider value={mealRecipeIdCounter}>
+          <DndContext onDragEnd={handleDragEnd} sensors={sensors} modifiers={[restrictToWindowEdges]} autoScroll={{layoutShiftCompensation: false}}>
+            {mealPlan.mealPlanDays
+              .sort((current, next) => (current.day > next.day ? 1 : -1))
+              .map((mealPlanDay: MealPlanDay, index: number) => (
+                <div key={mealPlanDay.id}>
+                  <h1 className="meal-plan-day-edit-date-title">
+                    {mealPlanDay.day.toLocaleDateString()}
+                  </h1>
+                  <div className="meal-plan-day-display-edit-container">
+                    <MealPlanDayEdit
+                      initialMealPlanDay={mealPlanDay}
+                      mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
+                        mealPlanDayChange(mealPlanDay, index);
+                      }}
+                      setMealRecipeIdCounter={setMealRecipeIdCounter}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-        </DndContext>
+              ))}
+          </DndContext>
+        </MealRecipeIdCounterContext.Provider>
       </div>
       <div className="meal-plan-edit-footer-container">
         <Divider />

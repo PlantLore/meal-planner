@@ -10,9 +10,11 @@ import { Droppable } from "../../droppable/Droppable";
 const MealPlanDayEdit = ({
   initialMealPlanDay,
   mealPlanDayChange,
+  setMealRecipeIdCounter
 }: {
   initialMealPlanDay: MealPlanDay;
   mealPlanDayChange: (mealPlanDay: MealPlanDay) => void;
+  setMealRecipeIdCounter: (value: React.SetStateAction<number>) => void;
 }) => {
   const [mealPlanDay, setMealPlanDay] =
     useState<MealPlanDay>(initialMealPlanDay);
@@ -60,6 +62,7 @@ const MealPlanDayEdit = ({
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.BREAKFAST, mealRecipes);
             }}
+            setMealRecipeIdCounter={setMealRecipeIdCounter}
           ></MealPlanColumnEdit>
         </Droppable>
       </span>
@@ -71,6 +74,7 @@ const MealPlanDayEdit = ({
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.LUNCH, mealRecipes);
             }}
+            setMealRecipeIdCounter={setMealRecipeIdCounter}
           ></MealPlanColumnEdit>
         </Droppable>
       </span>
@@ -82,6 +86,7 @@ const MealPlanDayEdit = ({
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.DINNER, mealRecipes);
             }}
+            setMealRecipeIdCounter={setMealRecipeIdCounter}
           ></MealPlanColumnEdit>
         </Droppable>
       </span>
@@ -93,6 +98,7 @@ const MealPlanDayEdit = ({
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.SNACK, mealRecipes);
             }}
+            setMealRecipeIdCounter={setMealRecipeIdCounter}
           ></MealPlanColumnEdit>
         </Droppable>
         <Droppable id={getMealId(MealType.SWEET_TREAT)}>
@@ -102,6 +108,7 @@ const MealPlanDayEdit = ({
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.SWEET_TREAT, mealRecipes);
             }}
+            setMealRecipeIdCounter={setMealRecipeIdCounter}
           ></MealPlanColumnEdit>
         </Droppable>
       </span>
