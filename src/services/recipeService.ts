@@ -26,3 +26,7 @@ export const getRecipeById = (id: number): Recipe => {
 export const upsertRecipe = (recipe: Recipe): Recipe => {
     return recipe;
 };
+
+export const deleteRecipe = (id: number): void => {
+    return;
+};

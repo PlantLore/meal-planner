@@ -2,7 +2,10 @@ import {
   Button,
   Card,
   Divider,
+  Fade,
   InputAdornment,
+  Modal,
+  Paper,
   TextField,
 } from "@mui/material";
 import "./RecipeUpsert.css";
@@ -26,11 +29,15 @@ const RecipeUpsert = ({
   onSubmit,
 }: {
   initialRecipe: Recipe;
-  onSubmit: (updatedRecipe: Recipe) => void;
+  onSubmit: (updatedRecipe: Recipe, deleteRecipe?: boolean) => void;
 }) => {
   const [recipe, setRecipe] = useState<Recipe>(initialRecipe);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [blurFields, setBlurFields] = useState<string[]>([]);
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const navigate = useNavigate();
 
@@ -264,21 +271,68 @@ const RecipeUpsert = ({
           </div>
         </div>
       </Card>
-      <div className="recipe-upsert-submit-container">
-        <Button
-          type="reset"
+      <div className="recipe-upsert-actions-container">
+        {recipe.id > 0 && <Button
           color="error"
           variant="contained"
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          Cancel
-        </Button>
-        <Button type="submit" variant="contained">
-          Save
-        </Button>
+          onClick={handleOpen}
+          sx={{ margin: ".75rem .5rem" }}>
+          Delete
+        </Button>}
+        <div className="recipe-upsert-submit-container">
+          <Button
+            type="reset"
+            color="error"
+            variant="contained"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button type="submit" variant="contained">
+            Save
+          </Button>
+        </div>
       </div>
+      <Modal open={open} onClose={handleClose}>
+        <Fade in={open} timeout={250}>
+          <div className="modal-recipe-delete-container">
+            <Paper elevation={3} sx={{
+              width: 'fit-content',
+              maxWidth: '30vw',
+              height: 'fit-content',
+              backgroundColor: 'var(--card-color)',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              margin: '2px',
+              padding: '1rem',
+              gap: '1rem',
+              fontSize: '1.2rem',
+            }}>
+              <div>Are you sure you want to delete this recipe?</div>
+              <div>It will no longer be available for future meal plans.</div>
+              <div className="recipe-upsert-delete-actions-container">
+                <Button variant="contained" onClick={handleClose}>
+                  No
+                </Button>
+                <Button
+                  color="error"
+                  variant="contained"
+                  onClick={() => {
+                    handleClose();
+                    onSubmit(recipe, true);
+                  }}
+                >
+                  Yes
+                </Button>
+              </div>
+            </Paper>
+          </div>
+        </Fade>
+      </Modal>
     </form>
   );
 };
