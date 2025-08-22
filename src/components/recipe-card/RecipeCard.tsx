@@ -7,19 +7,22 @@ import RecipeFactArray from "./recipe-fact-array/RecipeFactArray";
 import ExpandedRecipeCard from '../expanded-recipe-card/ExpandedRecipeCard';
 import RecipeTypeChip from '../recipe-type-chip/RecipeTypeChip';
 import { ReactElement, useState } from "react";
+import { OpenInFull } from "@mui/icons-material";
 
 const RecipeCard = (
   {
     recipe,
     mealType,
     leftovers,
-    iconButton
+    iconButton,
+    selectOnClick
   }:
     {
       recipe: Recipe,
       mealType?: MealType,
       leftovers?: boolean,
-      iconButton?: {icon: ReactElement, onClick: (recipe: Recipe) => void, tooltip?: string}
+      iconButton?: {icon: ReactElement, onClick: (recipe: Recipe) => void, tooltip?: string},
+      selectOnClick?: (recipe: Recipe) => void
     }) => {
   const [open, setOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -56,7 +59,7 @@ const RecipeCard = (
   return (
     <>
       <Card
-        onClick={handleClickOpen}
+        onClick={selectOnClick ? () => selectOnClick(recipe) : handleClickOpen}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className="recipe-card"
@@ -76,7 +79,7 @@ const RecipeCard = (
         <div className="recipe-card-type-chip-container">
           {!mealType ? recipe.recipeTypes.map((recipeType, index) => <RecipeTypeChip key={index} recipeType={recipeType} />) : <></>}
         </div>
-        {iconButton && isHovered &&
+        {iconButton && isHovered && !selectOnClick &&
           <div className="recipe-card-select-recipe-button">
             <Tooltip title={iconButton.tooltip}>
               <IconButton
@@ -87,6 +90,21 @@ const RecipeCard = (
                 }}
               >
                 {iconButton.icon}
+              </IconButton>
+            </Tooltip>
+          </div>
+        }
+        {selectOnClick && isHovered &&
+          <div className="recipe-card-select-recipe-button">
+            <Tooltip title="Expand Recipe">
+              <IconButton
+                sx={{ backgroundColor: "var(--card-color)", '&:hover': { backgroundColor: "var(--card-color-hover)" } }}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleClickOpen();
+                }}
+              >
+                <OpenInFull />
               </IconButton>
             </Tooltip>
           </div>

@@ -51,7 +51,8 @@ const RecipeListDisplay = ({
                   <RecipeCard 
                     recipe={recipe} 
                     iconButton={recipeSelected && 
-                      {icon: <CheckCircleOutline color="primary" />, onClick: recipeSelected, tooltip: "Select Recipe"}} />
+                      {icon: <CheckCircleOutline color="primary" />, onClick: recipeSelected, tooltip: "Select Recipe"}}
+                    selectOnClick={recipeSelected} />
                 </div>
               ))}
               {loading ? (
