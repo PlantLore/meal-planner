@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import RecipeUpsert from "../../components/recipe-upsert/RecipeUpsert";
 import { Recipe } from "../../models/Recipe";
 import "./RecipeUpsertView.css";
-import { getRecipeById, upsertRecipe } from "../../services/recipeService";
+import { deleteRecipe, getRecipeById, upsertRecipe } from "../../services/recipeService";
 import { useNavigate, useParams } from "react-router";
 import RecipeDisplaySkeleton from "../../components/recipe-display/RecipeDisplaySkeleton";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +18,12 @@ const RecipeUpsertView = () => {
   let { recipeId } = useParams();
   const navigate = useNavigate();
 
-  const handleRecipeUpsert = (updatedRecipe: Recipe) => {
+  const handleRecipeUpsert = (updatedRecipe: Recipe, removeRecipe?: boolean) => {
+    if (removeRecipe) {
+      deleteRecipe(updatedRecipe.id);
+      navigate("/recipes");
+      return;
+    }
     setRecipe(upsertRecipe(updatedRecipe));
     navigate("/recipes/" + updatedRecipe.id);
   };
