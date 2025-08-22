@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import { MealPlan } from "../../models/MealPlan";
 import "./MealPlanEdit.css";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { MealPlanDay } from "../../models/MealPlanDay";
 import MealPlanDayEdit from "./meal-plan-day-edit/MealPlanDayEdit";
-import { Button, Divider } from "@mui/material";
+import { Button, Divider, Fade, Modal, Paper } from "@mui/material";
 import { useNavigate } from "react-router";
 import { DndContext, DragEndEvent, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { MealRecipe } from "../../models/MealRecipe";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { ContentCopyOutlined, FastForward } from "@mui/icons-material";
+
+export const MealRecipeIdCounterContext = createContext(0);
 
 const MealPlanEdit = ({
   initialMealPlan,
@@ -21,6 +24,13 @@ const MealPlanEdit = ({
   const [mealPlan, setMealPlan] = useState<MealPlan>(initialMealPlan);
   const [blurFields, setBlurFields] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const [mealRecipeIdCounter, setMealRecipeIdCounter] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [mealRecipeId, setMealRecipeId] = useState<number | null>(null);
+  const [mealId, setMealId] = useState<number | null>(null);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -104,27 +114,54 @@ const MealPlanEdit = ({
     const { over, active } = event;
     if (!over) return;
 
-    // If the item is dropped over a container, update the structure of the data.
-    const newMealPlanDays: MealPlanDay[] = mealPlan.mealPlanDays;
-    const mealToUpdate = findMeal(active.id as number);
+    setMealRecipeId(active.id as number);
+    setMealId(over.id as number);
+    handleOpen();
+  }
 
-    if(!mealToUpdate) return;
+  const moveMealRecipe = (mealRecipeId: number, mealId: number) => {
+    const newMealPlanDays: MealPlanDay[] = mealPlan.mealPlanDays;
+    const mealToUpdate = findMealRecipe(mealRecipeId as number);
+
+    if (!mealToUpdate) return;
 
     newMealPlanDays.forEach((mealPlanDay) => {
       mealPlanDay.meals.forEach((meal) => {
         if (meal.mealRecipes.includes(mealToUpdate)) {
           meal.mealRecipes.splice(meal.mealRecipes.indexOf(mealToUpdate), 1);
         }
-        if (meal.id === over.id) {
+        if (meal.id === mealId) {
           meal.mealRecipes.push(mealToUpdate);
         }
       });
     });
 
     setMealPlan({ ...mealPlan, mealPlanDays: newMealPlanDays });
+    handleClose();
   }
 
-  function findMeal(id: number): MealRecipe | null {
+  const makeLeftovers = (mealRecipeId: number, mealId: number) => {
+    const newMealPlanDays: MealPlanDay[] = mealPlan.mealPlanDays;
+    const mealToCopy = findMealRecipe(mealRecipeId);
+    
+    if (!mealToCopy) return;
+    
+    const leftoverMeal = { ...mealToCopy, id: mealRecipeIdCounter, leftovers: true };
+    setMealRecipeIdCounter(mealRecipeIdCounter - 1);
+
+    newMealPlanDays.forEach((mealPlanDay) => {
+      mealPlanDay.meals.forEach((meal) => {
+        if (meal.id === mealId) {
+          meal.mealRecipes.push(leftoverMeal);
+        }
+      });
+    });
+
+    setMealPlan({ ...mealPlan, mealPlanDays: newMealPlanDays });
+    handleClose();
+  }
+
+  const findMealRecipe = (id: number): MealRecipe | null => {
     for (const mealPlanDay of mealPlan.mealPlanDays) {
       for (const meal of mealPlanDay.meals) {
         const foundRecipe = meal.mealRecipes.find(
@@ -197,29 +234,32 @@ const MealPlanEdit = ({
             }}
           />
         </div>
-        <DndContext onDragEnd={handleDragEnd} sensors={sensors} modifiers={[restrictToWindowEdges]}>
-          {mealPlan.mealPlanDays
-            .sort((current, next) => (current.day > next.day ? 1 : -1))
-            .map((mealPlanDay: MealPlanDay, index: number) => (
-              <div key={mealPlanDay.id}>
-                <h1 className="meal-plan-day-edit-date-title">
-                  {mealPlanDay.day.toLocaleDateString()}
-                </h1>
-                <div className="meal-plan-day-display-edit-container">
-                  <MealPlanDayEdit
-                    initialMealPlanDay={mealPlanDay}
-                    mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
-                      mealPlanDayChange(mealPlanDay, index);
-                    }}
-                  />
+        <MealRecipeIdCounterContext.Provider value={mealRecipeIdCounter}>
+          <DndContext onDragEnd={handleDragEnd} sensors={sensors} modifiers={[restrictToWindowEdges]} autoScroll={{ layoutShiftCompensation: false }}>
+            {mealPlan.mealPlanDays
+              .sort((current, next) => (current.day > next.day ? 1 : -1))
+              .map((mealPlanDay: MealPlanDay, index: number) => (
+                <div key={mealPlanDay.id}>
+                  <h1 className="meal-plan-day-edit-date-title">
+                    {mealPlanDay.day.toLocaleDateString()}
+                  </h1>
+                  <div className="meal-plan-day-display-edit-container">
+                    <MealPlanDayEdit
+                      initialMealPlanDay={mealPlanDay}
+                      mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
+                        mealPlanDayChange(mealPlanDay, index);
+                      }}
+                      setMealRecipeIdCounter={setMealRecipeIdCounter}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
-        </DndContext>
+              ))}
+          </DndContext>
+        </MealRecipeIdCounterContext.Provider>
       </div>
       <div className="meal-plan-edit-footer-container">
         <Divider />
-        <div className="meal-plan-edit-submit-container">
+        <div className="meal-plan-edit-submit-container max-page-content">
           <Button
             type="reset"
             color="error"
@@ -235,6 +275,48 @@ const MealPlanEdit = ({
           </Button>
         </div>
       </div>
+      <Modal open={open} onClose={handleClose}>
+        <Fade in={open} timeout={250}>
+          <div className="modal-recipe-move-container">
+            <Paper onClick={() => {mealRecipeId && mealId && moveMealRecipe(mealRecipeId, mealId)}} elevation={3} sx={{
+              width: '20vw',
+              height: '40vh',
+              backgroundColor: 'var(--card-color)',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              margin: '2px',
+              '&:hover': {
+                cursor: 'pointer',
+                border: '2px solid var(--dinner-color)',
+                margin: '0'
+              }
+            }}>
+              <FastForward sx={{ color: 'rgb(73, 73, 73)', fontSize: '10rem' }} />
+              <p className="modal-recipe-move-text">Move</p>
+            </Paper>
+            <Paper onClick={() => {mealRecipeId && mealId && makeLeftovers(mealRecipeId, mealId)}} elevation={3} sx={{
+              width: '20vw',
+              height: '40vh',
+              backgroundColor: 'var(--card-color)',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              margin: '2px',
+              '&:hover': {
+                cursor: 'pointer',
+                border: '2px solid var(--dinner-color)',
+                margin: '0'
+              }
+            }}>
+              <ContentCopyOutlined sx={{ color: 'rgb(73, 73, 73)', fontSize: '9.5rem' }} />
+              <p className="modal-recipe-move-text">Leftovers</p>
+            </Paper>
+          </div>
+        </Fade>
+      </Modal>
     </form>
   );
 };

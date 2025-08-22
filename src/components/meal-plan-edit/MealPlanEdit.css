@@ -30,3 +30,21 @@
 .meal-plan-edit-content-container {
     padding-bottom: 3rem;
 }
+
+.modal-recipe-move-container {
+    display: flex;
+    gap: 3rem;
+    padding: 1rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+}
+
+.modal-recipe-move-text {
+    color: rgb(73, 73, 73);
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+}

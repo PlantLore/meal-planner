@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Recipe } from "../../../models/Recipe";
 import { MealType } from "../../../models/MealType";
 import "./MealPlanColumnEdit.css";
@@ -9,19 +9,23 @@ import RecipeListView from "../../../views/recipe-list-view/RecipeListView";
 import { MealRecipe } from "../../../models/MealRecipe";
 import { Draggable } from "../../draggable/Draggable";
 import { RecipeType } from "../../../models/RecipeType";
+import { MealRecipeIdCounterContext } from "../MealPlanEdit";
 
 const MealPlanColumnEdit = ({
   mealType,
   initialRecipes,
   mealPlanColumnChange,
+  setMealRecipeIdCounter
 }: {
   mealType: MealType;
   initialRecipes: MealRecipe[];
   mealPlanColumnChange: (mealRecipes: MealRecipe[]) => void;
+  setMealRecipeIdCounter: (value: React.SetStateAction<number>) => void;
 }) => {
   const [recipes, setRecipes] = useState<MealRecipe[]>(initialRecipes);
   const [open, setOpen] = useState(false);
-  const [mealRecipeIdCounter, setMealRecipeIdCounter] = useState(0)
+
+  const mealRecipeIdCounter = useContext(MealRecipeIdCounterContext)
 
   const scrollableElementRef = useRef(null);
 

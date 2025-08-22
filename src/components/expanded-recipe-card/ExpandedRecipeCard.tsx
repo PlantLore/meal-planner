@@ -1,10 +1,10 @@
-import { Card, Divider, IconButton } from "@mui/material";
+import { Card, Divider, IconButton, Tooltip } from "@mui/material";
 import { Recipe } from "../../models/Recipe";
 import "./ExpandedRecipeCard.css";
 import CloseIcon from '@mui/icons-material/Close';
 import RecipeTypeChip from "../recipe-type-chip/RecipeTypeChip";
 import RecipeFactArray from "../recipe-card/recipe-fact-array/RecipeFactArray";
-import { Edit, OpenInFull } from "@mui/icons-material";
+import { Edit, ZoomOutMap } from "@mui/icons-material";
 import { Link } from "react-router";
 
 const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClose?: () => void; }) => {
@@ -16,13 +16,15 @@ const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClo
             </div>
             <div className="expanded-recipe-card-action-button-container">
                 <Link to={`/recipes/${recipe.id}`} className='no-link-style'>
-                    <IconButton
-                        sx={(theme) => ({
-                            color: theme.palette.grey[500],
-                        })}
-                    >
-                        <OpenInFull />
-                    </IconButton>
+                    <Tooltip title="Open Recipe">
+                        <IconButton
+                            sx={(theme) => ({
+                                color: theme.palette.grey[500],
+                            })}
+                        >
+                            <ZoomOutMap />
+                        </IconButton>
+                    </Tooltip>
                 </Link>
                 <Link to={`/recipes/edit/${recipe.id}`} className='no-link-style'>
                     <IconButton
