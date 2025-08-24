@@ -17,8 +17,9 @@ const MealPlanUpsertView = () => {
   const navigate = useNavigate();
 
   const handleMealPlanEdit = (updatedMealPlan: MealPlan) => {
-    setMealPlan(upsertMealPlan(updatedMealPlan));
-    navigate("/mealplans/" + updatedMealPlan.id);
+    const newMealPlan = upsertMealPlan(updatedMealPlan)
+    setMealPlan(newMealPlan);
+    navigate("/mealplans/" + newMealPlan.id);
   };
 
   useEffect(() => {
