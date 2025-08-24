@@ -48,3 +48,9 @@
     font-weight: bold;
     margin: 0;
 }
+
+.meal-plan-upsert-total-calories-container {
+    margin-left: 1rem;
+    font-size: 1rem;
+    font-weight: normal;
+}

@@ -10,7 +10,8 @@ import { useNavigate } from "react-router";
 import { DndContext, DragEndEvent, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { MealRecipe } from "../../models/MealRecipe";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
-import { ContentCopyOutlined, CopyAllOutlined, FastForward } from "@mui/icons-material";
+import { ContentCopyOutlined, CopyAllOutlined, FastForward, LocalFireDepartmentOutlined } from "@mui/icons-material";
+import RecipeFact from "../recipe-card/recipe-fact/RecipeFact";
 
 export const MealRecipeIdCounterContext = createContext(0);
 
@@ -148,9 +149,9 @@ const MealPlanUpsert = ({
   const makeLeftovers = (mealRecipeId: number, mealId: number) => {
     const newMealPlanDays: MealPlanDay[] = mealPlan.mealPlanDays;
     const mealToCopy = findMealRecipe(mealRecipeId);
-    
+
     if (!mealToCopy) return;
-    
+
     const leftoverMeal = { ...mealToCopy, id: mealRecipeIdCounter, leftovers: true };
     setMealRecipeIdCounter(mealRecipeIdCounter - 1);
 
@@ -169,9 +170,9 @@ const MealPlanUpsert = ({
   const makeDuplicate = (mealRecipeId: number, mealId: number) => {
     const newMealPlanDays: MealPlanDay[] = mealPlan.mealPlanDays;
     const mealToCopy = findMealRecipe(mealRecipeId);
-    
+
     if (!mealToCopy) return;
-    
+
     const duplicateMeal = { ...mealToCopy, id: mealRecipeIdCounter };
     setMealRecipeIdCounter(mealRecipeIdCounter - 1);
 
@@ -199,6 +200,16 @@ const MealPlanUpsert = ({
       }
     }
     return null;
+  }
+
+  const calculateCalories = (mealPlanDay: MealPlanDay): number => {
+    return mealPlanDay.meals.reduce(
+      (total, meal) =>
+        total + meal.mealRecipes.reduce(
+          (total, mealRecipe) =>
+            total + mealRecipe.recipe.calories, 0
+        )
+      , 0);
   }
 
   return (
@@ -268,6 +279,9 @@ const MealPlanUpsert = ({
                 <div key={mealPlanDay.id}>
                   <h1 className="meal-plan-day-edit-date-title">
                     {mealPlanDay.day.toLocaleDateString()}
+                    <span className="meal-plan-upsert-total-calories-container">
+                      <RecipeFact tooltip={"Total Calories"} icon={<LocalFireDepartmentOutlined />} value={calculateCalories(mealPlanDay)}></RecipeFact>
+                    </span>
                   </h1>
                   <div className="meal-plan-day-display-edit-container">
                     <MealPlanDayUpsert
@@ -304,7 +318,7 @@ const MealPlanUpsert = ({
       <Modal open={open} onClose={handleClose}>
         <Fade in={open} timeout={250}>
           <div className="modal-recipe-move-container">
-            <Paper onClick={() => {mealRecipeId && mealId && moveMealRecipe(mealRecipeId, mealId)}} elevation={3} sx={{
+            <Paper onClick={() => { mealRecipeId && mealId && moveMealRecipe(mealRecipeId, mealId) }} elevation={3} sx={{
               width: '20vw',
               height: '40vh',
               backgroundColor: 'var(--card-color)',
@@ -322,7 +336,7 @@ const MealPlanUpsert = ({
               <FastForward sx={{ color: 'rgb(73, 73, 73)', fontSize: '10rem' }} />
               <p className="modal-recipe-move-text">Move</p>
             </Paper>
-            <Paper onClick={() => {mealRecipeId && mealId && makeDuplicate(mealRecipeId, mealId)}} elevation={3} sx={{
+            <Paper onClick={() => { mealRecipeId && mealId && makeDuplicate(mealRecipeId, mealId) }} elevation={3} sx={{
               width: '20vw',
               height: '40vh',
               backgroundColor: 'var(--card-color)',
@@ -340,7 +354,7 @@ const MealPlanUpsert = ({
               <ContentCopyOutlined sx={{ color: 'rgb(73, 73, 73)', fontSize: '9.5rem' }} />
               <p className="modal-recipe-move-text">Copy</p>
             </Paper>
-            <Paper onClick={() => {mealRecipeId && mealId && makeLeftovers(mealRecipeId, mealId)}} elevation={3} sx={{
+            <Paper onClick={() => { mealRecipeId && mealId && makeLeftovers(mealRecipeId, mealId) }} elevation={3} sx={{
               width: '20vw',
               height: '40vh',
               backgroundColor: 'var(--card-color)',
