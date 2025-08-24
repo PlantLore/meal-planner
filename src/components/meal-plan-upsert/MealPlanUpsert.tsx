@@ -20,7 +20,7 @@ const MealPlanUpsert = ({
   onSubmit,
 }: {
   initialMealPlan: MealPlan;
-  onSubmit: (mealPlan: MealPlan) => void;
+  onSubmit: (mealPlan: MealPlan, deleted?: boolean) => void;
 }) => {
   const [mealPlan, setMealPlan] = useState<MealPlan>(initialMealPlan);
   const [blurFields, setBlurFields] = useState<string[]>([]);
@@ -28,11 +28,14 @@ const MealPlanUpsert = ({
   const [mealRecipeIdCounter, setMealRecipeIdCounter] = useState(-1);
   const [mealPlanDayIdCounter, setMealPlanDayIdCounter] = useState(-1);
   const [open, setOpen] = useState(false);
+  const [openDelete, setOpenDelete] = useState(false);
   const [mealRecipeId, setMealRecipeId] = useState<number | null>(null);
   const [mealId, setMealId] = useState<number | null>(null);
 
   const handleOpen = () => setOpen(true);
+  const handleOpenDelete = () => setOpenDelete(true);
   const handleClose = () => setOpen(false);
+  const handleCloseDelete = () => setOpenDelete(false);
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -299,20 +302,31 @@ const MealPlanUpsert = ({
       </div>
       <div className="meal-plan-edit-footer-container">
         <Divider />
-        <div className="meal-plan-edit-submit-container max-page-content">
+        <div className="meal-plan-edit-actions-container max-page-content">
           <Button
-            type="reset"
             color="error"
             variant="contained"
-            onClick={() => {
+            onClick={mealPlan.id > 0 ? handleOpenDelete : () => {
               navigate(-1);
             }}
-          >
-            Cancel
+            sx={{ margin: ".75rem .5rem" }}>
+            Delete
           </Button>
-          <Button type="submit" variant="contained">
-            Save
-          </Button>
+          <div className="meal-plan-edit-submit-container">
+            <Button
+              type="reset"
+              color="error"
+              variant="contained"
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button type="submit" variant="contained">
+              Save
+            </Button>
+          </div>
         </div>
       </div>
       <Modal open={open} onClose={handleClose}>
@@ -371,6 +385,47 @@ const MealPlanUpsert = ({
             }}>
               <CopyAllOutlined sx={{ color: 'rgb(73, 73, 73)', fontSize: '9.5rem' }} />
               <p className="modal-recipe-move-text">Leftovers</p>
+            </Paper>
+          </div>
+        </Fade>
+      </Modal>
+      <Modal open={openDelete} onClose={handleCloseDelete}>
+        <Fade in={openDelete} timeout={250}>
+          <div className="modal-delete-meal-plan-container">
+            <Paper elevation={3} sx={{
+              width: 'fit-content',
+              height: 'fit-content',
+              backgroundColor: 'var(--card-color)',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              padding: '1rem',
+              textAlign: 'center',
+              gap: '1rem',
+              borderRadius: '.75rem',
+              fontSize: '1.2rem',
+            }}>
+              <p className="modal-delete-meal-plan-text">Are you sure you want to delete this meal plan?</p>
+              <div className="modal-delete-meal-plan-actions-container">
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={handleCloseDelete}
+                >
+                  No
+                </Button>
+                <Button
+                  color="error"
+                  variant="contained"
+                  onClick={() => {
+                    handleCloseDelete();
+                    onSubmit(mealPlan, true)
+                  }}
+                >
+                  Yes
+                </Button>
+              </div>
             </Paper>
           </div>
         </Fade>

@@ -29,7 +29,7 @@ const RecipeUpsert = ({
   onSubmit,
 }: {
   initialRecipe: Recipe;
-  onSubmit: (updatedRecipe: Recipe, deleteRecipe?: boolean) => void;
+  onSubmit: (updatedRecipe: Recipe, deleted?: boolean) => void;
 }) => {
   const [recipe, setRecipe] = useState<Recipe>(initialRecipe);
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -272,13 +272,15 @@ const RecipeUpsert = ({
         </div>
       </Card>
       <div className="recipe-upsert-actions-container">
-        {recipe.id > 0 && <Button
+        <Button
           color="error"
           variant="contained"
-          onClick={handleOpen}
+          onClick={recipe.id > 0 ? handleOpen : () => {
+              navigate(-1);
+            }}
           sx={{ margin: ".75rem .5rem" }}>
           Delete
-        </Button>}
+        </Button>
         <div className="recipe-upsert-submit-container">
           <Button
             type="reset"
