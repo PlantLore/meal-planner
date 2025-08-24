@@ -1,20 +1,20 @@
 import { createContext, useState } from "react";
 import { MealPlan } from "../../models/MealPlan";
-import "./MealPlanEdit.css";
+import "./MealPlanUpsert.css";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { MealPlanDay } from "../../models/MealPlanDay";
-import MealPlanDayEdit from "./meal-plan-day-edit/MealPlanDayEdit";
+import MealPlanDayUpsert from "./meal-plan-day-upsert/MealPlanDayUpsert";
 import { Button, Divider, Fade, Modal, Paper } from "@mui/material";
 import { useNavigate } from "react-router";
 import { DndContext, DragEndEvent, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { MealRecipe } from "../../models/MealRecipe";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
-import { ContentCopyOutlined, FastForward } from "@mui/icons-material";
+import { ContentCopyOutlined, CopyAllOutlined, FastForward } from "@mui/icons-material";
 
 export const MealRecipeIdCounterContext = createContext(0);
 
-const MealPlanEdit = ({
+const MealPlanUpsert = ({
   initialMealPlan,
   onSubmit,
 }: {
@@ -24,7 +24,8 @@ const MealPlanEdit = ({
   const [mealPlan, setMealPlan] = useState<MealPlan>(initialMealPlan);
   const [blurFields, setBlurFields] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
-  const [mealRecipeIdCounter, setMealRecipeIdCounter] = useState(0);
+  const [mealRecipeIdCounter, setMealRecipeIdCounter] = useState(-1);
+  const [mealPlanDayIdCounter, setMealPlanDayIdCounter] = useState(-1);
   const [open, setOpen] = useState(false);
   const [mealRecipeId, setMealRecipeId] = useState<number | null>(null);
   const [mealId, setMealId] = useState<number | null>(null);
@@ -84,6 +85,8 @@ const MealPlanEdit = ({
             .includes(mealPlanDay.day.toDateString())
       );
 
+      let idCounter = mealPlanDayIdCounter;
+
       dates.forEach((date: Date) => {
         if (
           newMealPlan.mealPlanDays.filter(
@@ -92,8 +95,10 @@ const MealPlanEdit = ({
           ).length > 0
         )
           return;
-        newMealPlan.mealPlanDays.push({ ...new MealPlanDay(), day: date });
+        newMealPlan.mealPlanDays.push({ ...new MealPlanDay(), day: date, id: idCounter-- });
       });
+
+      setMealPlanDayIdCounter(idCounter);
     }
 
     setMealPlan(newMealPlan);
@@ -153,6 +158,27 @@ const MealPlanEdit = ({
       mealPlanDay.meals.forEach((meal) => {
         if (meal.id === mealId) {
           meal.mealRecipes.push(leftoverMeal);
+        }
+      });
+    });
+
+    setMealPlan({ ...mealPlan, mealPlanDays: newMealPlanDays });
+    handleClose();
+  }
+
+  const makeDuplicate = (mealRecipeId: number, mealId: number) => {
+    const newMealPlanDays: MealPlanDay[] = mealPlan.mealPlanDays;
+    const mealToCopy = findMealRecipe(mealRecipeId);
+    
+    if (!mealToCopy) return;
+    
+    const duplicateMeal = { ...mealToCopy, id: mealRecipeIdCounter };
+    setMealRecipeIdCounter(mealRecipeIdCounter - 1);
+
+    newMealPlanDays.forEach((mealPlanDay) => {
+      mealPlanDay.meals.forEach((meal) => {
+        if (meal.id === mealId) {
+          meal.mealRecipes.push(duplicateMeal);
         }
       });
     });
@@ -244,7 +270,7 @@ const MealPlanEdit = ({
                     {mealPlanDay.day.toLocaleDateString()}
                   </h1>
                   <div className="meal-plan-day-display-edit-container">
-                    <MealPlanDayEdit
+                    <MealPlanDayUpsert
                       initialMealPlanDay={mealPlanDay}
                       mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
                         mealPlanDayChange(mealPlanDay, index);
@@ -296,7 +322,7 @@ const MealPlanEdit = ({
               <FastForward sx={{ color: 'rgb(73, 73, 73)', fontSize: '10rem' }} />
               <p className="modal-recipe-move-text">Move</p>
             </Paper>
-            <Paper onClick={() => {mealRecipeId && mealId && makeLeftovers(mealRecipeId, mealId)}} elevation={3} sx={{
+            <Paper onClick={() => {mealRecipeId && mealId && makeDuplicate(mealRecipeId, mealId)}} elevation={3} sx={{
               width: '20vw',
               height: '40vh',
               backgroundColor: 'var(--card-color)',
@@ -312,6 +338,24 @@ const MealPlanEdit = ({
               }
             }}>
               <ContentCopyOutlined sx={{ color: 'rgb(73, 73, 73)', fontSize: '9.5rem' }} />
+              <p className="modal-recipe-move-text">Copy</p>
+            </Paper>
+            <Paper onClick={() => {mealRecipeId && mealId && makeLeftovers(mealRecipeId, mealId)}} elevation={3} sx={{
+              width: '20vw',
+              height: '40vh',
+              backgroundColor: 'var(--card-color)',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              margin: '2px',
+              '&:hover': {
+                cursor: 'pointer',
+                border: '2px solid var(--dinner-color)',
+                margin: '0'
+              }
+            }}>
+              <CopyAllOutlined sx={{ color: 'rgb(73, 73, 73)', fontSize: '9.5rem' }} />
               <p className="modal-recipe-move-text">Leftovers</p>
             </Paper>
           </div>
@@ -321,4 +365,4 @@ const MealPlanEdit = ({
   );
 };
 
-export default MealPlanEdit;
+export default MealPlanUpsert;

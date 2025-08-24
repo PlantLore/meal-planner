@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { MealPlanDay } from "../../../models/MealPlanDay";
-import "./MealPlanDayEdit.css";
-import MealPlanColumnEdit from "../meal-plan-column-edit/MealPlanColumnEdit";
+import "./MealPlanDayUpsert.css";
+import MealPlanColumnUpsert from "../meal-plan-column-upsert/MealPlanColumnUpsert";
 import { MealType } from "../../../models/MealType";
 import { Meal } from "../../../models/Meal";
 import { MealRecipe } from "../../../models/MealRecipe";
 import { Droppable } from "../../droppable/Droppable";
 
-const MealPlanDayEdit = ({
+const MealPlanDayUpsert = ({
   initialMealPlanDay,
   mealPlanDayChange,
   setMealRecipeIdCounter
@@ -56,64 +56,64 @@ const MealPlanDayEdit = ({
     <div className="meal-plan-day-edit-container">
       <span className="meal-plan-day-edit-column">
         <Droppable id={getMealId(MealType.BREAKFAST)}>
-          <MealPlanColumnEdit
+          <MealPlanColumnUpsert
             initialRecipes={getMealRecipes(MealType.BREAKFAST)}
             mealType={MealType.BREAKFAST}
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.BREAKFAST, mealRecipes);
             }}
             setMealRecipeIdCounter={setMealRecipeIdCounter}
-          ></MealPlanColumnEdit>
+          ></MealPlanColumnUpsert>
         </Droppable>
       </span>
       <span className="meal-plan-day-edit-column">
         <Droppable id={getMealId(MealType.LUNCH)}>
-          <MealPlanColumnEdit
+          <MealPlanColumnUpsert
             initialRecipes={getMealRecipes(MealType.LUNCH)}
             mealType={MealType.LUNCH}
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.LUNCH, mealRecipes);
             }}
             setMealRecipeIdCounter={setMealRecipeIdCounter}
-          ></MealPlanColumnEdit>
+          ></MealPlanColumnUpsert>
         </Droppable>
       </span>
       <span className="meal-plan-day-edit-column">
         <Droppable id={getMealId(MealType.DINNER)}>
-          <MealPlanColumnEdit
+          <MealPlanColumnUpsert
             initialRecipes={getMealRecipes(MealType.DINNER)}
             mealType={MealType.DINNER}
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.DINNER, mealRecipes);
             }}
             setMealRecipeIdCounter={setMealRecipeIdCounter}
-          ></MealPlanColumnEdit>
+          ></MealPlanColumnUpsert>
         </Droppable>
       </span>
       <span className="meal-plan-day-edit-column">
         <Droppable id={getMealId(MealType.SNACK)}>
-          <MealPlanColumnEdit
+          <MealPlanColumnUpsert
             initialRecipes={getMealRecipes(MealType.SNACK)}
             mealType={MealType.SNACK}
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.SNACK, mealRecipes);
             }}
             setMealRecipeIdCounter={setMealRecipeIdCounter}
-          ></MealPlanColumnEdit>
+          ></MealPlanColumnUpsert>
         </Droppable>
         <Droppable id={getMealId(MealType.SWEET_TREAT)}>
-          <MealPlanColumnEdit
+          <MealPlanColumnUpsert
             initialRecipes={getMealRecipes(MealType.SWEET_TREAT)}
             mealType={MealType.SWEET_TREAT}
             mealPlanColumnChange={(mealRecipes: MealRecipe[]) => {
               mealPlanColumnChange(MealType.SWEET_TREAT, mealRecipes);
             }}
             setMealRecipeIdCounter={setMealRecipeIdCounter}
-          ></MealPlanColumnEdit>
+          ></MealPlanColumnUpsert>
         </Droppable>
       </span>
     </div>
   );
 };
 
-export default MealPlanDayEdit;
+export default MealPlanDayUpsert;
