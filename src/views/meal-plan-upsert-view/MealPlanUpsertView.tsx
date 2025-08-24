@@ -4,6 +4,7 @@ import { MealPlan } from "../../models/MealPlan";
 import "./MealPlanUpsertView.css";
 import { useNavigate, useParams } from "react-router";
 import {
+  deleteMealPlan,
   getMealPlanById,
   upsertMealPlan,
 } from "../../services/mealPlanService";
@@ -16,7 +17,12 @@ const MealPlanUpsertView = () => {
   let { mealPlanId } = useParams();
   const navigate = useNavigate();
 
-  const handleMealPlanEdit = (updatedMealPlan: MealPlan) => {
+  const handleMealPlanEdit = (updatedMealPlan: MealPlan, deleted?: boolean) => {
+    if (deleted) {
+      deleteMealPlan(updatedMealPlan.id);
+      navigate("/mealplans");
+      return;
+    }
     const newMealPlan = upsertMealPlan(updatedMealPlan)
     setMealPlan(newMealPlan);
     navigate("/mealplans/" + newMealPlan.id);

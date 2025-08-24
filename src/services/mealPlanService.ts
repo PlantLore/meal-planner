@@ -18,3 +18,7 @@ export const getMealPlans = (): MealPlan[] => {
 
   return mealPlanArr;
 };
+
+export const deleteMealPlan = (id: number): void => {
+  return;
+};

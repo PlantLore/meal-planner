@@ -18,8 +18,8 @@ const RecipeUpsertView = () => {
   let { recipeId } = useParams();
   const navigate = useNavigate();
 
-  const handleRecipeUpsert = (updatedRecipe: Recipe, removeRecipe?: boolean) => {
-    if (removeRecipe) {
+  const handleRecipeUpsert = (updatedRecipe: Recipe, deleted?: boolean) => {
+    if (deleted) {
       deleteRecipe(updatedRecipe.id);
       navigate("/recipes");
       return;
