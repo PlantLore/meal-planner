@@ -14,6 +14,7 @@ import { ContentCopyOutlined, CopyAllOutlined, FastForward, LocalFireDepartmentO
 import RecipeFact from "../recipe-card/recipe-fact/RecipeFact";
 
 export const MealRecipeIdCounterContext = createContext(0);
+const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const MealPlanUpsert = ({
   initialMealPlan,
@@ -281,7 +282,7 @@ const MealPlanUpsert = ({
               .map((mealPlanDay: MealPlanDay, index: number) => (
                 <div key={mealPlanDay.id}>
                   <h1 className="meal-plan-day-edit-date-title">
-                    {mealPlanDay.day.toLocaleDateString()}
+                    {dayNames[mealPlanDay.day.getDay()] + " " + mealPlanDay.day.toLocaleDateString()}
                     <span className="meal-plan-upsert-total-calories-container">
                       <RecipeFact tooltip={"Total Calories"} icon={<LocalFireDepartmentOutlined />} value={calculateCalories(mealPlanDay)}></RecipeFact>
                     </span>

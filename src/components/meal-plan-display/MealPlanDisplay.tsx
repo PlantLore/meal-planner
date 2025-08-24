@@ -5,6 +5,8 @@ import MealPlanDayDisplay from "./meal-plan-day-display/MealPlanDayDisplay";
 import "./MealPlanDisplay.css";
 import RecipeFact from "../recipe-card/recipe-fact/RecipeFact";
 
+const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
 const MealPlanDisplay = ({ mealPlan }: { mealPlan: MealPlan; }) => {
   const sortedMealPlanDays = [...mealPlan.mealPlanDays].sort((current, next) => current.day > next.day ? 1 : -1);
 
@@ -36,7 +38,7 @@ const MealPlanDisplay = ({ mealPlan }: { mealPlan: MealPlan; }) => {
         <h1 className="meal-plan-display-date-title">
           {mealPlanDay.day.toLocaleDateString() === new Date().toLocaleDateString() ?
             "Today's Meals" :
-            mealPlanDay.day.toLocaleDateString()
+            dayNames[mealPlanDay.day.getDay()] + " " + mealPlanDay.day.toLocaleDateString()
           }
           <span className="meal-plan-display-total-calories-container">
             <RecipeFact tooltip={"Total Calories"} icon={<LocalFireDepartmentOutlined />} value={calculateCalories(mealPlanDay)}></RecipeFact>
@@ -49,7 +51,7 @@ const MealPlanDisplay = ({ mealPlan }: { mealPlan: MealPlan; }) => {
     {previousMeals.map((mealPlanDay) =>
       <div className="meal-plan-day-display-container" key={mealPlanDay.id}>
         <h1 className="meal-plan-display-previous-date-title meal-plan-display-date-title"> 
-          {mealPlanDay.day.toLocaleDateString()} 
+          {dayNames[mealPlanDay.day.getDay()] + " " + mealPlanDay.day.toLocaleDateString()} 
           <span className="meal-plan-display-total-calories-container">
             <RecipeFact tooltip={"Total Calories"} icon={<LocalFireDepartmentOutlined />} value={calculateCalories(mealPlanDay)}></RecipeFact>
           </span>
