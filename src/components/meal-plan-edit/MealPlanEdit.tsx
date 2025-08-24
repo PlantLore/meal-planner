@@ -11,6 +11,7 @@ import { DndContext, DragEndEvent, MouseSensor, useSensor, useSensors } from "@d
 import { MealRecipe } from "../../models/MealRecipe";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { ContentCopyOutlined, CopyAllOutlined, FastForward } from "@mui/icons-material";
+import { set } from "../../reduxSlices/groceriesSlice";
 
 export const MealRecipeIdCounterContext = createContext(0);
 
@@ -25,6 +26,7 @@ const MealPlanEdit = ({
   const [blurFields, setBlurFields] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [mealRecipeIdCounter, setMealRecipeIdCounter] = useState(-1);
+  const [mealPlanDayIdCounter, setMealPlanDayIdCounter] = useState(-1);
   const [open, setOpen] = useState(false);
   const [mealRecipeId, setMealRecipeId] = useState<number | null>(null);
   const [mealId, setMealId] = useState<number | null>(null);
@@ -84,6 +86,8 @@ const MealPlanEdit = ({
             .includes(mealPlanDay.day.toDateString())
       );
 
+      let idCounter = mealPlanDayIdCounter;
+
       dates.forEach((date: Date) => {
         if (
           newMealPlan.mealPlanDays.filter(
@@ -92,8 +96,10 @@ const MealPlanEdit = ({
           ).length > 0
         )
           return;
-        newMealPlan.mealPlanDays.push({ ...new MealPlanDay(), day: date });
+        newMealPlan.mealPlanDays.push({ ...new MealPlanDay(), day: date, id: idCounter-- });
       });
+
+      setMealPlanDayIdCounter(idCounter);
     }
 
     setMealPlan(newMealPlan);
