@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import MealPlanEdit from "../../components/meal-plan-edit/MealPlanEdit";
+import MealPlanUpsert from "../../components/meal-plan-upsert/MealPlanUpsert";
 import { MealPlan } from "../../models/MealPlan";
-import "./MealPlanEditView.css";
+import "./MealPlanUpsertView.css";
 import { useNavigate, useParams } from "react-router";
 import {
   getMealPlanById,
@@ -10,7 +10,7 @@ import {
 import { Skeleton } from "@mui/material";
 import MealPlanDisplaySkeleton from "../../components/meal-plan-display/MealPlanDisplaySkeleton";
 
-const MealPlanEditView = () => {
+const MealPlanUpsertView = () => {
   const [mealPlan, setMealPlan] = useState<MealPlan>(new MealPlan());
   const [loading, setLoading] = useState<boolean>(true);
   let { mealPlanId } = useParams();
@@ -39,10 +39,10 @@ const MealPlanEditView = () => {
           <h1 className="meal-plan-edit-view-title">Meal Plan</h1>
         </div>
         {!loading ? (
-          <MealPlanEdit
+          <MealPlanUpsert
             initialMealPlan={mealPlan}
             onSubmit={handleMealPlanEdit}
-          ></MealPlanEdit>
+          ></MealPlanUpsert>
         ) : (
           <>
             <div
@@ -64,4 +64,4 @@ const MealPlanEditView = () => {
   );
 };
 
-export default MealPlanEditView;
+export default MealPlanUpsertView;

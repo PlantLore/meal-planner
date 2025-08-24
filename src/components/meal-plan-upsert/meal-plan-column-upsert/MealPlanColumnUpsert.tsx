@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import { Recipe } from "../../../models/Recipe";
 import { MealType } from "../../../models/MealType";
-import "./MealPlanColumnEdit.css";
+import "./MealPlanColumnUpsert.css";
 import RecipeCard from "../../recipe-card/RecipeCard";
 import { Button, Dialog } from "@mui/material";
 import { AddCircleOutline, Delete } from "@mui/icons-material";
@@ -9,9 +9,9 @@ import RecipeListView from "../../../views/recipe-list-view/RecipeListView";
 import { MealRecipe } from "../../../models/MealRecipe";
 import { Draggable } from "../../draggable/Draggable";
 import { RecipeType } from "../../../models/RecipeType";
-import { MealRecipeIdCounterContext } from "../MealPlanEdit";
+import { MealRecipeIdCounterContext } from "../MealPlanUpsert";
 
-const MealPlanColumnEdit = ({
+const MealPlanColumnUpsert = ({
   mealType,
   initialRecipes,
   mealPlanColumnChange,
@@ -113,4 +113,4 @@ const MealPlanColumnEdit = ({
   );
 };
 
-export default MealPlanColumnEdit;
+export default MealPlanColumnUpsert;

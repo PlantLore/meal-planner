@@ -1,21 +1,20 @@
 import { createContext, useState } from "react";
 import { MealPlan } from "../../models/MealPlan";
-import "./MealPlanEdit.css";
+import "./MealPlanUpsert.css";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
 import { MealPlanDay } from "../../models/MealPlanDay";
-import MealPlanDayEdit from "./meal-plan-day-edit/MealPlanDayEdit";
+import MealPlanDayUpsert from "./meal-plan-day-upsert/MealPlanDayUpsert";
 import { Button, Divider, Fade, Modal, Paper } from "@mui/material";
 import { useNavigate } from "react-router";
 import { DndContext, DragEndEvent, MouseSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { MealRecipe } from "../../models/MealRecipe";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { ContentCopyOutlined, CopyAllOutlined, FastForward } from "@mui/icons-material";
-import { set } from "../../reduxSlices/groceriesSlice";
 
 export const MealRecipeIdCounterContext = createContext(0);
 
-const MealPlanEdit = ({
+const MealPlanUpsert = ({
   initialMealPlan,
   onSubmit,
 }: {
@@ -271,7 +270,7 @@ const MealPlanEdit = ({
                     {mealPlanDay.day.toLocaleDateString()}
                   </h1>
                   <div className="meal-plan-day-display-edit-container">
-                    <MealPlanDayEdit
+                    <MealPlanDayUpsert
                       initialMealPlanDay={mealPlanDay}
                       mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
                         mealPlanDayChange(mealPlanDay, index);
@@ -366,4 +365,4 @@ const MealPlanEdit = ({
   );
 };
 
-export default MealPlanEdit;
+export default MealPlanUpsert;
