@@ -9,3 +9,9 @@
 .meal-plan-day-display-container {
     margin-bottom: 3rem;
 }
+
+.meal-plan-display-total-calories-container {
+    margin-left: 1rem;
+    font-size: 1rem;
+    font-weight: normal;
+}
