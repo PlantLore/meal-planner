@@ -89,6 +89,18 @@ export const mockGroceryList: GroceryList = {
                         recipes: [{...mockRecipes[0]}]
                     };
                 })
+            ],
+            addedGroceries: [
+                {
+                    id: 1,
+                    name: "Toilet Paper",
+                    checked: false
+                },
+                {
+                    id: 2,
+                    name: "Paper Towels",
+                    checked: false
+                }
             ]
         },
         {
