@@ -1,0 +1,17 @@
+.grocery-list-section-item-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.grocery-list-section-item-breakdown {
+    margin-left: 3rem;
+}
+
+.grocery-list-section-add-grocery-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}

@@ -24,57 +24,6 @@ export const mockGroceries: Grocery[] = [
     }
 ];
 
-export const mockGroceryList: GroceryList = {
-    id: 1,
-    grocerySections: [
-        {
-            id: 1,
-            grocerySection: GrocerySection.MEAT,
-            groceries: [
-                ...mockGroceries.map((mockGrocery: Grocery) => {
-                    return {
-                        id: mockGrocery.id,
-                        grocery: mockGrocery,
-                        quantity: '1',
-                        unit: 'lb',
-                        checked: false
-                    };
-                })
-            ]
-        },
-        {
-            id: 2,
-            grocerySection: GrocerySection.INNER_AISLES,
-            groceries: [
-                ...mockGroceries.map((mockGrocery: Grocery) => {
-                    return {
-                        id: mockGrocery.id,
-                        grocery: mockGrocery,
-                        quantity: '1',
-                        unit: 'lb',
-                        checked: false
-                    };
-                })
-            ]
-        },
-        {
-            id: 3,
-            grocerySection: GrocerySection.PRODUCE,
-            groceries: [
-                ...mockGroceries.map((mockGrocery: Grocery) => {
-                    return {
-                        id: mockGrocery.id,
-                        grocery: mockGrocery,
-                        quantity: '1',
-                        unit: 'lb',
-                        checked: false
-                    };
-                })
-            ]
-        }
-    ]
-};
-
 export const mockRecipes: Recipe[] = [
     {
         id: 0,
@@ -122,6 +71,72 @@ export const mockRecipes: Recipe[] = [
         image: "https://i.imgur.com/8ewJgNK.png"
     },
 ];
+
+export const mockGroceryList: GroceryList = {
+    id: 1,
+    grocerySections: [
+        {
+            id: 1,
+            grocerySection: GrocerySection.MEAT,
+            groceries: [
+                ...mockGroceries.map((mockGrocery: Grocery) => {
+                    return {
+                        id: mockGrocery.id,
+                        grocery: mockGrocery,
+                        quantity: '1',
+                        unit: 'lb',
+                        checked: false,
+                        recipes: [{...mockRecipes[0]}]
+                    };
+                })
+            ],
+            addedGroceries: [
+                {
+                    id: 1,
+                    name: "Toilet Paper",
+                    checked: false
+                },
+                {
+                    id: 2,
+                    name: "Paper Towels",
+                    checked: false
+                }
+            ]
+        },
+        {
+            id: 2,
+            grocerySection: GrocerySection.INNER_AISLES,
+            groceries: [
+                ...mockGroceries.map((mockGrocery: Grocery) => {
+                    return {
+                        id: mockGrocery.id,
+                        grocery: mockGrocery,
+                        quantity: '1',
+                        unit: 'lb',
+                        checked: false,
+                        recipes: [{...mockRecipes[0]}]
+                    };
+                })
+            ]
+        },
+        {
+            id: 3,
+            grocerySection: GrocerySection.PRODUCE,
+            groceries: [
+                ...mockGroceries.map((mockGrocery: Grocery) => {
+                    return {
+                        id: mockGrocery.id,
+                        grocery: mockGrocery,
+                        quantity: '1',
+                        unit: 'lb',
+                        checked: false,
+                        recipes: [{...mockRecipes[0]}]
+                    };
+                })
+            ]
+        }
+    ]
+};
 
 export const mockMealPlan: MealPlan = {
     id: 1,
