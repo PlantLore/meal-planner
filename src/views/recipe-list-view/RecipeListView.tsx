@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
 import "./RecipeListView.css";
 import { Recipe } from "../../models/Recipe";
-import { getAllRecipes } from "../../services/recipeService";
+import { getAllRecipes, getAllRecipesIncludeArchived } from "../../services/recipeService";
 import RecipeListDisplay from "../../components/recipe-list-display/RecipeListDisplay";
-import { Card, IconButton, TextField } from "@mui/material";
+import { Card, IconButton, Switch, TextField } from "@mui/material";
 import useDebounce from "../../hooks/useDebounce";
 import RecipeTypeChipSelector from "../../components/recipe-type-chip/recipe-type-chip-selector/RecipeTypeChipSelector";
 import { RecipeType } from "../../models/RecipeType";
@@ -24,6 +24,7 @@ const RecipeListView = ({
   const [loading, setLoading] = useState<boolean>(true);
   const [recipeFilter, setRecipeFilter] = useState<string>("");
   const [selectedRecipeTypes, setSelectedRecipeTypes] = useState<RecipeType[]>([]);
+  const [showArchived, setShowArchived] = useState<boolean>(false);
   const debouncedRecipeFilter: string = useDebounce<string>(recipeFilter, 500);
 
   const handleScroll = useCallback(() => {
@@ -68,13 +69,24 @@ const RecipeListView = ({
   }, [handleScroll, scrollRef]);
 
   useEffect(() => {
-    if (loading) {
+    if (showArchived && loading) {
+      setTimeout(() => {
+        setRecipes((recipes) => [...recipes, ...getAllRecipesIncludeArchived()]);
+        setLoading(false);
+      }, 250);
+    } else if (loading) {
       setTimeout(() => {
         setRecipes((recipes) => [...recipes, ...getAllRecipes()]);
         setLoading(false);
       }, 250);
     }
-  }, [loading]);
+  }, [loading, showArchived]);
+
+  const swapArchived = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRecipes([]);
+    setShowArchived(event.target.checked);
+    setLoading(true);
+  };
 
   const debounce = (func: Function, delay: number) => {
     let timeoutId: NodeJS.Timeout;
@@ -120,15 +132,23 @@ const RecipeListView = ({
             padding: "1rem",
           }}
         >
-          <TextField
-            label="Recipe"
-            size="small"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setRecipeFilter(event.target.value);
-            }}
-          />
-          <span className="recipe-list-view-recipe-type-selector-container">
-            <RecipeTypeChipSelector chipsChanged={setSelectedRecipeTypes} />
+          <span className="recipe-list-view-filter-inputs-container">
+            <span className="recipe-list-view-filter-inputs-left-container">
+              <TextField
+                label="Recipe"
+                size="small"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setRecipeFilter(event.target.value);
+                }}
+              />
+              <span className="recipe-list-view-recipe-type-selector-container">
+                <RecipeTypeChipSelector chipsChanged={setSelectedRecipeTypes} />
+              </span>
+            </span>
+            <span className="recipe-list-view-archived-switch-spacer">
+              <Switch onChange={swapArchived}/> Archived
+              
+            </span>
           </span>
         </Card>
       </div>

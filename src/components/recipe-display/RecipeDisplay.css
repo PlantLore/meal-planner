@@ -69,3 +69,7 @@
 .ingredient-list-item {
     margin: .5rem 0;
 }
+
+.recipe-display-title-archived {
+    color: gray;
+}

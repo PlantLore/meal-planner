@@ -73,7 +73,7 @@ const RecipeCard = (
         }
         {mealType ? <div className={`recipe-card-indicator ${getRecipeTypeClass()}`}></div> : <></>}
         <div className="recipe-card-details-container">
-          <h3 className="recipe-title"><span className="recipe-title-leftovers">{leftovers ? "Leftover " : ""}</span>{recipe.title}</h3>
+          <h3 className="recipe-title"><span className="recipe-title-leftovers">{recipe.archived ? "(Archived) " : ""}{leftovers ? "Leftover " : ""}</span>{recipe.title}</h3>
           <RecipeFactArray recipe={recipe} />
         </div>
         <div className="recipe-card-type-chip-container">

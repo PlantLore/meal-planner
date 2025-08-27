@@ -68,7 +68,8 @@ export const mockRecipes: Recipe[] = [
                 unit: 'jar'
             }
         ],
-        image: "https://i.imgur.com/8ewJgNK.png"
+        image: "https://i.imgur.com/8ewJgNK.png",
+        archived: false
     },
 ];
 
@@ -158,7 +159,8 @@ export const mockMealPlan: MealPlan = {
                                 ...mockRecipes[0],
                                 title: 'Spaghetti 1',
                                 id: 1,
-                                recipeTypes: [RecipeType.BREAKFAST, RecipeType.FRUIT]
+                                recipeTypes: [RecipeType.BREAKFAST, RecipeType.FRUIT],
+                                archived: true
                             }
                         },
                         {

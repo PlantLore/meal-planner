@@ -11,4 +11,5 @@ export class Recipe {
   recipeTypes: RecipeType[] = [];
   ingredients: Ingredient[] = [];
   image: string = "";
+  archived: boolean = false;
 }

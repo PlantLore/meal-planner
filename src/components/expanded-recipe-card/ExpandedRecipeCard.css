@@ -72,3 +72,7 @@
 .ingredient-list-item {
     margin: .5rem 0;
 }
+
+.expanded-recipe-title-archived {
+    color: gray;
+}
