@@ -5,7 +5,8 @@ import { GroceryListSection } from '../../../models/GroceryListSection';
 import { AddCircleOutline, CheckCircleOutline, Delete, ReadMoreOutlined } from '@mui/icons-material';
 import { ReactElement, useState } from 'react';
 
-const GroceryListSectionDisplay = ({ groceryListSection, groceryListSectionChange }: { groceryListSection: GroceryListSection, groceryListSectionChange: (groceryListSection: GroceryListSection) => void; }) => {
+const GroceryListSectionDisplay = ({ groceryListSection, groceryListSectionChange, onPendingChange }: 
+    { groceryListSection: GroceryListSection, groceryListSectionChange: (groceryListSection: GroceryListSection) => void, onPendingChange?: (pendingChange: boolean, id: number) => void; }) => {
 
     const [shownRecipeIds, setShownRecipeIds] = useState<number[]>([]);
     const [newGroceries, setNewGroceries] = useState<{ id: number, name: string }[]>([]);
@@ -50,6 +51,7 @@ const GroceryListSectionDisplay = ({ groceryListSection, groceryListSectionChang
 
     const deleteGroceryItem = (id: number) => {
         setNewGroceries(newGroceries.filter(grocery => grocery.id !== id));
+        if (onPendingChange && newGroceries.filter(grocery => grocery.id !== id).length <= 0) onPendingChange(false, groceryListSection.id);
     }
 
     const updateNewGroceryName = (id: number, name: string) => {
@@ -125,7 +127,11 @@ const GroceryListSectionDisplay = ({ groceryListSection, groceryListSectionChang
             }
             <Button
                 variant="text"
-                onClick={() => { setNewGroceries([...newGroceries, { id: newGroceryIdCounter, name: "" }]); setNewGroceryIdCounter(newGroceryIdCounter - 1); }}
+                onClick={() => { 
+                    setNewGroceries([...newGroceries, { id: newGroceryIdCounter, name: "" }]); 
+                    setNewGroceryIdCounter(newGroceryIdCounter - 1);
+                    if (onPendingChange) onPendingChange(true, groceryListSection.id); 
+                }}
                 startIcon={<AddCircleOutline
                     color="primary" />}
                 sx={{ marginTop: '.5rem', justifyContent: 'flex-start' }}
