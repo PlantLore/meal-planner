@@ -11,7 +11,7 @@ const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClo
     return <Card onMouseDown={(event) => { event.stopPropagation(); }} className={((): string => recipe.steps.length ? "expanded-recipe-card" : "expanded-recipe-card-small")()} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         <div className="expanded-recipe-card-header-container">
             <div className={((): string => recipe.image ? "expanded-recipe-card-title-container" : "expanded-recipe-card-title-container-no-image")()}>
-                <h2>{recipe.title}</h2>
+                <h2><span className="expanded-recipe-title-archived">{recipe.archived ? "(Archived) ": ""}</span>{recipe.title}</h2>
                 {recipe.recipeTypes.map((recipeType, index) => <RecipeTypeChip key={index} recipeType={recipeType} />)}
             </div>
             <div className="expanded-recipe-card-action-button-container">

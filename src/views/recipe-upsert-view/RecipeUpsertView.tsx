@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import RecipeUpsert from "../../components/recipe-upsert/RecipeUpsert";
 import { Recipe } from "../../models/Recipe";
 import "./RecipeUpsertView.css";
-import { deleteRecipe, getRecipeById, upsertRecipe } from "../../services/recipeService";
+import { archiveRecipe, getRecipeById, upsertRecipe } from "../../services/recipeService";
 import { useBlocker, useNavigate, useParams } from "react-router";
 import RecipeDisplaySkeleton from "../../components/recipe-display/RecipeDisplaySkeleton";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,9 +31,9 @@ const RecipeUpsertView = () => {
     return false;
   })
 
-  const handleRecipeUpsert = (updatedRecipe: Recipe, deleted?: boolean) => {
-    if (deleted) {
-      deleteRecipe(updatedRecipe.id);
+  const handleRecipeUpsert = (updatedRecipe: Recipe, archived?: boolean) => {
+    if (archived) {
+      archiveRecipe(updatedRecipe.id);
       setSaved(true);
       setTimeout(() => {
         navigate("/recipes");

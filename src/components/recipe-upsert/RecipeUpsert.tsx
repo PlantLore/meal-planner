@@ -29,7 +29,7 @@ const RecipeUpsert = ({
   onSubmit,
 }: {
   initialRecipe: Recipe;
-  onSubmit: (updatedRecipe: Recipe, deleted?: boolean) => void;
+  onSubmit: (updatedRecipe: Recipe, archived?: boolean) => void;
 }) => {
   const [recipe, setRecipe] = useState<Recipe>(initialRecipe);
   const [submitted, setSubmitted] = useState<boolean>(false);
@@ -50,6 +50,15 @@ const RecipeUpsert = ({
     const newRecipe = { ...recipe, recipe: updateRecipeOrdinal(recipe.steps) };
     onSubmit(newRecipe);
   };
+
+  const handleUnarchive = () => {
+    setSubmitted(true);
+
+    if (!validtate()) return;
+
+    const newRecipe = { ...recipe, recipe: updateRecipeOrdinal(recipe.steps), archived: false };
+    onSubmit(newRecipe);
+  }
 
   const validtate = (): boolean => {
     //validate title
@@ -272,6 +281,14 @@ const RecipeUpsert = ({
         </div>
       </Card>
       <div className="recipe-upsert-actions-container">
+        {recipe.archived ? 
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={handleUnarchive}
+          sx={{ margin: ".75rem .5rem" }}>
+          Unarchive
+        </Button> :
         <Button
           color="error"
           variant="contained"
@@ -279,8 +296,8 @@ const RecipeUpsert = ({
               navigate(-1);
             }}
           sx={{ margin: ".75rem .5rem" }}>
-          Delete
-        </Button>
+          Archive
+        </Button>}
         <div className="recipe-upsert-submit-container">
           <Button
             type="reset"
@@ -314,7 +331,7 @@ const RecipeUpsert = ({
               gap: '1rem',
               fontSize: '1.2rem',
             }}>
-              <div>Are you sure you want to delete this recipe?</div>
+              <div>Are you sure you want to archive this recipe?</div>
               <div>It will no longer be available for future meal plans.</div>
               <div className="recipe-upsert-delete-actions-container">
                 <Button variant="contained" onClick={handleClose}>

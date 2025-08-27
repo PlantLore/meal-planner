@@ -9,6 +9,15 @@ export const getAllRecipes = (): Recipe[] => {
         .map((mealPlanDay: MealPlanDay) => mealPlanDay.meals)
         .flat()
         .map((meal: Meal) => meal.mealRecipes.map((mealRecipe: MealRecipe) => mealRecipe.recipe))
+        .flat()
+        .filter((recipe: Recipe) => !recipe.archived);
+};
+
+export const getAllRecipesIncludeArchived = (): Recipe[] => {
+    return mockMealPlan.mealPlanDays
+        .map((mealPlanDay: MealPlanDay) => mealPlanDay.meals)
+        .flat()
+        .map((meal: Meal) => meal.mealRecipes.map((mealRecipe: MealRecipe) => mealRecipe.recipe))
         .flat();
 };
 
@@ -27,6 +36,6 @@ export const upsertRecipe = (recipe: Recipe): Recipe => {
     return recipe;
 };
 
-export const deleteRecipe = (id: number): void => {
+export const archiveRecipe = (id: number): void => {
     return;
 };

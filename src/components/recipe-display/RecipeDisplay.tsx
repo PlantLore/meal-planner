@@ -10,7 +10,7 @@ const RecipeDisplay = ({ recipe }: { recipe: Recipe; }) => {
     return <Card className={recipe.steps.length ? "recipe-display" : "recipe-display-small"} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         <div className="recipe-display-header-container">
             <div className={recipe.steps.length || recipe.image ? "recipe-display-title-container" : "recipe-display-title-container-no-image"}>
-                <h2>{recipe.title}</h2>
+                <h2><span className="recipe-display-title-archived">{recipe.archived ? "(Archived) ": ""}</span>{recipe.title}</h2>
                 {recipe.recipeTypes.map((recipeType, index) => <RecipeTypeChip key={index} recipeType={recipeType} />)}
             </div>
             <div className="recipe-display-action-button-container">
