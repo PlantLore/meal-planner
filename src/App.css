@@ -28,3 +28,18 @@ body {
     text-decoration: none;
     color: inherit;
 }
+
+.navigation-warning-actions-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.modal-navigation-warning-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+}
