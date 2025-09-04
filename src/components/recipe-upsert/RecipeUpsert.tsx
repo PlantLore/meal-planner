@@ -281,7 +281,7 @@ const RecipeUpsert = ({
         </div>
       </Card>
       <div className="recipe-upsert-actions-container">
-        {recipe.archived ? 
+        {recipe.id > 0 ? recipe.archived ? 
         <Button
           color="primary"
           variant="contained"
@@ -297,7 +297,8 @@ const RecipeUpsert = ({
             }}
           sx={{ margin: ".75rem .5rem" }}>
           Archive
-        </Button>}
+        </Button> :
+        <div></div>}
         <div className="recipe-upsert-submit-container">
           <Button
             type="reset"
