@@ -281,36 +281,64 @@ const RecipeUpsert = ({
         </div>
       </Card>
       <div className="recipe-upsert-actions-container">
-        {recipe.id > 0 ? recipe.archived ? 
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={handleUnarchive}
-          sx={{ margin: ".75rem .5rem" }}>
-          Unarchive
-        </Button> :
-        <Button
-          color="error"
-          variant="contained"
-          onClick={recipe.id > 0 ? handleOpen : () => {
+        {recipe.id > 0 ? recipe.archived ?
+          <Button
+            variant="contained"
+            onClick={handleUnarchive}
+            sx={{
+              margin: ".75rem .5rem",
+              backgroundColor: 'var(--button-positive-color)',
+              '&:hover': {
+                backgroundColor: 'var(--button-positive-hover-color)',
+              },
+              color: 'white',
+            }}>
+            Unarchive
+          </Button> :
+          <Button
+            variant="contained"
+            onClick={recipe.id > 0 ? handleOpen : () => {
               navigate(-1);
             }}
-          sx={{ margin: ".75rem .5rem" }}>
-          Archive
-        </Button> :
-        <div></div>}
+            sx={{
+              margin: ".75rem .5rem",
+              backgroundColor: 'var(--button-negative-color)',
+              '&:hover': {
+                backgroundColor: 'var(--button-negative-hover-color)',
+              },
+              color: 'white',
+            }}>
+            Archive
+          </Button> :
+          <div></div>}
         <div className="recipe-upsert-submit-container">
           <Button
             type="reset"
-            color="error"
             variant="contained"
             onClick={() => {
               navigate(-1);
             }}
+            sx={{
+              backgroundColor: 'var(--button-negative-color)',
+              '&:hover': {
+                backgroundColor: 'var(--button-negative-hover-color)',
+              },
+              color: 'white',
+            }}
           >
             Cancel
           </Button>
-          <Button type="submit" variant="contained">
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              backgroundColor: 'var(--button-positive-color)',
+              '&:hover': {
+                backgroundColor: 'var(--button-positive-hover-color)',
+              },
+              color: 'white',
+            }}
+          >
             Save
           </Button>
         </div>
@@ -331,19 +359,35 @@ const RecipeUpsert = ({
               padding: '1rem',
               gap: '1rem',
               fontSize: '1.2rem',
+              borderRadius: '.75rem'
             }}>
               <div>Are you sure you want to archive this recipe?</div>
               <div>It will no longer be available for future meal plans.</div>
               <div className="recipe-upsert-delete-actions-container">
-                <Button variant="contained" onClick={handleClose}>
+                <Button
+                  variant="contained" onClick={handleClose}
+                  sx={{
+                    backgroundColor: 'var(--button-positive-color)',
+                    '&:hover': {
+                      backgroundColor: 'var(--button-positive-hover-color)',
+                    },
+                    color: 'white',
+                  }}
+                >
                   No
                 </Button>
                 <Button
-                  color="error"
                   variant="contained"
                   onClick={() => {
                     handleClose();
                     onSubmit(recipe, true);
+                  }}
+                  sx={{
+                    backgroundColor: 'var(--button-negative-color)',
+                    '&:hover': {
+                      backgroundColor: 'var(--button-negative-hover-color)',
+                    },
+                    color: 'white',
                   }}
                 >
                   Yes

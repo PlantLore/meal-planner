@@ -69,7 +69,8 @@ export const mockRecipes: Recipe[] = [
             }
         ],
         image: "https://i.imgur.com/8ewJgNK.png",
-        archived: false
+        archived: false,
+        creatorEmail: "kennethdavis391@gmail.com"
     },
 ];
 
@@ -171,7 +172,8 @@ export const mockMealPlan: MealPlan = {
                                 title: 'Spaghetti 2',
                                 id: 2,
                                 image: '',
-                                recipeTypes: [RecipeType.BREAKFAST, RecipeType.SIDE, RecipeType.VEGETABLE]
+                                recipeTypes: [RecipeType.BREAKFAST, RecipeType.SIDE, RecipeType.VEGETABLE],
+                                creatorEmail: "moberlies@gmail.com"
                             }
                         }
                     ]

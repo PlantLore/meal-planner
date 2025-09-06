@@ -305,26 +305,48 @@ const MealPlanUpsert = ({
         <Divider />
         <div className="meal-plan-edit-actions-container max-page-content">
           <Button
-            color="error"
             variant="contained"
             onClick={mealPlan.id > 0 ? handleOpenDelete : () => {
               navigate(-1);
             }}
-            sx={{ margin: ".75rem .5rem" }}>
+            sx={{
+              margin: ".75rem .5rem",
+              backgroundColor: 'var(--button-negative-color)',
+              '&:hover': {
+                backgroundColor: 'var(--button-negative-hover-color)',
+              },
+              color: 'white',
+            }}>
             Delete
           </Button>
           <div className="meal-plan-edit-submit-container">
             <Button
               type="reset"
-              color="error"
               variant="contained"
               onClick={() => {
                 navigate(-1);
               }}
+              sx={{
+                backgroundColor: 'var(--button-negative-color)',
+                '&:hover': {
+                  backgroundColor: 'var(--button-negative-hover-color)',
+                },
+                color: 'white',
+              }}
             >
               Cancel
             </Button>
-            <Button type="submit" variant="contained">
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                backgroundColor: 'var(--button-positive-color)',
+                '&:hover': {
+                  backgroundColor: 'var(--button-positive-hover-color)',
+                },
+                color: 'white',
+              }}
+            >
               Save
             </Button>
           </div>
@@ -342,6 +364,7 @@ const MealPlanUpsert = ({
               flexDirection: 'column',
               justifyContent: 'center',
               margin: '2px',
+              borderRadius: '.75rem',
               '&:hover': {
                 cursor: 'pointer',
                 border: '2px solid var(--dinner-color)',
@@ -360,6 +383,7 @@ const MealPlanUpsert = ({
               flexDirection: 'column',
               justifyContent: 'center',
               margin: '2px',
+              borderRadius: '.75rem',
               '&:hover': {
                 cursor: 'pointer',
                 border: '2px solid var(--dinner-color)',
@@ -378,6 +402,7 @@ const MealPlanUpsert = ({
               flexDirection: 'column',
               justifyContent: 'center',
               margin: '2px',
+              borderRadius: '.75rem',
               '&:hover': {
                 cursor: 'pointer',
                 border: '2px solid var(--dinner-color)',
@@ -410,18 +435,30 @@ const MealPlanUpsert = ({
               <p className="modal-delete-meal-plan-text">Are you sure you want to delete this meal plan?</p>
               <div className="modal-delete-meal-plan-actions-container">
                 <Button
-                  color="primary"
                   variant="contained"
                   onClick={handleCloseDelete}
+                  sx={{
+                    backgroundColor: 'var(--button-positive-color)',
+                    '&:hover': {
+                      backgroundColor: 'var(--button-positive-hover-color)',
+                    },
+                    color: 'white',
+                  }}
                 >
                   No
                 </Button>
                 <Button
-                  color="error"
                   variant="contained"
                   onClick={() => {
                     handleCloseDelete();
                     onSubmit(mealPlan, true)
+                  }}
+                  sx={{
+                    backgroundColor: 'var(--button-negative-color)',
+                    '&:hover': {
+                      backgroundColor: 'var(--button-negative-hover-color)',
+                    },
+                    color: 'white',
                   }}
                 >
                   Yes

@@ -6,8 +6,10 @@ import RecipeTypeChip from "../recipe-type-chip/RecipeTypeChip";
 import RecipeFactArray from "../recipe-card/recipe-fact-array/RecipeFactArray";
 import { Edit, ZoomOutMap } from "@mui/icons-material";
 import { Link } from "react-router";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClose?: () => void; }) => {
+    const { user } = useAuth0();
     return <Card onMouseDown={(event) => { event.stopPropagation(); }} className={((): string => recipe.steps.length ? "expanded-recipe-card" : "expanded-recipe-card-small")()} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         <div className="expanded-recipe-card-header-container">
             <div className={((): string => recipe.image ? "expanded-recipe-card-title-container" : "expanded-recipe-card-title-container-no-image")()}>
@@ -26,7 +28,7 @@ const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClo
                         </IconButton>
                     </Tooltip>
                 </Link>
-                <Link to={`/recipes/edit/${recipe.id}`} className='no-link-style'>
+                {user?.email === recipe.creatorEmail && <Link to={`/recipes/edit/${recipe.id}`} className='no-link-style'>
                     <IconButton
                         sx={(theme) => ({
                             color: theme.palette.grey[500],
@@ -34,7 +36,7 @@ const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClo
                     >
                         <Edit />
                     </IconButton>
-                </Link>
+                </Link>}
                 {
                     handleClose ?
                         <IconButton

@@ -12,4 +12,5 @@ export class Recipe {
   ingredients: Ingredient[] = [];
   image: string = "";
   archived: boolean = false;
+  creatorEmail: string = "";
 }
