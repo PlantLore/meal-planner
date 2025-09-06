@@ -60,15 +60,31 @@ const GroceryUpsertDialog = ({ open, onClose }: { open: boolean, onClose: (groce
             <div className="grocery-upsert-dialog-actions-container">
                 <Button
                     type="reset"
-                    color="error"
                     variant="contained"
                     onClick={() => {
                         handleClose(null);
                     }}
+                    sx={{
+                        backgroundColor: 'var(--button-negative-color)',
+                        '&:hover': {
+                            backgroundColor: 'var(--button-negative-hover-color)',
+                        },
+                        color: 'white',
+                    }}
                 >
                     Cancel
                 </Button>
-                <Button onClick={handleSubmit} type="button" variant="contained">
+                <Button
+                    onClick={handleSubmit}
+                    type="button"
+                    variant="contained"
+                    sx={{
+                        backgroundColor: 'var(--button-positive-color)',
+                        '&:hover': {
+                            backgroundColor: 'var(--button-positive-hover-color)',
+                        },
+                        color: 'white',
+                    }}>
                     Save
                 </Button>
             </div>

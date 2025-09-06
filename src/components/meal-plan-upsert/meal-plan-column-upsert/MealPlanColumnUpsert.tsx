@@ -84,8 +84,11 @@ const MealPlanColumnUpsert = ({
         variant="text"
         onClick={handleClickOpen}
         startIcon={<AddCircleOutline
-          color="primary" />}
-        sx={{ justifyContent: 'flex-start' }}
+          sx={{color: 'var(--button-positive-color)'}} />}
+        sx={{ 
+          justifyContent: 'flex-start',
+          color: 'var(--button-positive-color)'
+        }}
         fullWidth>
         Add Recipe
       </Button>

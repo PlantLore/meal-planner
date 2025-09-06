@@ -1,14 +1,15 @@
-import { Card, Divider, IconButton, ListItemIcon, ListItemText, MenuItem, MenuList } from "@mui/material";
+import { Card, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, MenuList } from "@mui/material";
 import NavBarButton from "./nav-bar-button/NavBarButton";
 import "./NavBar.css";
-import { AccountCircle, AddCircleOutline, FormatListBulleted, FormatListBulletedOutlined, MenuBookOutlined, Search } from "@mui/icons-material";
+import { AccountCircle, AddCircleOutline, FormatListBulleted, FormatListBulletedOutlined, Logout, MenuBookOutlined, Search } from "@mui/icons-material";
 import { Link } from "react-router";
 import { ReactElement, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 type NavButton = {
   title: string;
   route: string;
-  subMenu?: { title: string; route: string; icon: ReactElement}[];
+  subMenu?: { title: string; route: string; icon: ReactElement }[];
 };
 
 const NavBar = () => {
@@ -56,7 +57,22 @@ const NavBar = () => {
     },
   ];
   const [menuIndex, setMenuIndex] = useState<number>(-1);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const menuOpen = Boolean(anchorEl);
+  const {logout} = useAuth0();
 
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+  }
+  
   return (
     <div className="nav-bar-container">
       <div className="max-page-content">
@@ -78,9 +94,35 @@ const NavBar = () => {
             </h1>
           </Link>
           <span className="flex-filler flex-align-right">
-            <IconButton>
+            <IconButton onClick={handleMenuOpen}>
               <AccountCircle />
             </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={menuOpen}
+              onClose={handleMenuClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              sx={{ '& .MuiMenu-paper': { backgroundColor: "var(--card-color)" } }}
+            >
+              <MenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  handleLogout();
+                }}
+              >
+                <ListItemIcon>
+                  <Logout fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Logout</ListItemText>
+              </MenuItem>
+            </Menu>
           </span>
         </div>
         <div className="nav-button-list-container">

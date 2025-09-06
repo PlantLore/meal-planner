@@ -5,8 +5,11 @@ import './RecipeDisplay.css';
 import RecipeFactArray from '../recipe-card/recipe-fact-array/RecipeFactArray';
 import { Link } from 'react-router';
 import { Edit } from '@mui/icons-material';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const RecipeDisplay = ({ recipe }: { recipe: Recipe; }) => {
+    const { user } = useAuth0();
+
     return <Card className={recipe.steps.length ? "recipe-display" : "recipe-display-small"} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         <div className="recipe-display-header-container">
             <div className={recipe.steps.length || recipe.image ? "recipe-display-title-container" : "recipe-display-title-container-no-image"}>
@@ -14,7 +17,7 @@ const RecipeDisplay = ({ recipe }: { recipe: Recipe; }) => {
                 {recipe.recipeTypes.map((recipeType, index) => <RecipeTypeChip key={index} recipeType={recipeType} />)}
             </div>
             <div className="recipe-display-action-button-container">
-                <Link to={`/recipes/edit/${recipe.id}`} className='no-link-style'>
+                { user?.email === recipe.creatorEmail && <Link to={`/recipes/edit/${recipe.id}`} className='no-link-style'>
                     <IconButton
                         sx={(theme) => ({
                             color: theme.palette.grey[500],
@@ -22,7 +25,7 @@ const RecipeDisplay = ({ recipe }: { recipe: Recipe; }) => {
                     >
                         <Edit />
                     </IconButton>
-                </Link>
+                </Link> }
             </div>
         </div>
 

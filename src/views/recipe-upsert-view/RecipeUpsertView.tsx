@@ -87,14 +87,24 @@ const RecipeUpsertView = () => {
               padding: '1rem',
               gap: '1rem',
               fontSize: '1.2rem',
+              borderRadius: '.75rem'
             }}>
               <div>Are you sure you want to leave? Any unsaved changes will be lost.</div>
               <div className="navigation-warning-actions-container">
-                <Button variant="contained" onClick={() => setShowNavigationWarning(false)}>
+                <Button
+                  variant="contained"
+                  onClick={() => setShowNavigationWarning(false)}
+                  sx={{
+                    backgroundColor: 'var(--button-positive-color)',
+                    '&:hover': {
+                      backgroundColor: 'var(--button-positive-hover-color)',
+                    },
+                    color: 'white',
+                  }}
+                >
                   No
                 </Button>
                 <Button
-                  color="error"
                   variant="contained"
                   onClick={() => {
                     setShowNavigationWarning(false)
@@ -102,6 +112,13 @@ const RecipeUpsertView = () => {
                     setTimeout(() => {
                       if (navigationTarget != null) navigate(navigationTarget);
                     })
+                  }}
+                  sx={{
+                    backgroundColor: 'var(--button-negative-color)',
+                    '&:hover': {
+                      backgroundColor: 'var(--button-negative-hover-color)',
+                    },
+                    color: 'white',
                   }}
                 >
                   Yes

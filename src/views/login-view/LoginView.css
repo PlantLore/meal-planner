@@ -1,0 +1,33 @@
+.login-view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-view-title {
+    text-align: center;
+    margin: 0 0 .5rem;
+    flex-shrink: 1;
+    justify-content: center;
+    align-items: center;
+    display:flex;
+    white-space: pre;
+}
+
+.login-view-title-logo {
+    height: 4rem;
+}
+
+.login-view-app-action-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0.75rem 0;
+}
+
+.login-view-app-action {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+}

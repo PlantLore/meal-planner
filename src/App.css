@@ -11,6 +11,13 @@
     --card-color: rgb(254, 250, 242);
     --card-color-hover: rgb(243, 238, 234);
     --paper-color: rgb(244, 240, 232);
+
+    --button-positive-color: #24a1bd;
+    --button-positive-hover-color: #1b7c91;
+    --button-secondary-positive-color: rgb(147, 211, 29);
+    --button-secondary-positive-hover-color: rgb(123, 163, 59);
+    --button-negative-color: #f04a63;
+    --button-negative-hover-color: #c0394a;
 }
 
 body {

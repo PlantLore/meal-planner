@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +13,17 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Auth0Provider
+        domain="dev-rtcs71fqxvr68wkj.us.auth0.com"
+        clientId="1erUk8JUfUHEJsOFkn1XgcyXj3Noo0hV"
+        authorizationParams={{
+          redirect_uri: window.location.origin
+        }}
+        cacheLocation='localstorage'
+        useRefreshTokens={true}
+      >
+        <App />
+      </Auth0Provider>
     </Provider>
   </React.StrictMode>
 );

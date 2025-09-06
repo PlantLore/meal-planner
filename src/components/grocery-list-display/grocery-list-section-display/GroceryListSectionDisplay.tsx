@@ -5,7 +5,7 @@ import { GroceryListSection } from '../../../models/GroceryListSection';
 import { AddCircleOutline, CheckCircleOutline, Delete, ReadMoreOutlined } from '@mui/icons-material';
 import { ReactElement, useState } from 'react';
 
-const GroceryListSectionDisplay = ({ groceryListSection, groceryListSectionChange, onPendingChange }: 
+const GroceryListSectionDisplay = ({ groceryListSection, groceryListSectionChange, onPendingChange }:
     { groceryListSection: GroceryListSection, groceryListSectionChange: (groceryListSection: GroceryListSection) => void, onPendingChange?: (pendingChange: boolean, id: number) => void; }) => {
 
     const [shownRecipeIds, setShownRecipeIds] = useState<number[]>([]);
@@ -117,24 +117,28 @@ const GroceryListSectionDisplay = ({ groceryListSection, groceryListSectionChang
                         required>
 
                     </TextField>
-                    <IconButton onClick={() => { createGroceryItem(newGroceryItem.id) }} sx={{ color: "green", backgroundColor: "var(--card-color)", '&:hover': { backgroundColor: "var(--card-color-hover)" } }}>
+                    <IconButton onClick={() => { createGroceryItem(newGroceryItem.id) }} sx={{ color: "var(--button-secondary-positive-color)", backgroundColor: "var(--card-color)", '&:hover': { backgroundColor: "var(--card-color-hover)" } }}>
                         <CheckCircleOutline />
                     </IconButton>
-                    <IconButton onClick={() => { deleteGroceryItem(newGroceryItem.id) }} sx={{ backgroundColor: "var(--card-color)", '&:hover': { backgroundColor: "var(--card-color-hover)" } }}>
+                    <IconButton onClick={() => { deleteGroceryItem(newGroceryItem.id) }} sx={{ color: "var(--button-negative-color)", backgroundColor: "var(--card-color)", '&:hover': { backgroundColor: "var(--card-color-hover)" } }}>
                         <Delete />
                     </IconButton>
                 </span>)
             }
             <Button
                 variant="text"
-                onClick={() => { 
-                    setNewGroceries([...newGroceries, { id: newGroceryIdCounter, name: "" }]); 
+                onClick={() => {
+                    setNewGroceries([...newGroceries, { id: newGroceryIdCounter, name: "" }]);
                     setNewGroceryIdCounter(newGroceryIdCounter - 1);
-                    if (onPendingChange) onPendingChange(true, groceryListSection.id); 
+                    if (onPendingChange) onPendingChange(true, groceryListSection.id);
                 }}
                 startIcon={<AddCircleOutline
-                    color="primary" />}
-                sx={{ marginTop: '.5rem', justifyContent: 'flex-start' }}
+                    sx={{ color: "var(--button-positive-color)" }} />}
+                sx={{
+                    marginTop: '.5rem',
+                    justifyContent: 'flex-start',
+                    color: 'var(--button-positive-color)'
+                }}
                 fullWidth>
                 Add Grocery
             </Button>

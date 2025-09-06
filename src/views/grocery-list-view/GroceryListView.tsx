@@ -16,7 +16,7 @@ const GroceryListView = () => {
   const navigate = useNavigate();
 
   useBlocker(
-    ({nextLocation}) => {
+    ({ nextLocation }) => {
       if (hasPending) {
         setNavigationTarget(nextLocation.pathname);
         setShowNavigationWarning(true);
@@ -38,54 +38,71 @@ const GroceryListView = () => {
 
   return <div className="max-page-content">
     {groceryList ?
-      <GroceryListDisplay 
-        groceryList={groceryList} 
-        onChange={(groceryList: GroceryList) => { setGroceryList(groceryList); }} 
-        onPendingChange={setHasPending}/> :
+      <GroceryListDisplay
+        groceryList={groceryList}
+        onChange={(groceryList: GroceryList) => { setGroceryList(groceryList); }}
+        onPendingChange={setHasPending} /> :
       <GroceryListDisplaySkeleton />
     }
     <Modal
       open={showNavigationWarning}
       onClose={() => setShowNavigationWarning(false)}>
-        <Fade in={showNavigationWarning} timeout={250}>
-          <div className="modal-navigation-warning-container">
-            <Paper elevation={3} sx={{
-              width: 'fit-content',
-              maxWidth: '30vw',
-              height: 'fit-content',
-              backgroundColor: 'var(--card-color)',
-              alignItems: 'center',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              margin: '2px',
-              padding: '1rem',
-              gap: '1rem',
-              fontSize: '1.2rem',
-            }}>
-              <div>You have unsaved grocery items. Are you sure you want to leave?</div>
-              <div className="navigation-warning-actions-container">
-                <Button variant="contained" onClick={() => setShowNavigationWarning(false)}>
-                  No
-                </Button>
-                <Button
-                  color="error"
-                  variant="contained"
-                  onClick={() => {
-                    setShowNavigationWarning(false)
-                    setHasPending(false);
-                    setTimeout(() => {
-                      if (navigationTarget != null) navigate(navigationTarget);
-                    })
-                  }}
-                >
-                  Yes
-                </Button>
-              </div>
-            </Paper>
-          </div>
-        </Fade>
-      </Modal>
+      <Fade in={showNavigationWarning} timeout={250}>
+        <div className="modal-navigation-warning-container">
+          <Paper elevation={3} sx={{
+            width: 'fit-content',
+            maxWidth: '30vw',
+            height: 'fit-content',
+            backgroundColor: 'var(--card-color)',
+            alignItems: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            margin: '2px',
+            padding: '1rem',
+            gap: '1rem',
+            fontSize: '1.2rem',
+            borderRadius: '.75rem'
+          }}>
+            <div>You have unsaved grocery items. Are you sure you want to leave?</div>
+            <div className="navigation-warning-actions-container">
+              <Button
+                variant="contained"
+                onClick={() => setShowNavigationWarning(false)}
+                sx={{
+                  backgroundColor: 'var(--button-positive-color)',
+                  '&:hover': {
+                    backgroundColor: 'var(--button-positive-hover-color)',
+                  },
+                  color: 'white',
+                }}
+              >
+                No
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  setShowNavigationWarning(false)
+                  setHasPending(false);
+                  setTimeout(() => {
+                    if (navigationTarget != null) navigate(navigationTarget);
+                  })
+                }}
+                sx={{
+                  backgroundColor: 'var(--button-negative-color)',
+                  '&:hover': {
+                    backgroundColor: 'var(--button-negative-hover-color)',
+                  },
+                  color: 'white',
+                }}
+              >
+                Yes
+              </Button>
+            </div>
+          </Paper>
+        </div>
+      </Fade>
+    </Modal>
 
   </div>;
 };
