@@ -12,6 +12,8 @@ import { MealRecipe } from "../../models/MealRecipe";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { ContentCopyOutlined, CopyAllOutlined, FastForward, LocalFireDepartmentOutlined } from "@mui/icons-material";
 import RecipeFact from "../recipe-card/recipe-fact/RecipeFact";
+import { Meal } from "../../models/Meal";
+import { MealType } from "../../models/MealType";
 
 export const MealRecipeIdCounterContext = createContext(0);
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -28,6 +30,7 @@ const MealPlanUpsert = ({
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [mealRecipeIdCounter, setMealRecipeIdCounter] = useState(-1);
   const [mealPlanDayIdCounter, setMealPlanDayIdCounter] = useState(-1);
+  const [mealIdCounter, setMealIdCounter] = useState(-1);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [mealRecipeId, setMealRecipeId] = useState<number | null>(null);
@@ -91,6 +94,7 @@ const MealPlanUpsert = ({
       );
 
       let idCounter = mealPlanDayIdCounter;
+      let teampMealIdCounter = mealIdCounter;
 
       dates.forEach((date: Date) => {
         if (
@@ -98,14 +102,28 @@ const MealPlanUpsert = ({
             (mealPlanDay: MealPlanDay) =>
               mealPlanDay.day.toDateString() === date.toDateString()
           ).length > 0
-        )
+        ) {
           return;
-        newMealPlan.mealPlanDays.push({ ...new MealPlanDay(), day: date, id: idCounter-- });
+        }
+        const mealPlanDay = { 
+          ...new MealPlanDay(), 
+          day: date, 
+          id: idCounter--,
+          meals: [
+            { ...new Meal(), id: teampMealIdCounter--, mealType: MealType.BREAKFAST, mealRecipes: [] },
+            { ...new Meal(), id: teampMealIdCounter--, mealType: MealType.DINNER, mealRecipes: [] },
+            { ...new Meal(), id: teampMealIdCounter--, mealType: MealType.LUNCH, mealRecipes: [] },
+            { ...new Meal(), id: teampMealIdCounter--, mealType: MealType.SNACK, mealRecipes: [] },
+            { ...new Meal(), id: teampMealIdCounter--, mealType: MealType.SWEET_TREAT, mealRecipes: [] }
+          ]
+        };
+
+        newMealPlan.mealPlanDays.push(mealPlanDay);
       });
-
+      
       setMealPlanDayIdCounter(idCounter);
+      setMealIdCounter(teampMealIdCounter);
     }
-
     setMealPlan(newMealPlan);
   };
 
