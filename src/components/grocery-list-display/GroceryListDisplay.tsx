@@ -3,11 +3,13 @@ import { GroceryList } from '../../models/GroceryList';
 import { GroceryListSection } from '../../models/GroceryListSection';
 import GroceryListSectionDisplay from './grocery-list-section-display/GroceryListSectionDisplay';
 import './GroceryListDisplay.css';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const GroceryListDisplay = ({ groceryList, onChange, onPendingChange }: 
     { groceryList: GroceryList, onChange: (groceryList: GroceryList) => void, onPendingChange?: (pending: boolean) => void; }) => {
 
     const [pendingChanges, setPendingChanges] = useState<{pendingChanges: boolean, id: number}[]>([]);
+    const { user } = useAuth0();
 
     const groceryListSectionChange = (groceryListSection: GroceryListSection) => {
         const newGroceryList = { ...groceryList };
@@ -45,7 +47,8 @@ const GroceryListDisplay = ({ groceryList, onChange, onPendingChange }:
                 key={groceryListSection.id} 
                 groceryListSection={groceryListSection} 
                 groceryListSectionChange={groceryListSectionChange} 
-                onPendingChange={onPendingChangeAgg}/>
+                onPendingChange={onPendingChangeAgg}
+                disableActions={user?.email !== groceryList.creatorEmail}/>
         )}
     </div>;
 };

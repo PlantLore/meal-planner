@@ -9,6 +9,7 @@ export const upsertGrocery = (grocery: Grocery) => {
     return grocery;
 };
 
-export const getGroceryListById = (id: number) => {
+export const getGroceryListByMealPlanId = (id: number) => {
+    if (id === 2) return { ...mockGroceryList, id: id, creatorEmail: "notMe@gmail.com" };
     return mockGroceryList;
 };

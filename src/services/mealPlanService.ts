@@ -2,6 +2,7 @@ import { MealPlan } from "../models/MealPlan";
 import { mockMealPlan } from "./mockData";
 
 export const getMealPlanById = (id: number): MealPlan => {
+  if (id === 2) return { ...mockMealPlan, id: id, creatorEmail: "someoneElse@gmail.com" };
   return { ...mockMealPlan, id: id };
 };
 

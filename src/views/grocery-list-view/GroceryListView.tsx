@@ -3,7 +3,7 @@ import GroceryListDisplay from "../../components/grocery-list-display/GroceryLis
 import { GroceryList } from "../../models/GroceryList";
 import "./GroceryListView.css";
 import { useBlocker, useNavigate, useParams } from "react-router";
-import { getGroceryListById } from "../../services/groceryService";
+import { getGroceryListByMealPlanId } from "../../services/groceryService";
 import GroceryListDisplaySkeleton from "../../components/grocery-list-display/GroceryListDisplaySkeleton";
 import { Button, Fade, Modal, Paper } from "@mui/material";
 
@@ -26,15 +26,15 @@ const GroceryListView = () => {
     }
   );
 
-  let { groceryListId } = useParams();
+  let { mealPlanId } = useParams();
 
   useEffect(() => {
     setTimeout(() => {
-      groceryListId
-        ? setGroceryList(getGroceryListById(+groceryListId))
-        : setGroceryList(getGroceryListById(1));
+      mealPlanId
+        ? setGroceryList(getGroceryListByMealPlanId(+mealPlanId))
+        : setGroceryList(getGroceryListByMealPlanId(1));
     }, 250);
-  }, [groceryListId]);
+  }, [mealPlanId]);
 
   return <div className="max-page-content">
     {groceryList ?

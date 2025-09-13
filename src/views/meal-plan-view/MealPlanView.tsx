@@ -7,11 +7,13 @@ import MealPlanDisplaySkeleton from "../../components/meal-plan-display/MealPlan
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { Edit, LocalGroceryStore, MoreVert } from "@mui/icons-material";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const MealPlanView = () => {
   const [mealPlan, setMealPlan] = useState<MealPlan>();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
+  const { user } = useAuth0();
 
   let { mealPlanId } = useParams();
 
@@ -60,18 +62,20 @@ const MealPlanView = () => {
                   vertical: "top",
                   horizontal: "right",
                 }}
-                sx={{'& .MuiMenu-paper': {backgroundColor: "var(--card-color)"}}}
+                sx={{ '& .MuiMenu-paper': { backgroundColor: "var(--card-color)" } }}
               >
-                <MenuItem
-                  component={Link}
-                  to={`/mealplans/edit/${mealPlan.id}`}
-                  onClick={handleMenuClose}
-                >
-                  <ListItemIcon>
-                    <Edit fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Edit</ListItemText>
-                </MenuItem>
+                {
+                  user?.email === mealPlan.creatorEmail && <MenuItem
+                    component={Link}
+                    to={`/mealplans/edit/${mealPlan.id}`}
+                    onClick={handleMenuClose}
+                  >
+                    <ListItemIcon>
+                      <Edit fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Edit</ListItemText>
+                  </MenuItem>
+                }
                 <MenuItem
                   component={Link}
                   to={`/grocerylist/mealplan/${mealPlan.id}`}

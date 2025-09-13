@@ -10,6 +10,7 @@ import {
 } from "../../services/mealPlanService";
 import { Button, Fade, Modal, Paper, Skeleton } from "@mui/material";
 import MealPlanDisplaySkeleton from "../../components/meal-plan-display/MealPlanDisplaySkeleton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const MealPlanUpsertView = () => {
   const [mealPlan, setMealPlan] = useState<MealPlan>(new MealPlan());
@@ -19,6 +20,7 @@ const MealPlanUpsertView = () => {
   const [navigationTarget, setNavigationTarget] = useState<string | null>(null);
   let { mealPlanId } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth0();
 
   useBlocker(({ nextLocation }) => {
     if (!saved) {
@@ -49,13 +51,20 @@ const MealPlanUpsertView = () => {
   useEffect(() => {
     if (mealPlanId) {
       setTimeout(() => {
+        if (mealPlanId && getMealPlanById(+mealPlanId)?.creatorEmail !== user?.email) {
+          setSaved(true);
+          setTimeout(() => {
+            navigate("/mealplans");
+          })
+          return;
+        }
         mealPlanId && setMealPlan(getMealPlanById(+mealPlanId));
         setLoading(false);
       }, 250);
     } else {
       setLoading(false);
     }
-  }, [mealPlanId]);
+  }, [mealPlanId, user, navigate]);
 
   return (
     <div className="meal-plan-edit-view-container">
