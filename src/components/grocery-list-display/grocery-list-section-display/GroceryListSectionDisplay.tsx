@@ -5,8 +5,18 @@ import { GroceryListSection } from '../../../models/GroceryListSection';
 import { AddCircleOutline, CheckCircleOutline, Delete, ReadMoreOutlined } from '@mui/icons-material';
 import { ReactElement, useState } from 'react';
 
-const GroceryListSectionDisplay = ({ groceryListSection, groceryListSectionChange, onPendingChange }:
-    { groceryListSection: GroceryListSection, groceryListSectionChange: (groceryListSection: GroceryListSection) => void, onPendingChange?: (pendingChange: boolean, id: number) => void; }) => {
+const GroceryListSectionDisplay = (
+    { groceryListSection,
+        groceryListSectionChange,
+        onPendingChange,
+        disableActions
+    }:
+        {
+            groceryListSection: GroceryListSection,
+            groceryListSectionChange: (groceryListSection: GroceryListSection) => void,
+            onPendingChange?: (pendingChange: boolean, id: number) => void,
+            disableActions?: boolean
+        }) => {
 
     const [shownRecipeIds, setShownRecipeIds] = useState<number[]>([]);
     const [newGroceries, setNewGroceries] = useState<{ id: number, name: string }[]>([]);
@@ -125,23 +135,25 @@ const GroceryListSectionDisplay = ({ groceryListSection, groceryListSectionChang
                     </IconButton>
                 </span>)
             }
-            <Button
-                variant="text"
-                onClick={() => {
-                    setNewGroceries([...newGroceries, { id: newGroceryIdCounter, name: "" }]);
-                    setNewGroceryIdCounter(newGroceryIdCounter - 1);
-                    if (onPendingChange) onPendingChange(true, groceryListSection.id);
-                }}
-                startIcon={<AddCircleOutline
-                    sx={{ color: "var(--button-positive-color)" }} />}
-                sx={{
-                    marginTop: '.5rem',
-                    justifyContent: 'flex-start',
-                    color: 'var(--button-positive-color)'
-                }}
-                fullWidth>
-                Add Grocery
-            </Button>
+            {
+                !disableActions && <Button
+                    variant="text"
+                    onClick={() => {
+                        setNewGroceries([...newGroceries, { id: newGroceryIdCounter, name: "" }]);
+                        setNewGroceryIdCounter(newGroceryIdCounter - 1);
+                        if (onPendingChange) onPendingChange(true, groceryListSection.id);
+                    }}
+                    startIcon={<AddCircleOutline
+                        sx={{ color: "var(--button-positive-color)" }} />}
+                    sx={{
+                        marginTop: '.5rem',
+                        justifyContent: 'flex-start',
+                        color: 'var(--button-positive-color)'
+                    }}
+                    fullWidth>
+                    Add Grocery
+                </Button>
+            }
         </div>
     </Paper>
 };

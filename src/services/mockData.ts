@@ -88,7 +88,7 @@ export const mockGroceryList: GroceryList = {
                         quantity: '1',
                         unit: 'lb',
                         checked: false,
-                        recipes: [{...mockRecipes[0]}]
+                        recipes: [{ ...mockRecipes[0] }]
                     };
                 })
             ],
@@ -116,7 +116,7 @@ export const mockGroceryList: GroceryList = {
                         quantity: '1',
                         unit: 'lb',
                         checked: false,
-                        recipes: [{...mockRecipes[0]}]
+                        recipes: [{ ...mockRecipes[0] }]
                     };
                 })
             ]
@@ -132,12 +132,13 @@ export const mockGroceryList: GroceryList = {
                         quantity: '1',
                         unit: 'lb',
                         checked: false,
-                        recipes: [{...mockRecipes[0]}]
+                        recipes: [{ ...mockRecipes[0] }]
                     };
                 })
             ]
         }
-    ]
+    ],
+    creatorEmail: "kennethdavis391@gmail.com"
 };
 
 export const mockMealPlan: MealPlan = {
@@ -465,5 +466,6 @@ export const mockMealPlan: MealPlan = {
                 }
             ]
         }
-    ]
+    ],
+    creatorEmail: "kennethdavis391@gmail.com"
 };

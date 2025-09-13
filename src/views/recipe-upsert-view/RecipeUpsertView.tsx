@@ -10,6 +10,7 @@ import { RootState } from "../../store";
 import { set } from "../../reduxSlices/groceriesSlice";
 import { getAllGroceries } from "../../services/groceryService";
 import { Button, Fade, Modal, Paper } from "@mui/material";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const RecipeUpsertView = () => {
   const [recipe, setRecipe] = useState<Recipe>(new Recipe());
@@ -21,6 +22,7 @@ const RecipeUpsertView = () => {
   const dispatch = useDispatch();
   let { recipeId } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth0();
 
   useBlocker(({ nextLocation }) => {
     if (!saved) {
@@ -51,13 +53,20 @@ const RecipeUpsertView = () => {
     if (groceries.length === 0) dispatch(set(getAllGroceries()));
     if (recipeId) {
       setTimeout(() => {
+        if (recipeId && getRecipeById(+recipeId)?.creatorEmail !== user?.email) {
+          setSaved(true);
+          setTimeout(() => {
+            navigate("/recipes");
+          })
+          return;
+        }
         recipeId && setRecipe(getRecipeById(+recipeId));
         setLoading(false);
       }, 250);
     } else {
       setLoading(false);
     }
-  }, [recipeId, groceries, dispatch]);
+  }, [recipeId, groceries, dispatch, navigate, user]);
 
   return (
     <div className="max-page-content recipe-upsert-container">
