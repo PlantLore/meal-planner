@@ -43,6 +43,7 @@ const router = createBrowserRouter(
         <Route path="/recipes" element={<RecipeListView />} />
         <Route path="/mealplans/create" element={<MealPlanUpsertView />} />
         <Route path="/mealplans/:mealPlanId" element={<MealPlanView />} />
+        <Route path="/mealplans/copy/:mealPlanId" element={<MealPlanUpsertView />} />
         <Route
           path="/mealplans/edit/:mealPlanId"
           element={<MealPlanUpsertView />}

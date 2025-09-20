@@ -6,7 +6,7 @@ import "./MealPlanView.css";
 import MealPlanDisplaySkeleton from "../../components/meal-plan-display/MealPlanDisplaySkeleton";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import { Edit, LocalGroceryStore, MoreVert } from "@mui/icons-material";
+import { ContentCopyOutlined, Edit, LocalGroceryStore, MoreVert } from "@mui/icons-material";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const MealPlanView = () => {
@@ -76,6 +76,16 @@ const MealPlanView = () => {
                     <ListItemText>Edit</ListItemText>
                   </MenuItem>
                 }
+                <MenuItem
+                    component={Link}
+                    to={`/mealplans/copy/${mealPlan.id}`}
+                    onClick={handleMenuClose}
+                  >
+                    <ListItemIcon>
+                      <ContentCopyOutlined fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Copy</ListItemText>
+                  </MenuItem>
                 <MenuItem
                   component={Link}
                   to={`/grocerylist/mealplan/${mealPlan.id}`}
