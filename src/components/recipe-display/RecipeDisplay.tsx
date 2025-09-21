@@ -1,10 +1,10 @@
-import { Card, Divider, IconButton } from '@mui/material';
+import { Card, Divider, IconButton, Tooltip } from '@mui/material';
 import { Recipe } from '../../models/Recipe';
 import RecipeTypeChip from '../recipe-type-chip/RecipeTypeChip';
 import './RecipeDisplay.css';
 import RecipeFactArray from '../recipe-card/recipe-fact-array/RecipeFactArray';
 import { Link } from 'react-router';
-import { Edit } from '@mui/icons-material';
+import { ContentCopyOutlined, Edit } from '@mui/icons-material';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const RecipeDisplay = ({ recipe }: { recipe: Recipe; }) => {
@@ -13,11 +13,22 @@ const RecipeDisplay = ({ recipe }: { recipe: Recipe; }) => {
     return <Card className={recipe.steps.length ? "recipe-display" : "recipe-display-small"} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         <div className="recipe-display-header-container">
             <div className={recipe.steps.length || recipe.image ? "recipe-display-title-container" : "recipe-display-title-container-no-image"}>
-                <h2><span className="recipe-display-title-archived">{recipe.archived ? "(Archived) ": ""}</span>{recipe.title}</h2>
+                <h2><span className="recipe-display-title-archived">{recipe.archived ? "(Archived) " : ""}</span>{recipe.title}</h2>
                 {recipe.recipeTypes.map((recipeType, index) => <RecipeTypeChip key={index} recipeType={recipeType} />)}
             </div>
             <div className="recipe-display-action-button-container">
-                { user?.email === recipe.creatorEmail && <Link to={`/recipes/edit/${recipe.id}`} className='no-link-style'>
+                <Link to={`/recipes/copy/${recipe.id}`} className='no-link-style'>
+                    <Tooltip title="Copy Recipe">
+                        <IconButton
+                            sx={(theme) => ({
+                                color: theme.palette.grey[500],
+                            })}
+                        >
+                            <ContentCopyOutlined />
+                        </IconButton>
+                    </Tooltip>
+                </Link>
+                {user?.email === recipe.creatorEmail && <Link to={`/recipes/edit/${recipe.id}`} className='no-link-style'>
                     <IconButton
                         sx={(theme) => ({
                             color: theme.palette.grey[500],
@@ -25,7 +36,7 @@ const RecipeDisplay = ({ recipe }: { recipe: Recipe; }) => {
                     >
                         <Edit />
                     </IconButton>
-                </Link> }
+                </Link>}
             </div>
         </div>
 

@@ -66,7 +66,7 @@ const MealPlanUpsertView = () => {
   }
 
   const copyMealPlan = (originalMealPlan: MealPlan): MealPlan => {
-    let idCounter = -10000;
+    let idCounter = -100000;
     originalMealPlan.id = idCounter--;
     originalMealPlan.mealPlanDays.forEach(day => {
       day.id = idCounter--;
