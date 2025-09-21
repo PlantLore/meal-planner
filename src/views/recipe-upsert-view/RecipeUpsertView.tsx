@@ -3,7 +3,7 @@ import RecipeUpsert from "../../components/recipe-upsert/RecipeUpsert";
 import { Recipe } from "../../models/Recipe";
 import "./RecipeUpsertView.css";
 import { archiveRecipe, getRecipeById, upsertRecipe } from "../../services/recipeService";
-import { useBlocker, useNavigate, useParams } from "react-router";
+import { useBlocker, useLocation, useNavigate, useParams } from "react-router";
 import RecipeDisplaySkeleton from "../../components/recipe-display/RecipeDisplaySkeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -23,6 +23,7 @@ const RecipeUpsertView = () => {
   let { recipeId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth0();
+  const location = useLocation();
 
   useBlocker(({ nextLocation }) => {
     if (!saved) {
@@ -49,24 +50,45 @@ const RecipeUpsertView = () => {
     })
   };
 
+  const copyRecipe = (originalRecipe: Recipe): Recipe => {
+    let idCounter = -100000;
+    originalRecipe.id = idCounter--;
+    originalRecipe.archived = false;
+    originalRecipe.ingredients.forEach((ingredient) => {
+      ingredient.id = idCounter--;
+    });
+    originalRecipe.steps.forEach((step) => {
+      step.id = idCounter--;
+    });
+    return originalRecipe;
+  }
+
   useEffect(() => {
     if (groceries.length === 0) dispatch(set(getAllGroceries()));
     if (recipeId) {
       setTimeout(() => {
-        if (recipeId && getRecipeById(+recipeId)?.creatorEmail !== user?.email) {
+        const recipeToUpsert = recipeId ? getRecipeById(+recipeId) : new Recipe();
+        if (recipeToUpsert?.creatorEmail !== user?.email && !location.pathname.includes('/copy/')) {
           setSaved(true);
           setTimeout(() => {
             navigate("/recipes");
           })
           return;
         }
-        recipeId && setRecipe(getRecipeById(+recipeId));
+        if (recipeId) {
+          if (location.pathname.includes('/copy/')) {
+            const originalRecipe = getRecipeById(+recipeId);
+            originalRecipe && setRecipe(copyRecipe(originalRecipe))
+          } else {
+            setRecipe(getRecipeById(+recipeId));
+          }
+        }
         setLoading(false);
       }, 250);
     } else {
       setLoading(false);
     }
-  }, [recipeId, groceries, dispatch, navigate, user]);
+  }, [recipeId, groceries, dispatch, navigate, user, location]);
 
   return (
     <div className="max-page-content recipe-upsert-container">

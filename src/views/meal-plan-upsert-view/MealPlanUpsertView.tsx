@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import MealPlanUpsert from "../../components/meal-plan-upsert/MealPlanUpsert";
 import { MealPlan } from "../../models/MealPlan";
 import "./MealPlanUpsertView.css";
-import { useBlocker, useNavigate, useParams } from "react-router";
+import { useBlocker, useLocation, useNavigate, useParams } from "react-router";
 import {
   deleteMealPlan,
   getMealPlanById,
@@ -18,9 +18,11 @@ const MealPlanUpsertView = () => {
   const [saved, setSaved] = useState<boolean>(false);
   const [showNavigationWarning, setShowNavigationWarning] = useState(false);
   const [navigationTarget, setNavigationTarget] = useState<string | null>(null);
+  const [copy, setcopy] = useState<boolean>(false);
   let { mealPlanId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth0();
+  const location = useLocation();
 
   useBlocker(({ nextLocation }) => {
     if (!saved) {
@@ -48,6 +50,36 @@ const MealPlanUpsertView = () => {
     });
   };
 
+  const handleStartDateSelected = (startDate: Date): void => {
+    const currentMealPlan = mealPlan;
+    
+    const dateDifference = startDate.getTime() - currentMealPlan.startDate.getTime();
+    currentMealPlan.startDate = new Date(currentMealPlan.startDate.getTime() + dateDifference);
+    currentMealPlan.endDate = new Date(currentMealPlan.endDate.getTime() + dateDifference);
+    
+    currentMealPlan.mealPlanDays.forEach((mealPlanDay) => {
+      mealPlanDay.day = new Date(mealPlanDay.day.getTime() + dateDifference);
+    });
+
+    setMealPlan(currentMealPlan);
+    setcopy(false);
+  }
+
+  const copyMealPlan = (originalMealPlan: MealPlan): MealPlan => {
+    let idCounter = -100000;
+    originalMealPlan.id = idCounter--;
+    originalMealPlan.mealPlanDays.forEach(day => {
+      day.id = idCounter--;
+      day.meals.forEach(meal => {
+        meal.id = idCounter--;
+        meal.mealRecipes.forEach(mealRecipe => {
+          mealRecipe.id = idCounter--;
+        });
+      });
+    });
+    return originalMealPlan;
+  }
+
   useEffect(() => {
     if (mealPlanId) {
       setTimeout(() => {
@@ -58,13 +90,23 @@ const MealPlanUpsertView = () => {
           })
           return;
         }
-        mealPlanId && setMealPlan(getMealPlanById(+mealPlanId));
+        if (mealPlanId) {
+          if (location.pathname.includes('/copy/')) {
+            const originalMealPlan = getMealPlanById(+mealPlanId);
+            if (originalMealPlan) {
+              setcopy(true);
+              setMealPlan(copyMealPlan(originalMealPlan));
+            }
+          } else {
+            setMealPlan(getMealPlanById(+mealPlanId));
+          }
+        }
         setLoading(false);
       }, 250);
     } else {
       setLoading(false);
     }
-  }, [mealPlanId, user, navigate]);
+  }, [mealPlanId, user, navigate, location]);
 
   return (
     <div className="meal-plan-edit-view-container">
@@ -76,6 +118,8 @@ const MealPlanUpsertView = () => {
           <MealPlanUpsert
             initialMealPlan={mealPlan}
             onSubmit={handleMealPlanEdit}
+            copy={copy}
+            handleStartDateSelected={handleStartDateSelected}
           ></MealPlanUpsert>
         ) : (
           <>

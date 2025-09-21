@@ -21,9 +21,13 @@ const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Frida
 const MealPlanUpsert = ({
   initialMealPlan,
   onSubmit,
+  copy,
+  handleStartDateSelected
 }: {
   initialMealPlan: MealPlan;
   onSubmit: (mealPlan: MealPlan, deleted?: boolean) => void;
+  copy?: boolean
+  handleStartDateSelected?: (startDate: Date) => void;
 }) => {
   const [mealPlan, setMealPlan] = useState<MealPlan>(initialMealPlan);
   const [blurFields, setBlurFields] = useState<string[]>([]);
@@ -105,9 +109,9 @@ const MealPlanUpsert = ({
         ) {
           return;
         }
-        const mealPlanDay = { 
-          ...new MealPlanDay(), 
-          day: date, 
+        const mealPlanDay = {
+          ...new MealPlanDay(),
+          day: date,
           id: idCounter--,
           meals: [
             { ...new Meal(), id: teampMealIdCounter--, mealType: MealType.BREAKFAST, mealRecipes: [] },
@@ -120,7 +124,7 @@ const MealPlanUpsert = ({
 
         newMealPlan.mealPlanDays.push(mealPlanDay);
       });
-      
+
       setMealPlanDayIdCounter(idCounter);
       setMealIdCounter(teampMealIdCounter);
     }
@@ -236,89 +240,122 @@ const MealPlanUpsert = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="meal-plan-edit-content-container">
-        <div className="meal-plan-edit-date-container">
-          <DatePicker
-            label="Start Date"
-            maxDate={mealPlan.endDate ? dayjs(mealPlan.endDate) : undefined}
-            sx={{
-              backgroundColor: "var(--card-color)",
-            }}
-            slotProps={{
-              desktopPaper: {
-                sx: {
+      {copy ?
+        <div className="meal-plan-edit-content-container">
+          <div className="meal-plan-edit-date-container">
+            <DatePicker
+              label="Start Date"
+              sx={{
+                backgroundColor: "var(--card-color)",
+              }}
+              slotProps={{
+                desktopPaper: {
+                  sx: {
+                    backgroundColor: "var(--card-color)",
+                    borderRadius: ".75rem",
+                  },
+                }
+              }}
+              defaultValue={null}
+              onChange={(startDate: Dayjs | null) => {
+                startDate && handleStartDateSelected?.(startDate.toDate());
+              }}
+            />
+            <span>
+              <DatePicker
+                label="End Date"
+                sx={{
                   backgroundColor: "var(--card-color)",
-                  borderRadius: ".75rem",
+                }}
+                defaultValue={null}
+                disabled
+              />
+            </span>
+          </div>
+        </div> :
+        <div className="meal-plan-edit-content-container">
+          <div className="meal-plan-edit-date-container">
+            <DatePicker
+              label="Start Date"
+              maxDate={mealPlan.endDate ? dayjs(mealPlan.endDate) : undefined}
+              sx={{
+                backgroundColor: "var(--card-color)",
+              }}
+              slotProps={{
+                desktopPaper: {
+                  sx: {
+                    backgroundColor: "var(--card-color)",
+                    borderRadius: ".75rem",
+                  },
                 },
-              },
-              textField: {
-                error:
-                  (blurFields.includes("startDate") || submitted) &&
-                  !mealPlan.startDate,
-                onBlur: () => {
-                  handleFieldBlur("startDate");
+                textField: {
+                  error:
+                    (blurFields.includes("startDate") || submitted) &&
+                    !mealPlan.startDate,
+                  onBlur: () => {
+                    handleFieldBlur("startDate");
+                  },
                 },
-              },
-            }}
-            defaultValue={mealPlan.id ? dayjs(mealPlan.startDate) : null}
-            onChange={(startDate: Dayjs | null) => {
-              dateChange(startDate, "startDate");
-            }}
-          />
-          <DatePicker
-            label="End Date"
-            minDate={mealPlan.startDate ? dayjs(mealPlan.startDate) : undefined}
-            sx={{
-              backgroundColor: "var(--card-color)",
-            }}
-            slotProps={{
-              desktopPaper: {
-                sx: {
-                  backgroundColor: "var(--card-color)",
-                  borderRadius: ".75rem",
+              }}
+              defaultValue={mealPlan.id ? dayjs(mealPlan.startDate) : null}
+              onChange={(startDate: Dayjs | null) => {
+                dateChange(startDate, "startDate");
+              }}
+            />
+            <DatePicker
+              label="End Date"
+              minDate={mealPlan.startDate ? dayjs(mealPlan.startDate) : undefined}
+              sx={{
+                backgroundColor: "var(--card-color)",
+              }}
+              slotProps={{
+                desktopPaper: {
+                  sx: {
+                    backgroundColor: "var(--card-color)",
+                    borderRadius: ".75rem",
+                  },
                 },
-              },
-              textField: {
-                error:
-                  (blurFields.includes("endDate") || submitted) &&
-                  !mealPlan.endDate,
-                onBlur: () => {
-                  handleFieldBlur("endDate");
+                textField: {
+                  error:
+                    (blurFields.includes("endDate") || submitted) &&
+                    !mealPlan.endDate,
+                  onBlur: () => {
+                    handleFieldBlur("endDate");
+                  },
                 },
-              },
-            }}
-            defaultValue={mealPlan.id ? dayjs(mealPlan.endDate) : null}
-            onChange={(endDate: Dayjs | null) => {
-              dateChange(endDate, "endDate");
-            }}
-          />
-        </div>
-        <MealRecipeIdCounterContext.Provider value={mealRecipeIdCounter}>
-          <DndContext onDragEnd={handleDragEnd} sensors={sensors} modifiers={[restrictToWindowEdges]} autoScroll={{ layoutShiftCompensation: false }}>
-            {mealPlan.mealPlanDays
-              .sort((current, next) => (current.day > next.day ? 1 : -1))
-              .map((mealPlanDay: MealPlanDay, index: number) => (
-                <div key={mealPlanDay.id}>
-                  <h1 className="meal-plan-day-edit-date-title">
-                    {dayNames[mealPlanDay.day.getDay()] + " " + mealPlanDay.day.toLocaleDateString()}
-                    <span className="meal-plan-upsert-total-calories-container">
-                      <RecipeFact tooltip={"Total Calories"} icon={<LocalFireDepartmentOutlined />} value={calculateCalories(mealPlanDay)}></RecipeFact>
-                    </span>
-                  </h1>
-                  <div className="meal-plan-day-display-edit-container">
-                    <MealPlanDayUpsert
-                      initialMealPlanDay={mealPlanDay}
-                      mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
-                        mealPlanDayChange(mealPlanDay, index);
-                      }}
-                      setMealRecipeIdCounter={setMealRecipeIdCounter}
-                    />
+              }}
+              defaultValue={mealPlan.id ? dayjs(mealPlan.endDate) : null}
+              onChange={(endDate: Dayjs | null) => {
+                dateChange(endDate, "endDate");
+              }}
+            />
+          </div>
+          <MealRecipeIdCounterContext.Provider value={mealRecipeIdCounter}>
+            <DndContext onDragEnd={handleDragEnd} sensors={sensors} modifiers={[restrictToWindowEdges]} autoScroll={{ layoutShiftCompensation: false }}>
+              {mealPlan.mealPlanDays
+                .sort((current, next) => (current.day > next.day ? 1 : -1))
+                .map((mealPlanDay: MealPlanDay, index: number) => (
+                  <div key={mealPlanDay.id}>
+                    <h1 className="meal-plan-day-edit-date-title">
+                      {dayNames[mealPlanDay.day.getDay()] + " " + mealPlanDay.day.toLocaleDateString()}
+                      <span className="meal-plan-upsert-total-calories-container">
+                        <RecipeFact tooltip={"Total Calories"} icon={<LocalFireDepartmentOutlined />} value={calculateCalories(mealPlanDay)}></RecipeFact>
+                      </span>
+                    </h1>
+                    <div className="meal-plan-day-display-edit-container">
+                      <MealPlanDayUpsert
+                        initialMealPlanDay={mealPlanDay}
+                        mealPlanDayChange={(mealPlanDay: MealPlanDay) => {
+                          mealPlanDayChange(mealPlanDay, index);
+                        }}
+                        setMealRecipeIdCounter={setMealRecipeIdCounter}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
-          </DndContext>
-        </MealRecipeIdCounterContext.Provider>
-      </div>
+                ))}
+            </DndContext>
+          </MealRecipeIdCounterContext.Provider>
+        </div>}
       <div className="meal-plan-edit-footer-container">
         <Divider />
         <div className="meal-plan-edit-actions-container max-page-content">
@@ -357,6 +394,7 @@ const MealPlanUpsert = ({
             <Button
               type="submit"
               variant="contained"
+              disabled={copy}
               sx={{
                 backgroundColor: 'var(--button-positive-color)',
                 '&:hover': {
