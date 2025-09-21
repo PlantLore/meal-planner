@@ -1,0 +1,24 @@
+.page-not-found-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3rem;
+}
+
+.page-not-found-error-code {
+    font-size: 5rem;
+    color: rgb(68, 68, 68);
+    margin: 0;
+}
+
+.page-not-found-error-title {
+    font-size: 1.5rem;
+    color: gray;
+    margin-top: 0;
+}
+
+.page-not-found-error-message {
+    color: rgb(68, 68, 68);
+    font-weight: bold;
+}

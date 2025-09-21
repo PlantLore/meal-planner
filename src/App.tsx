@@ -12,6 +12,7 @@ import MealPlanListView from "./views/meal-plan-list-view/MealPlanListView";
 import GroceryListView from "./views/grocery-list-view/GroceryListView";
 import LoginView from "./views/login-view/LoginView";
 import { useAuth0 } from "@auth0/auth0-react";
+import PageNotFoundView from "./views/page-not-found-view/PageNotFoundView";
 
 const RootLayout = () => {
 
@@ -35,8 +36,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/login" element={<LoginView />} />
-      <Route path="/" element={<RootLayout />}>
-        <Route path="/" element={<MealPlanView />} />
+      <Route path="/" element={<RootLayout />} errorElement={<PageNotFoundView />}>
+        <Route path="/" element={<MealPlanView />}/>
         <Route path="/recipes/:recipeId" element={<RecipeView />} />
         <Route path="/recipes/copy/:recipeId" element={<RecipeUpsertView />} />
         <Route path="/recipes/edit/:recipeId" element={<RecipeUpsertView />} />
