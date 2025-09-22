@@ -1,8 +1,9 @@
 import { Recipe } from "../models/Recipe";
 import { Meal } from "../models/Meal";
 import { MealPlanDay } from "../models/MealPlanDay";
-import { mockRecipes, mockMealPlan } from "./mockData";
+import { mockRecipes, mockMealPlan, mockRecipeLabels } from "./mockData";
 import { MealRecipe } from "../models/MealRecipe";
+import { RecipeLabel } from "../models/RecipeLabel";
 
 export const getAllRecipes = (): Recipe[] => {
     return mockMealPlan.mealPlanDays
@@ -12,6 +13,10 @@ export const getAllRecipes = (): Recipe[] => {
         .flat()
         .filter((recipe: Recipe) => !recipe.archived);
 };
+
+export const getAllRecipeLabels = (): RecipeLabel[] => {
+    return mockRecipeLabels;
+}
 
 export const getAllRecipesIncludeArchived = (): Recipe[] => {
     return mockMealPlan.mealPlanDays

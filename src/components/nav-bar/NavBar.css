@@ -37,3 +37,12 @@
 .flex-align-right {
     text-align: right;
 }
+
+.nav-bar-search-container {
+    display:flex;
+    flex-wrap: nowrap;
+}
+
+.nav-bar-search-icon {
+    height: fit-content;
+}
