@@ -476,5 +476,6 @@ export const mockMealPlan: MealPlan = {
             ]
         }
     ],
-    creatorEmail: "kennethdavis391@gmail.com"
+    creatorEmail: "kennethdavis391@gmail.com",
+    createdOn: new Date()
 };

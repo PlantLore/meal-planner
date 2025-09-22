@@ -6,4 +6,5 @@ export class MealPlan {
     endDate!: Date;
     mealPlanDays: MealPlanDay[] = [];
     creatorEmail: string = "";
+    createdOn: Date = new Date();
 }
