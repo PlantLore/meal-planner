@@ -5,6 +5,7 @@ import { RecipeType } from "../models/RecipeType";
 import { GrocerySection } from "../models/GrocerySection";
 import { Grocery } from "../models/Grocery";
 import { GroceryList } from "../models/GroceryList";
+import { RecipeLabel } from "../models/RecipeLabel";
 
 export const mockGroceries: Grocery[] = [
     {
@@ -23,6 +24,14 @@ export const mockGroceries: Grocery[] = [
         section: GrocerySection.INNER_AISLES
     }
 ];
+
+const numbersArray = Array.from({ length: 100 }, (_, index) => index + 1);
+export const mockRecipeLabels: RecipeLabel[] = numbersArray.map((num: number) => {
+    return {
+        id: num,
+        label: num % 2 === 0 ? `Pasta ${num}` : num % 3 === 0 ? `Garlic Bread ${num}` : `Spaghetti ${num}`
+    }
+});
 
 export const mockRecipes: Recipe[] = [
     {
