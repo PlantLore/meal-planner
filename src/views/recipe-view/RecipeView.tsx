@@ -1,20 +1,33 @@
-import { useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import RecipeDisplay from '../../components/recipe-display/RecipeDisplay';
 import './RecipeView.css';
 import { useEffect, useState } from 'react';
 import { Recipe } from '../../models/Recipe';
-import { getRecipeById } from '../../services/recipeService';
+import { getRecipeById, getUpdatedRecipeByRecipeId } from '../../services/recipeService';
 import RecipeDisplaySkeleton from '../../components/recipe-display/RecipeDisplaySkeleton';
 
 const RecipeView = () => {
     const [recipe, setRecipe] = useState<Recipe>();
+    const [init, setInit] = useState(false);
     let { recipeId } = useParams();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
+        if (init) return;
+        setInit(true);
         setTimeout(() => {
-            recipeId && setRecipe(getRecipeById(+recipeId));
+            if (recipeId) {
+                if (location.pathname.includes("updated")) {
+                    const updatedRecipe = getUpdatedRecipeByRecipeId(+recipeId)
+                    navigate(`/recipes/${updatedRecipe.id}`, { replace: true });
+                    setRecipe(updatedRecipe);
+                } else {
+                    setRecipe(getRecipeById(+recipeId));
+                }
+            }
         }, 250);
-    }, [recipeId]);
+    }, [recipeId, init, location, navigate]);
 
     return <div className='max-page-content recipe-display-container'>
         {recipe ?

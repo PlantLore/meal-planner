@@ -37,6 +37,17 @@ export const getRecipeById = (id: number): Recipe => {
     return recipe || mockRecipes[0];
 };
 
+export const getUpdatedRecipeByRecipeId = (id: number): Recipe => {
+    const recipe = mockMealPlan.mealPlanDays
+        .map((mealPlanDay: MealPlanDay) => mealPlanDay.meals)
+        .flat()
+        .map((meal: Meal) => meal.mealRecipes.map((mealRecipe: MealRecipe) => mealRecipe.recipe))
+        .flat()
+        .find((recipe: Recipe) => recipe.id === id + 3);
+
+    return recipe || mockRecipes[0];
+}
+
 export const upsertRecipe = (recipe: Recipe): Recipe => {
     return recipe;
 };
