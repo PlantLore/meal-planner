@@ -13,4 +13,5 @@ export class Recipe {
   image: string = "";
   archived: boolean = false;
   creatorEmail: string = "";
+  updated: boolean = false;
 }

@@ -39,6 +39,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<RootLayout />} errorElement={<PageNotFoundView />}>
         <Route path="/" element={<MealPlanView />}/>
         <Route path="/recipes/:recipeId" element={<RecipeView />} />
+        <Route path="/recipes/updated/:recipeId" element={<RecipeView />} />
         <Route path="/recipes/copy/:recipeId" element={<RecipeUpsertView />} />
         <Route path="/recipes/edit/:recipeId" element={<RecipeUpsertView />} />
         <Route path="/recipes/create" element={<RecipeUpsertView />} />

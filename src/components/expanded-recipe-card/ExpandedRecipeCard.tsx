@@ -4,7 +4,7 @@ import "./ExpandedRecipeCard.css";
 import CloseIcon from '@mui/icons-material/Close';
 import RecipeTypeChip from "../recipe-type-chip/RecipeTypeChip";
 import RecipeFactArray from "../recipe-card/recipe-fact-array/RecipeFactArray";
-import { ContentCopyOutlined, Edit, ZoomOutMap } from "@mui/icons-material";
+import { ContentCopyOutlined, Edit, SwitchAccessShortcut, ZoomOutMap } from "@mui/icons-material";
 import { Link } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -13,7 +13,7 @@ const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClo
     return <Card onMouseDown={(event) => { event.stopPropagation(); }} className={((): string => recipe.steps.length ? "expanded-recipe-card" : "expanded-recipe-card-small")()} raised={false} sx={{ borderRadius: ".75rem", backgroundColor: "var(--card-color)" }}>
         <div className="expanded-recipe-card-header-container">
             <div className={((): string => recipe.image ? "expanded-recipe-card-title-container" : "expanded-recipe-card-title-container-no-image")()}>
-                <h2><span className="expanded-recipe-title-archived">{recipe.archived ? "(Archived) " : ""}</span>{recipe.title}</h2>
+                <h2><span className="expanded-recipe-title-archived">{recipe.archived ? "(Archived) " : ""}{recipe.updated ? "[Outdated] " : ""}</span>{recipe.title}</h2>
                 {recipe.recipeTypes.map((recipeType, index) => <RecipeTypeChip key={index} recipeType={recipeType} />)}
             </div>
             <div className="expanded-recipe-card-action-button-container">
@@ -28,6 +28,17 @@ const ExpandedRecipeCard = ({ recipe, handleClose }: { recipe: Recipe; handleClo
                         </IconButton>
                     </Tooltip>
                 </Link>
+                {recipe.updated && <Link to={`/recipes/updated/${recipe.id}`} className='no-link-style'>
+                    <Tooltip title="View Updated Recipe">
+                        <IconButton
+                            sx={(theme) => ({
+                                color: theme.palette.grey[500],
+                            })}
+                        >
+                            <SwitchAccessShortcut />
+                        </IconButton>
+                    </Tooltip>
+                </Link>}
                 <Link to={`/recipes/copy/${recipe.id}`} className='no-link-style'>
                     <Tooltip title="Copy Recipe">
                         <IconButton

@@ -79,7 +79,8 @@ export const mockRecipes: Recipe[] = [
         ],
         image: "https://i.imgur.com/8ewJgNK.png",
         archived: false,
-        creatorEmail: "kennethdavis391@gmail.com"
+        creatorEmail: "kennethdavis391@gmail.com",
+        updated: false
     },
 ];
 
@@ -165,13 +166,14 @@ export const mockMealPlan: MealPlan = {
                     mealRecipes: [
                         {
                             id: 1,
-                            leftovers: false,
+                            leftovers: true,
                             recipe: {
                                 ...mockRecipes[0],
                                 title: 'Spaghetti 1',
                                 id: 1,
                                 recipeTypes: [RecipeType.BREAKFAST, RecipeType.FRUIT],
-                                archived: true
+                                archived: true,
+                                updated: true
                             }
                         },
                         {
@@ -303,7 +305,8 @@ export const mockMealPlan: MealPlan = {
                             recipe: {
                                 ...mockRecipes[0],
                                 id: 10,
-                                recipeTypes: [RecipeType.LUNCH]
+                                recipeTypes: [RecipeType.LUNCH],
+                                updated: true
                             }
                         }
                     ]
