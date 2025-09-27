@@ -16,7 +16,7 @@ const MealPlanListView = () => {
       setMealPlans(getMealPlans());
       setLoading(false);
     }, 250);
-  });
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);

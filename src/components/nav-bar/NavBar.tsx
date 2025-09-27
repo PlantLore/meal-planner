@@ -65,18 +65,14 @@ const NavBar = () => {
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const searchRef = useRef<HTMLInputElement>(null);
   const [recipeLabels, setRecipeLabels] = useState<RecipeLabel[]>([]);
-  const [init, setInit] = useState<boolean>(false);
   const navigate = useNavigate();
   const [searchValue] = useState<RecipeLabel | null>(null);
 
   useEffect(() => {
-    if (!init) {
-      setInit(true);
       setTimeout(() => {
         setRecipeLabels(getAllRecipeLabels());
       }, 250);
-    }
-  }, [recipeLabels, init]);
+  }, []);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
