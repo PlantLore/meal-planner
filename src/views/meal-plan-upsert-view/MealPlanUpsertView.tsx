@@ -83,7 +83,7 @@ const MealPlanUpsertView = () => {
   useEffect(() => {
     if (mealPlanId) {
       setTimeout(() => {
-        if (mealPlanId && getMealPlanById(+mealPlanId)?.creatorEmail !== user?.email) {
+        if (mealPlanId && getMealPlanById(+mealPlanId)?.creatorEmail !== user?.email && !location.pathname.includes('/copy/')) {
           setSaved(true);
           setTimeout(() => {
             navigate("/mealplans");
