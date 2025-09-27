@@ -8,14 +8,11 @@ import RecipeDisplaySkeleton from '../../components/recipe-display/RecipeDisplay
 
 const RecipeView = () => {
     const [recipe, setRecipe] = useState<Recipe>();
-    const [init, setInit] = useState(false);
     let { recipeId } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
-        if (init) return;
-        setInit(true);
         setTimeout(() => {
             if (recipeId) {
                 if (location.pathname.includes("updated")) {
@@ -27,7 +24,7 @@ const RecipeView = () => {
                 }
             }
         }, 250);
-    }, [recipeId, init, location, navigate]);
+    }, [recipeId, location, navigate]);
 
     return <div className='max-page-content recipe-display-container'>
         {recipe ?
